@@ -11,7 +11,10 @@
     "start": "cross-env WRANGLER_LOG_PATH=.wrangler/wrangler.log vinext start",
     "test": "npm run build && node --test tests/rendered-html.test.mjs",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "venue:build": "node scripts/build-venue-library.mjs",
+    "venue:references": "node scripts/enrich-journal-references.mjs",
+    "venue:validate": "node scripts/validate-venue-library.mjs"
   },
   "dependencies": {
     "cross-env": "^10.1.0",

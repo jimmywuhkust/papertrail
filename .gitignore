@@ -39,3 +39,6 @@ yarn-error.log*
 /outputs/
 /work/
 *.tsbuildinfo
+
+# reproducible venue-library API cache (can exceed 1 GB)
+/scripts/.venue-cache/

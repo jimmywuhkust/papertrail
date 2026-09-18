@@ -12,7 +12,10 @@ The product is designed to work without an AI agent. Its default recommendations
 - Deterministic missing-reference recommendations with an explainable score
 - Citation-neighborhood expansion with adjustable depth
 - A bounded, deterministic graph view that remains responsive on dense networks
-- Ten-year MobiCom, MobiSys, and SenSys trend data
+- A sharded 2016–2025 library spanning Nature Communications, NSDI,
+  SIGCOMM, MobiCom, MobiSys, SenSys, INFOCOM, UbiComp/IMWUT, and IEEE TIT
+- 83,869 paper records plus 4,173,415 DOI citation edges, loaded by venue and
+  year instead of as one browser-blocking bundle
 - BibTeX export, DOI links, and a browser-local reading list
 - Chinese and English interface
 - Privacy, methodology, robots, sitemap, manifest, Open Graph, and structured metadata
@@ -33,10 +36,14 @@ Open `http://localhost:3000`.
 ```bash
 npm run lint
 npm run typecheck
+npm run venue:validate
 npm test
 ```
 
 `npm test` performs a production build and validates the rendered home, privacy, and methodology pages.
+`npm run venue:validate` checks every paper and reference shard, aggregate
+count, global ID, normalized DOI, and venue/year boundary. Regeneration and
+source details are documented in `public/data/venue-library/README.md`.
 
 ## How recommendations work
 

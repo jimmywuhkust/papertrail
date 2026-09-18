@@ -60,3 +60,71 @@ export type VenueDataset = {
   stats: Record<string, unknown>;
 };
 
+export type VenueLibraryPaper = {
+  id: string;
+  title: string;
+  authors: string[];
+  year: number;
+  venueId: string;
+  venueName: string;
+  series: string | null;
+  type: string | null;
+  doi: string | null;
+  url: string;
+  sourceId: string;
+  sourceUrl: string;
+  citationCount: number | null;
+  openAlexId: string | null;
+  topics: string[];
+  referenceIds: string[];
+  metadataSources: string[];
+  sourceUpdatedAt: string | null;
+};
+
+export type VenueLibraryShard = {
+  url: string;
+  venueId: string;
+  year: number;
+  part: number;
+  parts: number;
+  records: number;
+  bytes: number;
+};
+
+export type VenueLibraryIndex = {
+  schemaVersion: number;
+  generatedAt: string;
+  range: { startYear: number; endYear: number };
+  venues: Array<{
+    id: string;
+    name: string;
+    aliases: string[];
+    kind: "conference" | "journal";
+    years: Record<string, number>;
+    records: number;
+  }>;
+  shards: VenueLibraryShard[];
+  referenceShards: Array<VenueLibraryShard & { edges: number; source: string }>;
+  stats: {
+    totalRecords: number;
+    totalShards: number;
+    totalBytes: number;
+    byVenue: Record<string, number>;
+    byYear: Record<string, number>;
+    referenceCoverage: {
+      crossrefSourcePapersWithReferences: number;
+      crossrefDoiReferenceEdges: number;
+      crossrefReferenceBytes: number;
+    };
+  };
+};
+
+export type VenueLibraryShardPayload = {
+  venueId: string;
+  venueName: string;
+  year: number;
+  part: number;
+  parts: number;
+  count: number;
+  records: VenueLibraryPaper[];
+};

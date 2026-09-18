@@ -241,13 +241,16 @@ h1, h2 { font-family: var(--display); letter-spacing: -0.035em; }
 .segmented { display: flex; padding: 3px; border-radius: 8px; background: var(--paper); }
 .segmented button { padding: 7px 11px; border: 0; border-radius: 6px; color: var(--muted); background: transparent; cursor: pointer; font-size: 10px; font-weight: 700; }
 .segmented button.active { color: var(--ink); background: var(--card); box-shadow: 0 1px 6px rgba(20,30,40,.1); }
-.venue-picks { display: flex; gap: 12px; }
+.venue-picks { display: flex; flex: 1; flex-wrap: wrap; gap: 8px; }
 .venue-picks label { cursor: pointer; }
 .venue-picks input { position: absolute; opacity: 0; }
 .venue-picks span { display: inline-block; padding: 7px 10px; border: 1px solid transparent; border-radius: 7px; opacity: .38; font-size: 11px; font-weight: 750; }
 .venue-picks input:checked + span { opacity: 1; border-color: currentColor; }
 .mobicom { color: #5d5fef; background: rgba(93,95,239,.07); }.mobisys { color: #d85f45; background: rgba(216,95,69,.07); }.sensys { color: #249279; background: rgba(36,146,121,.07); }
 .venue-controls > select { width: 230px; height: 37px; margin-left: auto; padding: 0 10px; font-size: 11px; }
+.venue-slice-controls { margin-top: 10px; }
+.venue-slice-controls > .eyebrow { margin-right: auto; }
+.venue-slice-controls > select { width: min(260px, 100%); margin-left: 0; }
 .venue-loading { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 28px; }.venue-loading i { height: 260px; }
 .venue-metrics { margin-top: 24px; }
 .venue-dashboard { display: grid; grid-template-columns: 1.35fr 1fr; gap: 14px; margin-top: 14px; }

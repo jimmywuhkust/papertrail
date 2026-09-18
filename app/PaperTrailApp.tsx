@@ -3,13 +3,27 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { GraphView } from "./GraphView";
 import { detectDois, detectRfcs, extractPdf, paperToBibtex, type ExtractedDraft } from "@/lib/client-analysis";
-import type { GraphData, GraphEdge, GraphNode, Paper, VenueDataset, VenuePaper } from "@/lib/types";
+import type { GraphData, GraphEdge, GraphNode, Paper, VenueLibraryIndex, VenueLibraryPaper, VenueLibraryShardPayload } from "@/lib/types";
 
 type Lang = "zh" | "en";
 type Mode = "analyze" | "discover" | "venues";
 type AnalysisTab = "map" | "cited" | "missing" | "coverage";
 
 const CURRENT_YEAR = new Date().getFullYear();
+
+const VENUE_COLORS: Record<string, string> = {
+  "nature-communications": "#927348",
+  nsdi: "#3f82c4",
+  sigcomm: "#8c66b9",
+  mobicom: "#5d5fef",
+  mobisys: "#d85f45",
+  sensys: "#249279",
+  infocom: "#5a9ab1",
+  ubicomp: "#b45f9a",
+  tit: "#7771ad",
+};
+
+const DEFAULT_VENUES = new Set(["nsdi", "sigcomm", "mobicom", "mobisys", "sensys", "infocom", "ubicomp"]);
 
 const copy = {
   zh: {
@@ -44,11 +58,11 @@ const copy = {
     searchBody: "搜索 ACM、IETF 与跨学科论文；按年份、会场和影响力理解每一项结果。",
     searchPlaceholder: "例如：WiFi sensing phase calibration / RFC 9000 / federated learning",
     search: "搜索论文",
-    venuesTitle: "十年移动计算会场雷达",
-    venuesBody: "MobiCom、MobiSys、SenSys · 2016–2025 的出版量、研究方向和内部引用关系。",
+    venuesTitle: "十年论文与会场雷达",
+    venuesBody: "九个会议与期刊 · 83,869 篇论文 · 4,173,415 条 DOI 引用边，按会场与年份即时加载。",
     papers: "篇论文",
-    mainPapers: "主会论文",
-    internalCites: "三会内部引用",
+    mainPapers: "已选集合",
+    internalCites: "DOI 引用边",
     openDoi: "打开 DOI",
     copyBib: "复制 BibTeX",
     save: "收藏",
@@ -90,11 +104,11 @@ const copy = {
     searchBody: "Search ACM, IETF, and cross-disciplinary literature; understand every result by year, venue, and impact.",
     searchPlaceholder: "e.g. WiFi sensing phase calibration / RFC 9000 / federated learning",
     search: "Search papers",
-    venuesTitle: "A decade of mobile computing",
-    venuesBody: "MobiCom, MobiSys, and SenSys · publication volume, research aspects, and internal citations from 2016–2025.",
+    venuesTitle: "A decade of papers and venues",
+    venuesBody: "Nine conference and journal collections · 83,869 papers · 4,173,415 DOI citation edges, loaded lazily by venue and year.",
     papers: "papers",
-    mainPapers: "main papers",
-    internalCites: "internal citations",
+    mainPapers: "selected collections",
+    internalCites: "DOI citation edges",
     openDoi: "Open DOI",
     copyBib: "Copy BibTeX",
     save: "Save",
@@ -189,10 +203,14 @@ export default function PaperTrailApp() {
   const [searchResults, setSearchResults] = useState<Paper[]>([]);
   const [searchSource, setSearchSource] = useState<"all" | "acm" | "ietf">("all");
   const [searchFromYear, setSearchFromYear] = useState(CURRENT_YEAR - 5);
-  const [venueData, setVenueData] = useState<VenueDataset | null>(null);
+  const [venueIndex, setVenueIndex] = useState<VenueLibraryIndex | null>(null);
   const [venueLoading, setVenueLoading] = useState(false);
   const [venueYears, setVenueYears] = useState<5 | 10>(10);
-  const [venuePicks, setVenuePicks] = useState(new Set(["MobiCom", "MobiSys", "SenSys"]));
+  const [venuePicks, setVenuePicks] = useState(() => new Set(DEFAULT_VENUES));
+  const [venueFocus, setVenueFocus] = useState("mobicom");
+  const [venueFocusYear, setVenueFocusYear] = useState(2025);
+  const [venuePapers, setVenuePapers] = useState<VenueLibraryPaper[]>([]);
+  const [venueSliceLoading, setVenueSliceLoading] = useState(false);
   const [venueTopic, setVenueTopic] = useState("");
   const fileInput = useRef<HTMLInputElement>(null);
   const t = copy[lang];
@@ -216,17 +234,41 @@ export default function PaperTrailApp() {
 
   const selectMode = (nextMode: Mode) => {
     setMode(nextMode);
-    if (nextMode !== "venues" || venueData || venueLoading) return;
+    if (nextMode !== "venues" || venueIndex || venueLoading) return;
     setVenueLoading(true);
-    fetch("/data/venue-trends-10y.json")
+    fetch("/data/venue-library/index.json")
       .then((response) => {
         if (!response.ok) throw new Error("Venue index unavailable");
-        return response.json() as Promise<VenueDataset>;
+        return response.json() as Promise<VenueLibraryIndex>;
       })
-      .then(setVenueData)
+      .then(setVenueIndex)
       .catch(() => setError("The venue index could not be loaded."))
       .finally(() => setVenueLoading(false));
   };
+
+  /* This effect hydrates only the selected venue/year shard, never the 195 MB archive. */
+  /* eslint-disable react-hooks/set-state-in-effect */
+  useEffect(() => {
+    if (mode !== "venues" || !venueIndex) return;
+    const controller = new AbortController();
+    const shards = venueIndex.shards.filter((shard) => shard.venueId === venueFocus && shard.year === venueFocusYear);
+    setVenueSliceLoading(true);
+    Promise.all(shards.map(async (shard) => {
+      const response = await fetch(`/data/venue-library/${shard.url}`, { signal: controller.signal });
+      if (!response.ok) throw new Error(`Venue shard unavailable: ${shard.url}`);
+      return response.json() as Promise<VenueLibraryShardPayload>;
+    }))
+      .then((payloads) => setVenuePapers(payloads.flatMap((payload) => payload.records)))
+      .catch((cause) => {
+        if (cause instanceof DOMException && cause.name === "AbortError") return;
+        setError("无法加载这一年份的论文分片 / This venue-year shard could not be loaded.");
+      })
+      .finally(() => {
+        if (!controller.signal.aborted) setVenueSliceLoading(false);
+      });
+    return () => controller.abort();
+  }, [mode, venueFocus, venueFocusYear, venueIndex]);
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   const savedIds = useMemo(() => new Set(savedPapers.map((paper) => paper.doi || paper.id)), [savedPapers]);
 
@@ -403,26 +445,34 @@ export default function PaperTrailApp() {
   };
 
   const venueFiltered = useMemo(() => {
-    if (!venueData) return [] as VenuePaper[];
-    const start = venueYears === 10 ? 2016 : 2021;
-    return venueData.papers.filter((paper) => paper.year >= start && venuePicks.has(paper.venue) && (!venueTopic || paper.topics.includes(venueTopic)));
-  }, [venueData, venueYears, venuePicks, venueTopic]);
+    return venuePapers.filter((paper) => !venueTopic || paper.topics.includes(venueTopic));
+  }, [venuePapers, venueTopic]);
+
+  const selectedVenues = useMemo(
+    () => venueIndex?.venues.filter((venue) => venuePicks.has(venue.id)) || [],
+    [venueIndex, venuePicks],
+  );
 
   const annualVenueCounts = useMemo(() => {
     const start = venueYears === 10 ? 2016 : 2021;
     return Array.from({ length: 2025 - start + 1 }, (_, index) => {
       const year = start + index;
-      const counts = Object.fromEntries(["MobiCom", "MobiSys", "SenSys"].map((venue) => [venue, venueFiltered.filter((paper) => paper.year === year && paper.venue === venue).length]));
+      const counts = Object.fromEntries(selectedVenues.map((venue) => [venue.id, venue.years[String(year)] || 0])) as Record<string, number>;
       return { year, counts, total: Object.values(counts).reduce((sum, value) => sum + value, 0) };
     });
-  }, [venueFiltered, venueYears]);
+  }, [selectedVenues, venueYears]);
 
   const venueTopicCounts = useMemo(() => {
-    if (!venueData) return [];
-    return venueData.topicCatalog
-      .map((topic) => ({ ...topic, count: venueFiltered.filter((paper) => paper.topics.includes(topic.id)).length }))
-      .sort((a, b) => b.count - a.count);
-  }, [venueData, venueFiltered]);
+    const counts = new Map<string, number>();
+    for (const paper of venuePapers) for (const topic of paper.topics) counts.set(topic, (counts.get(topic) || 0) + 1);
+    const palette = ["#df665b", "#665ee8", "#3f82c4", "#2d9a87", "#b45f9a", "#de8b42", "#568a71", "#5a9ab1", "#7a9b4d"];
+    return [...counts].map(([name, count], index) => ({ id: name, name, cn: name, color: palette[index % palette.length], count })).sort((a, b) => b.count - a.count);
+  }, [venuePapers]);
+
+  const selectedPaperCount = useMemo(
+    () => annualVenueCounts.reduce((sum, row) => sum + row.total, 0),
+    [annualVenueCounts],
+  );
 
   const maxAnnual = Math.max(1, ...annualVenueCounts.map((item) => item.total));
   const maxTopic = Math.max(1, ...venueTopicCounts.map((item) => item.count));
@@ -516,17 +566,22 @@ export default function PaperTrailApp() {
             <div className="section-heading"><span className="eyebrow">VENUE RADAR · 2016—2025</span><h1>{t.venuesTitle}</h1><p>{t.venuesBody}</p></div>
             <div className="venue-controls">
               <div className="segmented"><button type="button" className={venueYears === 5 ? "active" : ""} onClick={() => setVenueYears(5)}>5 years</button><button type="button" className={venueYears === 10 ? "active" : ""} onClick={() => setVenueYears(10)}>10 years</button></div>
-              <div className="venue-picks">{["MobiCom", "MobiSys", "SenSys"].map((venue) => <label key={venue}><input type="checkbox" checked={venuePicks.has(venue)} onChange={() => setVenuePicks((previous) => { const next = new Set(previous); if (next.has(venue)) next.delete(venue); else next.add(venue); return next; })} /><span className={venue.toLowerCase()}>{venue}</span></label>)}</div>
-              <select value={venueTopic} onChange={(event) => setVenueTopic(event.target.value)}><option value="">All aspects</option>{venueData?.topicCatalog.map((topic) => <option key={topic.id} value={topic.id}>{lang === "zh" ? topic.cn : topic.name}</option>)}</select>
+              <div className="venue-picks">{venueIndex?.venues.map((venue) => <label key={venue.id}><input type="checkbox" checked={venuePicks.has(venue.id)} onChange={() => setVenuePicks((previous) => { const next = new Set(previous); if (next.has(venue.id)) next.delete(venue.id); else next.add(venue.id); return next; })} /><span style={{ color: VENUE_COLORS[venue.id], background: `${VENUE_COLORS[venue.id]}12` }}>{venue.name.replace(/^ACM |^IEEE |^USENIX /, "")}</span></label>)}</div>
+            </div>
+            <div className="venue-controls venue-slice-controls">
+              <span className="eyebrow">{lang === "zh" ? "按需浏览论文" : "LAZY PAPER BROWSER"}</span>
+              <select value={venueFocus} onChange={(event) => { setVenueFocus(event.target.value); setVenueTopic(""); }} aria-label="Paper collection">{venueIndex?.venues.map((venue) => <option key={venue.id} value={venue.id}>{venue.name}</option>)}</select>
+              <select value={venueFocusYear} onChange={(event) => { setVenueFocusYear(Number(event.target.value)); setVenueTopic(""); }} aria-label="Publication year">{Array.from({ length: 10 }, (_, index) => 2025 - index).map((year) => <option key={year} value={year}>{year}</option>)}</select>
+              <select value={venueTopic} onChange={(event) => setVenueTopic(event.target.value)}><option value="">All aspects</option>{venueTopicCounts.slice(0, 50).map((topic) => <option key={topic.id} value={topic.id}>{topic.name}</option>)}</select>
             </div>
             {venueLoading && <div className="venue-loading"><i /><i /><i /></div>}
-            {venueData && (
+            {venueIndex && (
               <>
-                <div className="venue-metrics"><Metric value={format(venueFiltered.length)} label={t.papers} /><Metric value={format(venueFiltered.filter((paper) => paper.track === "Main paper").length)} label={t.mainPapers} /><Metric value={format(venueData.relationships.citationEdges.filter((edge) => { const ids = new Set(venueFiltered.map((paper) => paper.id)); return ids.has(edge.source) && ids.has(edge.target); }).length)} label={t.internalCites} /></div>
+                <div className="venue-metrics"><Metric value={format(selectedPaperCount)} label={t.papers} /><Metric value={selectedVenues.length} label={t.mainPapers} /><Metric value={format(venueIndex.stats.referenceCoverage.crossrefDoiReferenceEdges)} label={t.internalCites} /></div>
                 <div className="venue-dashboard">
-                  <article className="dashboard-card volume-card"><div className="card-heading"><span>01 · VOLUME</span><h2>{lang === "zh" ? "每年发表了多少？" : "How much did each venue publish?"}</h2></div><div className="annual-chart">{annualVenueCounts.map((item) => <div className="year-column" key={item.year}><div className="stack" style={{ height: `${Math.max(4, item.total / maxAnnual * 100)}%` }}>{["MobiCom", "MobiSys", "SenSys"].map((venue) => { const count = item.counts[venue] || 0; return count ? <i key={venue} className={venue.toLowerCase()} style={{ height: `${count / item.total * 100}%` }} title={`${venue}: ${count}`} /> : null; })}</div><b>{item.total}</b><span>{item.year}</span></div>)}</div></article>
-                  <article className="dashboard-card topics-card"><div className="card-heading"><span>02 · ASPECTS</span><h2>{lang === "zh" ? "这些论文在研究什么？" : "What are these papers about?"}</h2></div><div className="topic-bars">{venueTopicCounts.slice(0, 9).map((topic) => <button type="button" key={topic.id} onClick={() => setVenueTopic(venueTopic === topic.id ? "" : topic.id)} className={venueTopic === topic.id ? "active" : ""}><span>{lang === "zh" ? topic.cn : topic.name}</span><i style={{ width: `${topic.count / maxTopic * 100}%`, background: topic.color }} /><b>{topic.count}</b></button>)}</div></article>
-                  <article className="dashboard-card impact-card"><div className="card-heading"><span>03 · IMPACT</span><h2>{lang === "zh" ? "当前筛选中被引最多" : "Most cited in this selection"}</h2></div><div className="ranked-papers">{[...venueFiltered].sort((a, b) => b.citationCount - a.citationCount).slice(0, 8).map((paper, index) => <button type="button" key={paper.id} onClick={() => setSelectedPaper({ ...paper, source: "Local", referenceIds: [], relatedIds: [], url: paper.ee || paper.url || (paper.doi ? `https://doi.org/${paper.doi}` : "") })}><em>{String(index + 1).padStart(2, "0")}</em><span><b>{paper.title}</b><small>{paper.venue} · {paper.year}</small></span><strong>{format(paper.citationCount)}</strong></button>)}</div></article>
+                  <article className="dashboard-card volume-card"><div className="card-heading"><span>01 · VOLUME</span><h2>{lang === "zh" ? "每年发表了多少？" : "How much did each venue publish?"}</h2></div><div className="annual-chart">{annualVenueCounts.map((item) => <div className="year-column" key={item.year}><div className="stack" style={{ height: `${Math.max(4, item.total / maxAnnual * 100)}%` }}>{selectedVenues.map((venue) => { const count = item.counts[venue.id] || 0; return count && item.total ? <i key={venue.id} style={{ height: `${count / item.total * 100}%`, background: VENUE_COLORS[venue.id] }} title={`${venue.name}: ${count}`} /> : null; })}</div><b>{format(item.total)}</b><span>{item.year}</span></div>)}</div></article>
+                  <article className="dashboard-card topics-card"><div className="card-heading"><span>02 · ASPECTS · {venueFocusYear}</span><h2>{lang === "zh" ? "这一切片在研究什么？" : "What is this venue-year about?"}</h2></div>{venueSliceLoading ? <div className="venue-loading"><i /><i /><i /></div> : <div className="topic-bars">{venueTopicCounts.slice(0, 9).map((topic) => <button type="button" key={topic.id} onClick={() => setVenueTopic(venueTopic === topic.id ? "" : topic.id)} className={venueTopic === topic.id ? "active" : ""}><span>{topic.name}</span><i style={{ width: `${topic.count / maxTopic * 100}%`, background: topic.color }} /><b>{topic.count}</b></button>)}</div>}</article>
+                  <article className="dashboard-card impact-card"><div className="card-heading"><span>03 · IMPACT · {format(venuePapers.length)} PAPERS LOADED</span><h2>{lang === "zh" ? "这一会场年份中被引最多" : "Most cited in this venue-year"}</h2></div><div className="ranked-papers">{[...venueFiltered].sort((a, b) => (b.citationCount || 0) - (a.citationCount || 0)).slice(0, 8).map((paper, index) => <button type="button" key={paper.id} onClick={() => setSelectedPaper({ id: paper.id, openAlexId: paper.openAlexId || undefined, title: paper.title, authors: paper.authors, year: paper.year, venue: paper.venueName, doi: paper.doi || undefined, url: paper.url, citationCount: paper.citationCount || 0, topics: paper.topics, referenceIds: paper.referenceIds, relatedIds: [], source: "Local", kind: paper.type || undefined })}><em>{String(index + 1).padStart(2, "0")}</em><span><b>{paper.title}</b><small>{paper.venueName} · {paper.year}</small></span><strong>{format(paper.citationCount || 0)}</strong></button>)}</div></article>
                 </div>
               </>
             )}

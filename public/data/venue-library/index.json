@@ -1,0 +1,2884 @@
+{
+  "schemaVersion": 1,
+  "generator": {
+    "name": "build-venue-library.mjs + reindex-venue-library.mjs",
+    "version": "1.1.0"
+  },
+  "generatedAt": "2026-09-18T03:17:30.595Z",
+  "range": {
+    "startYear": 2016,
+    "endYear": 2025
+  },
+  "venues": [
+    {
+      "id": "nature-communications",
+      "name": "Nature Communications",
+      "aliases": [
+        "Nat Commun",
+        "Nat. Commun."
+      ],
+      "kind": "journal",
+      "source": {
+        "strategy": "openalex-journal",
+        "issn": "2041-1723",
+        "openAlexSourceId": "https://openalex.org/S64187185",
+        "openAlexSourceIssnL": "2041-1723",
+        "verifiedName": "Nature Communications",
+        "verifiedHost": "Nature Portfolio",
+        "openAlexMetaCount": 73526
+      },
+      "years": {
+        "2016": 3539,
+        "2017": 4404,
+        "2018": 5119,
+        "2019": 5440,
+        "2020": 6058,
+        "2021": 6972,
+        "2022": 7554,
+        "2023": 8103,
+        "2024": 10415,
+        "2025": 12239
+      },
+      "records": 69843
+    },
+    {
+      "id": "nsdi",
+      "name": "USENIX NSDI",
+      "aliases": [
+        "NSDI",
+        "Networked Systems Design and Implementation"
+      ],
+      "kind": "conference",
+      "source": {
+        "strategy": "dblp-stream",
+        "dblpStreams": [
+          {
+            "uri": "https://dblp.org/streams/conf/nsdi",
+            "keepLabels": [
+              "NSDI"
+            ],
+            "series": null
+          }
+        ],
+        "enrichment": "openalex-doi"
+      },
+      "years": {
+        "2016": 44,
+        "2017": 46,
+        "2018": 40,
+        "2019": 49,
+        "2020": 65,
+        "2021": 59,
+        "2022": 78,
+        "2023": 96,
+        "2024": 112,
+        "2025": 83
+      },
+      "records": 672
+    },
+    {
+      "id": "sigcomm",
+      "name": "ACM SIGCOMM",
+      "aliases": [
+        "SIGCOMM",
+        "SIGCOM"
+      ],
+      "kind": "conference",
+      "source": {
+        "strategy": "dblp-stream",
+        "dblpStreams": [
+          {
+            "uri": "https://dblp.org/streams/conf/sigcomm",
+            "keepLabels": [
+              "SIGCOMM"
+            ],
+            "series": null
+          }
+        ],
+        "enrichment": "openalex-doi"
+      },
+      "years": {
+        "2016": 78,
+        "2017": 36,
+        "2018": 40,
+        "2019": 32,
+        "2020": 53,
+        "2021": 55,
+        "2022": 55,
+        "2023": 107,
+        "2024": 62,
+        "2025": 88
+      },
+      "records": 606
+    },
+    {
+      "id": "mobicom",
+      "name": "ACM MobiCom",
+      "aliases": [
+        "MobiCom"
+      ],
+      "kind": "conference",
+      "source": {
+        "strategy": "dblp-stream",
+        "dblpStreams": [
+          {
+            "uri": "https://dblp.org/streams/conf/mobicom",
+            "keepLabels": [
+              "MobiCom"
+            ],
+            "series": null
+          }
+        ],
+        "enrichment": "openalex-doi"
+      },
+      "years": {
+        "2016": 81,
+        "2017": 88,
+        "2018": 138,
+        "2019": 111,
+        "2020": 91,
+        "2021": 84,
+        "2022": 110,
+        "2023": 152,
+        "2024": 284,
+        "2025": 157
+      },
+      "records": 1296
+    },
+    {
+      "id": "mobisys",
+      "name": "ACM MobiSys",
+      "aliases": [
+        "MobiSys"
+      ],
+      "kind": "conference",
+      "source": {
+        "strategy": "dblp-stream",
+        "dblpStreams": [
+          {
+            "uri": "https://dblp.org/streams/conf/mobisys",
+            "keepLabels": [
+              "MobiSys"
+            ],
+            "series": null
+          }
+        ],
+        "enrichment": "openalex-doi"
+      },
+      "years": {
+        "2016": 31,
+        "2017": 84,
+        "2018": 78,
+        "2019": 134,
+        "2020": 43,
+        "2021": 50,
+        "2022": 99,
+        "2023": 76,
+        "2024": 129,
+        "2025": 112
+      },
+      "records": 836
+    },
+    {
+      "id": "sensys",
+      "name": "ACM SenSys",
+      "aliases": [
+        "SenSys"
+      ],
+      "kind": "conference",
+      "source": {
+        "strategy": "dblp-stream",
+        "dblpStreams": [
+          {
+            "uri": "https://dblp.org/streams/conf/sensys",
+            "keepLabels": [
+              "SenSys"
+            ],
+            "series": null
+          }
+        ],
+        "enrichment": "openalex-doi"
+      },
+      "years": {
+        "2016": 69,
+        "2017": 76,
+        "2018": 86,
+        "2019": 67,
+        "2020": 162,
+        "2021": 108,
+        "2022": 166,
+        "2023": 74,
+        "2024": 116,
+        "2025": 116
+      },
+      "records": 1040
+    },
+    {
+      "id": "infocom",
+      "name": "IEEE INFOCOM",
+      "aliases": [
+        "INFOCOM"
+      ],
+      "kind": "conference",
+      "source": {
+        "strategy": "dblp-stream",
+        "dblpStreams": [
+          {
+            "uri": "https://dblp.org/streams/conf/infocom",
+            "keepLabels": [
+              "INFOCOM"
+            ],
+            "series": null
+          }
+        ],
+        "enrichment": "openalex-doi"
+      },
+      "years": {
+        "2016": 300,
+        "2017": 291,
+        "2018": 308,
+        "2019": 289,
+        "2020": 267,
+        "2021": 251,
+        "2022": 224,
+        "2023": 251,
+        "2024": 256,
+        "2025": 272
+      },
+      "records": 2709
+    },
+    {
+      "id": "ubicomp",
+      "name": "ACM UbiComp / IMWUT",
+      "aliases": [
+        "UbiComp",
+        "UBICOM",
+        "IMWUT",
+        "PACM IMWUT",
+        "Proc. ACM Interact. Mob. Wearable Ubiquitous Technol."
+      ],
+      "kind": "conference",
+      "source": {
+        "strategy": "dblp-stream",
+        "dblpStreams": [
+          {
+            "uri": "https://dblp.org/streams/journals/imwut",
+            "keepLabels": null,
+            "series": "IMWUT"
+          },
+          {
+            "uri": "https://dblp.org/streams/conf/huc",
+            "keepLabels": [
+              "UbiComp"
+            ],
+            "series": "UbiComp"
+          }
+        ],
+        "enrichment": "openalex-doi"
+      },
+      "years": {
+        "2016": 115,
+        "2017": 177,
+        "2018": 261,
+        "2019": 161,
+        "2020": 168,
+        "2021": 193,
+        "2022": 210,
+        "2023": 205,
+        "2024": 208,
+        "2025": 242
+      },
+      "records": 1940
+    },
+    {
+      "id": "tit",
+      "name": "IEEE Transactions on Information Theory",
+      "aliases": [
+        "IEEE TIT",
+        "TIT",
+        "Trans. Inf. Theory"
+      ],
+      "kind": "journal",
+      "source": {
+        "strategy": "openalex-journal",
+        "issn": "0018-9448",
+        "openAlexSourceId": "https://openalex.org/S4502562",
+        "openAlexSourceIssnL": "0018-9448",
+        "verifiedName": "IEEE Transactions on Information Theory",
+        "verifiedHost": "Institute of Electrical and Electronics Engineers",
+        "openAlexMetaCount": 5502
+      },
+      "years": {
+        "2016": 526,
+        "2017": 628,
+        "2018": 490,
+        "2019": 495,
+        "2020": 416,
+        "2021": 483,
+        "2022": 494,
+        "2023": 457,
+        "2024": 422,
+        "2025": 516
+      },
+      "records": 4927
+    }
+  ],
+  "shards": [
+    {
+      "url": "shards/nature-communications/2016.part-1.json",
+      "venueId": "nature-communications",
+      "year": 2016,
+      "part": 1,
+      "parts": 4,
+      "records": 1000,
+      "bytes": 852496
+    },
+    {
+      "url": "shards/nature-communications/2016.part-2.json",
+      "venueId": "nature-communications",
+      "year": 2016,
+      "part": 2,
+      "parts": 4,
+      "records": 1000,
+      "bytes": 858496
+    },
+    {
+      "url": "shards/nature-communications/2016.part-3.json",
+      "venueId": "nature-communications",
+      "year": 2016,
+      "part": 3,
+      "parts": 4,
+      "records": 1000,
+      "bytes": 821797
+    },
+    {
+      "url": "shards/nature-communications/2016.part-4.json",
+      "venueId": "nature-communications",
+      "year": 2016,
+      "part": 4,
+      "parts": 4,
+      "records": 539,
+      "bytes": 442155
+    },
+    {
+      "url": "shards/nature-communications/2017.part-1.json",
+      "venueId": "nature-communications",
+      "year": 2017,
+      "part": 1,
+      "parts": 5,
+      "records": 1000,
+      "bytes": 853296
+    },
+    {
+      "url": "shards/nature-communications/2017.part-2.json",
+      "venueId": "nature-communications",
+      "year": 2017,
+      "part": 2,
+      "parts": 5,
+      "records": 1000,
+      "bytes": 851940
+    },
+    {
+      "url": "shards/nature-communications/2017.part-3.json",
+      "venueId": "nature-communications",
+      "year": 2017,
+      "part": 3,
+      "parts": 5,
+      "records": 1000,
+      "bytes": 841043
+    },
+    {
+      "url": "shards/nature-communications/2017.part-4.json",
+      "venueId": "nature-communications",
+      "year": 2017,
+      "part": 4,
+      "parts": 5,
+      "records": 1000,
+      "bytes": 843755
+    },
+    {
+      "url": "shards/nature-communications/2017.part-5.json",
+      "venueId": "nature-communications",
+      "year": 2017,
+      "part": 5,
+      "parts": 5,
+      "records": 404,
+      "bytes": 345033
+    },
+    {
+      "url": "shards/nature-communications/2018.part-1.json",
+      "venueId": "nature-communications",
+      "year": 2018,
+      "part": 1,
+      "parts": 6,
+      "records": 1000,
+      "bytes": 861790
+    },
+    {
+      "url": "shards/nature-communications/2018.part-2.json",
+      "venueId": "nature-communications",
+      "year": 2018,
+      "part": 2,
+      "parts": 6,
+      "records": 1000,
+      "bytes": 878160
+    },
+    {
+      "url": "shards/nature-communications/2018.part-3.json",
+      "venueId": "nature-communications",
+      "year": 2018,
+      "part": 3,
+      "parts": 6,
+      "records": 1000,
+      "bytes": 878109
+    },
+    {
+      "url": "shards/nature-communications/2018.part-4.json",
+      "venueId": "nature-communications",
+      "year": 2018,
+      "part": 4,
+      "parts": 6,
+      "records": 1000,
+      "bytes": 854173
+    },
+    {
+      "url": "shards/nature-communications/2018.part-5.json",
+      "venueId": "nature-communications",
+      "year": 2018,
+      "part": 5,
+      "parts": 6,
+      "records": 1000,
+      "bytes": 850762
+    },
+    {
+      "url": "shards/nature-communications/2018.part-6.json",
+      "venueId": "nature-communications",
+      "year": 2018,
+      "part": 6,
+      "parts": 6,
+      "records": 119,
+      "bytes": 101546
+    },
+    {
+      "url": "shards/nature-communications/2019.part-1.json",
+      "venueId": "nature-communications",
+      "year": 2019,
+      "part": 1,
+      "parts": 6,
+      "records": 1000,
+      "bytes": 866107
+    },
+    {
+      "url": "shards/nature-communications/2019.part-2.json",
+      "venueId": "nature-communications",
+      "year": 2019,
+      "part": 2,
+      "parts": 6,
+      "records": 1000,
+      "bytes": 852470
+    },
+    {
+      "url": "shards/nature-communications/2019.part-3.json",
+      "venueId": "nature-communications",
+      "year": 2019,
+      "part": 3,
+      "parts": 6,
+      "records": 1000,
+      "bytes": 891431
+    },
+    {
+      "url": "shards/nature-communications/2019.part-4.json",
+      "venueId": "nature-communications",
+      "year": 2019,
+      "part": 4,
+      "parts": 6,
+      "records": 1000,
+      "bytes": 853645
+    },
+    {
+      "url": "shards/nature-communications/2019.part-5.json",
+      "venueId": "nature-communications",
+      "year": 2019,
+      "part": 5,
+      "parts": 6,
+      "records": 1000,
+      "bytes": 850234
+    },
+    {
+      "url": "shards/nature-communications/2019.part-6.json",
+      "venueId": "nature-communications",
+      "year": 2019,
+      "part": 6,
+      "parts": 6,
+      "records": 440,
+      "bytes": 380622
+    },
+    {
+      "url": "shards/nature-communications/2020.part-1.json",
+      "venueId": "nature-communications",
+      "year": 2020,
+      "part": 1,
+      "parts": 7,
+      "records": 1000,
+      "bytes": 868910
+    },
+    {
+      "url": "shards/nature-communications/2020.part-2.json",
+      "venueId": "nature-communications",
+      "year": 2020,
+      "part": 2,
+      "parts": 7,
+      "records": 1000,
+      "bytes": 862892
+    },
+    {
+      "url": "shards/nature-communications/2020.part-3.json",
+      "venueId": "nature-communications",
+      "year": 2020,
+      "part": 3,
+      "parts": 7,
+      "records": 1000,
+      "bytes": 901190
+    },
+    {
+      "url": "shards/nature-communications/2020.part-4.json",
+      "venueId": "nature-communications",
+      "year": 2020,
+      "part": 4,
+      "parts": 7,
+      "records": 1000,
+      "bytes": 870995
+    },
+    {
+      "url": "shards/nature-communications/2020.part-5.json",
+      "venueId": "nature-communications",
+      "year": 2020,
+      "part": 5,
+      "parts": 7,
+      "records": 1000,
+      "bytes": 872534
+    },
+    {
+      "url": "shards/nature-communications/2020.part-6.json",
+      "venueId": "nature-communications",
+      "year": 2020,
+      "part": 6,
+      "parts": 7,
+      "records": 1000,
+      "bytes": 866867
+    },
+    {
+      "url": "shards/nature-communications/2020.part-7.json",
+      "venueId": "nature-communications",
+      "year": 2020,
+      "part": 7,
+      "parts": 7,
+      "records": 58,
+      "bytes": 52248
+    },
+    {
+      "url": "shards/nature-communications/2021.part-1.json",
+      "venueId": "nature-communications",
+      "year": 2021,
+      "part": 1,
+      "parts": 7,
+      "records": 1000,
+      "bytes": 889973
+    },
+    {
+      "url": "shards/nature-communications/2021.part-2.json",
+      "venueId": "nature-communications",
+      "year": 2021,
+      "part": 2,
+      "parts": 7,
+      "records": 1000,
+      "bytes": 892640
+    },
+    {
+      "url": "shards/nature-communications/2021.part-3.json",
+      "venueId": "nature-communications",
+      "year": 2021,
+      "part": 3,
+      "parts": 7,
+      "records": 1000,
+      "bytes": 890334
+    },
+    {
+      "url": "shards/nature-communications/2021.part-4.json",
+      "venueId": "nature-communications",
+      "year": 2021,
+      "part": 4,
+      "parts": 7,
+      "records": 1000,
+      "bytes": 891537
+    },
+    {
+      "url": "shards/nature-communications/2021.part-5.json",
+      "venueId": "nature-communications",
+      "year": 2021,
+      "part": 5,
+      "parts": 7,
+      "records": 1000,
+      "bytes": 879292
+    },
+    {
+      "url": "shards/nature-communications/2021.part-6.json",
+      "venueId": "nature-communications",
+      "year": 2021,
+      "part": 6,
+      "parts": 7,
+      "records": 1000,
+      "bytes": 874138
+    },
+    {
+      "url": "shards/nature-communications/2021.part-7.json",
+      "venueId": "nature-communications",
+      "year": 2021,
+      "part": 7,
+      "parts": 7,
+      "records": 972,
+      "bytes": 857037
+    },
+    {
+      "url": "shards/nature-communications/2022.part-1.json",
+      "venueId": "nature-communications",
+      "year": 2022,
+      "part": 1,
+      "parts": 8,
+      "records": 1000,
+      "bytes": 879327
+    },
+    {
+      "url": "shards/nature-communications/2022.part-2.json",
+      "venueId": "nature-communications",
+      "year": 2022,
+      "part": 2,
+      "parts": 8,
+      "records": 1000,
+      "bytes": 870934
+    },
+    {
+      "url": "shards/nature-communications/2022.part-3.json",
+      "venueId": "nature-communications",
+      "year": 2022,
+      "part": 3,
+      "parts": 8,
+      "records": 1000,
+      "bytes": 892564
+    },
+    {
+      "url": "shards/nature-communications/2022.part-4.json",
+      "venueId": "nature-communications",
+      "year": 2022,
+      "part": 4,
+      "parts": 8,
+      "records": 1000,
+      "bytes": 891593
+    },
+    {
+      "url": "shards/nature-communications/2022.part-5.json",
+      "venueId": "nature-communications",
+      "year": 2022,
+      "part": 5,
+      "parts": 8,
+      "records": 1000,
+      "bytes": 870352
+    },
+    {
+      "url": "shards/nature-communications/2022.part-6.json",
+      "venueId": "nature-communications",
+      "year": 2022,
+      "part": 6,
+      "parts": 8,
+      "records": 1000,
+      "bytes": 876077
+    },
+    {
+      "url": "shards/nature-communications/2022.part-7.json",
+      "venueId": "nature-communications",
+      "year": 2022,
+      "part": 7,
+      "parts": 8,
+      "records": 1000,
+      "bytes": 874322
+    },
+    {
+      "url": "shards/nature-communications/2022.part-8.json",
+      "venueId": "nature-communications",
+      "year": 2022,
+      "part": 8,
+      "parts": 8,
+      "records": 554,
+      "bytes": 485320
+    },
+    {
+      "url": "shards/nature-communications/2023.part-1.json",
+      "venueId": "nature-communications",
+      "year": 2023,
+      "part": 1,
+      "parts": 9,
+      "records": 1000,
+      "bytes": 867827
+    },
+    {
+      "url": "shards/nature-communications/2023.part-2.json",
+      "venueId": "nature-communications",
+      "year": 2023,
+      "part": 2,
+      "parts": 9,
+      "records": 1000,
+      "bytes": 871362
+    },
+    {
+      "url": "shards/nature-communications/2023.part-3.json",
+      "venueId": "nature-communications",
+      "year": 2023,
+      "part": 3,
+      "parts": 9,
+      "records": 1000,
+      "bytes": 880865
+    },
+    {
+      "url": "shards/nature-communications/2023.part-4.json",
+      "venueId": "nature-communications",
+      "year": 2023,
+      "part": 4,
+      "parts": 9,
+      "records": 1000,
+      "bytes": 908689
+    },
+    {
+      "url": "shards/nature-communications/2023.part-5.json",
+      "venueId": "nature-communications",
+      "year": 2023,
+      "part": 5,
+      "parts": 9,
+      "records": 1000,
+      "bytes": 874237
+    },
+    {
+      "url": "shards/nature-communications/2023.part-6.json",
+      "venueId": "nature-communications",
+      "year": 2023,
+      "part": 6,
+      "parts": 9,
+      "records": 1000,
+      "bytes": 871638
+    },
+    {
+      "url": "shards/nature-communications/2023.part-7.json",
+      "venueId": "nature-communications",
+      "year": 2023,
+      "part": 7,
+      "parts": 9,
+      "records": 1000,
+      "bytes": 875862
+    },
+    {
+      "url": "shards/nature-communications/2023.part-8.json",
+      "venueId": "nature-communications",
+      "year": 2023,
+      "part": 8,
+      "parts": 9,
+      "records": 1000,
+      "bytes": 863230
+    },
+    {
+      "url": "shards/nature-communications/2023.part-9.json",
+      "venueId": "nature-communications",
+      "year": 2023,
+      "part": 9,
+      "parts": 9,
+      "records": 103,
+      "bytes": 89858
+    },
+    {
+      "url": "shards/nature-communications/2024.part-1.json",
+      "venueId": "nature-communications",
+      "year": 2024,
+      "part": 1,
+      "parts": 11,
+      "records": 1000,
+      "bytes": 880607
+    },
+    {
+      "url": "shards/nature-communications/2024.part-2.json",
+      "venueId": "nature-communications",
+      "year": 2024,
+      "part": 2,
+      "parts": 11,
+      "records": 1000,
+      "bytes": 879581
+    },
+    {
+      "url": "shards/nature-communications/2024.part-3.json",
+      "venueId": "nature-communications",
+      "year": 2024,
+      "part": 3,
+      "parts": 11,
+      "records": 1000,
+      "bytes": 884881
+    },
+    {
+      "url": "shards/nature-communications/2024.part-4.json",
+      "venueId": "nature-communications",
+      "year": 2024,
+      "part": 4,
+      "parts": 11,
+      "records": 1000,
+      "bytes": 876328
+    },
+    {
+      "url": "shards/nature-communications/2024.part-5.json",
+      "venueId": "nature-communications",
+      "year": 2024,
+      "part": 5,
+      "parts": 11,
+      "records": 1000,
+      "bytes": 887396
+    },
+    {
+      "url": "shards/nature-communications/2024.part-6.json",
+      "venueId": "nature-communications",
+      "year": 2024,
+      "part": 6,
+      "parts": 11,
+      "records": 1000,
+      "bytes": 870131
+    },
+    {
+      "url": "shards/nature-communications/2024.part-7.json",
+      "venueId": "nature-communications",
+      "year": 2024,
+      "part": 7,
+      "parts": 11,
+      "records": 1000,
+      "bytes": 877530
+    },
+    {
+      "url": "shards/nature-communications/2024.part-8.json",
+      "venueId": "nature-communications",
+      "year": 2024,
+      "part": 8,
+      "parts": 11,
+      "records": 1000,
+      "bytes": 874475
+    },
+    {
+      "url": "shards/nature-communications/2024.part-9.json",
+      "venueId": "nature-communications",
+      "year": 2024,
+      "part": 9,
+      "parts": 11,
+      "records": 1000,
+      "bytes": 865386
+    },
+    {
+      "url": "shards/nature-communications/2024.part-10.json",
+      "venueId": "nature-communications",
+      "year": 2024,
+      "part": 10,
+      "parts": 11,
+      "records": 1000,
+      "bytes": 879889
+    },
+    {
+      "url": "shards/nature-communications/2024.part-11.json",
+      "venueId": "nature-communications",
+      "year": 2024,
+      "part": 11,
+      "parts": 11,
+      "records": 415,
+      "bytes": 365335
+    },
+    {
+      "url": "shards/nature-communications/2025.part-1.json",
+      "venueId": "nature-communications",
+      "year": 2025,
+      "part": 1,
+      "parts": 13,
+      "records": 1000,
+      "bytes": 882243
+    },
+    {
+      "url": "shards/nature-communications/2025.part-2.json",
+      "venueId": "nature-communications",
+      "year": 2025,
+      "part": 2,
+      "parts": 13,
+      "records": 1000,
+      "bytes": 876350
+    },
+    {
+      "url": "shards/nature-communications/2025.part-3.json",
+      "venueId": "nature-communications",
+      "year": 2025,
+      "part": 3,
+      "parts": 13,
+      "records": 1000,
+      "bytes": 883413
+    },
+    {
+      "url": "shards/nature-communications/2025.part-4.json",
+      "venueId": "nature-communications",
+      "year": 2025,
+      "part": 4,
+      "parts": 13,
+      "records": 1000,
+      "bytes": 873477
+    },
+    {
+      "url": "shards/nature-communications/2025.part-5.json",
+      "venueId": "nature-communications",
+      "year": 2025,
+      "part": 5,
+      "parts": 13,
+      "records": 1000,
+      "bytes": 880511
+    },
+    {
+      "url": "shards/nature-communications/2025.part-6.json",
+      "venueId": "nature-communications",
+      "year": 2025,
+      "part": 6,
+      "parts": 13,
+      "records": 1000,
+      "bytes": 889091
+    },
+    {
+      "url": "shards/nature-communications/2025.part-7.json",
+      "venueId": "nature-communications",
+      "year": 2025,
+      "part": 7,
+      "parts": 13,
+      "records": 1000,
+      "bytes": 885011
+    },
+    {
+      "url": "shards/nature-communications/2025.part-8.json",
+      "venueId": "nature-communications",
+      "year": 2025,
+      "part": 8,
+      "parts": 13,
+      "records": 1000,
+      "bytes": 873348
+    },
+    {
+      "url": "shards/nature-communications/2025.part-9.json",
+      "venueId": "nature-communications",
+      "year": 2025,
+      "part": 9,
+      "parts": 13,
+      "records": 1000,
+      "bytes": 875340
+    },
+    {
+      "url": "shards/nature-communications/2025.part-10.json",
+      "venueId": "nature-communications",
+      "year": 2025,
+      "part": 10,
+      "parts": 13,
+      "records": 1000,
+      "bytes": 870922
+    },
+    {
+      "url": "shards/nature-communications/2025.part-11.json",
+      "venueId": "nature-communications",
+      "year": 2025,
+      "part": 11,
+      "parts": 13,
+      "records": 1000,
+      "bytes": 866859
+    },
+    {
+      "url": "shards/nature-communications/2025.part-12.json",
+      "venueId": "nature-communications",
+      "year": 2025,
+      "part": 12,
+      "parts": 13,
+      "records": 1000,
+      "bytes": 873364
+    },
+    {
+      "url": "shards/nature-communications/2025.part-13.json",
+      "venueId": "nature-communications",
+      "year": 2025,
+      "part": 13,
+      "parts": 13,
+      "records": 239,
+      "bytes": 212366
+    },
+    {
+      "url": "shards/nsdi/2016.json",
+      "venueId": "nsdi",
+      "year": 2016,
+      "part": 1,
+      "parts": 1,
+      "records": 44,
+      "bytes": 26560
+    },
+    {
+      "url": "shards/nsdi/2017.json",
+      "venueId": "nsdi",
+      "year": 2017,
+      "part": 1,
+      "parts": 1,
+      "records": 46,
+      "bytes": 28352
+    },
+    {
+      "url": "shards/nsdi/2018.json",
+      "venueId": "nsdi",
+      "year": 2018,
+      "part": 1,
+      "parts": 1,
+      "records": 40,
+      "bytes": 24532
+    },
+    {
+      "url": "shards/nsdi/2019.json",
+      "venueId": "nsdi",
+      "year": 2019,
+      "part": 1,
+      "parts": 1,
+      "records": 49,
+      "bytes": 29493
+    },
+    {
+      "url": "shards/nsdi/2020.json",
+      "venueId": "nsdi",
+      "year": 2020,
+      "part": 1,
+      "parts": 1,
+      "records": 65,
+      "bytes": 38812
+    },
+    {
+      "url": "shards/nsdi/2021.json",
+      "venueId": "nsdi",
+      "year": 2021,
+      "part": 1,
+      "parts": 1,
+      "records": 59,
+      "bytes": 35301
+    },
+    {
+      "url": "shards/nsdi/2022.json",
+      "venueId": "nsdi",
+      "year": 2022,
+      "part": 1,
+      "parts": 1,
+      "records": 78,
+      "bytes": 47767
+    },
+    {
+      "url": "shards/nsdi/2023.json",
+      "venueId": "nsdi",
+      "year": 2023,
+      "part": 1,
+      "parts": 1,
+      "records": 96,
+      "bytes": 60036
+    },
+    {
+      "url": "shards/nsdi/2024.json",
+      "venueId": "nsdi",
+      "year": 2024,
+      "part": 1,
+      "parts": 1,
+      "records": 112,
+      "bytes": 70349
+    },
+    {
+      "url": "shards/nsdi/2025.json",
+      "venueId": "nsdi",
+      "year": 2025,
+      "part": 1,
+      "parts": 1,
+      "records": 83,
+      "bytes": 51922
+    },
+    {
+      "url": "shards/sigcomm/2016.json",
+      "venueId": "sigcomm",
+      "year": 2016,
+      "part": 1,
+      "parts": 1,
+      "records": 78,
+      "bytes": 84025
+    },
+    {
+      "url": "shards/sigcomm/2017.json",
+      "venueId": "sigcomm",
+      "year": 2017,
+      "part": 1,
+      "parts": 1,
+      "records": 36,
+      "bytes": 49385
+    },
+    {
+      "url": "shards/sigcomm/2018.json",
+      "venueId": "sigcomm",
+      "year": 2018,
+      "part": 1,
+      "parts": 1,
+      "records": 40,
+      "bytes": 56017
+    },
+    {
+      "url": "shards/sigcomm/2019.json",
+      "venueId": "sigcomm",
+      "year": 2019,
+      "part": 1,
+      "parts": 1,
+      "records": 32,
+      "bytes": 47134
+    },
+    {
+      "url": "shards/sigcomm/2020.json",
+      "venueId": "sigcomm",
+      "year": 2020,
+      "part": 1,
+      "parts": 1,
+      "records": 53,
+      "bytes": 73373
+    },
+    {
+      "url": "shards/sigcomm/2021.json",
+      "venueId": "sigcomm",
+      "year": 2021,
+      "part": 1,
+      "parts": 1,
+      "records": 55,
+      "bytes": 79027
+    },
+    {
+      "url": "shards/sigcomm/2022.json",
+      "venueId": "sigcomm",
+      "year": 2022,
+      "part": 1,
+      "parts": 1,
+      "records": 55,
+      "bytes": 67462
+    },
+    {
+      "url": "shards/sigcomm/2023.json",
+      "venueId": "sigcomm",
+      "year": 2023,
+      "part": 1,
+      "parts": 1,
+      "records": 107,
+      "bytes": 124370
+    },
+    {
+      "url": "shards/sigcomm/2024.json",
+      "venueId": "sigcomm",
+      "year": 2024,
+      "part": 1,
+      "parts": 1,
+      "records": 62,
+      "bytes": 77810
+    },
+    {
+      "url": "shards/sigcomm/2025.json",
+      "venueId": "sigcomm",
+      "year": 2025,
+      "part": 1,
+      "parts": 1,
+      "records": 88,
+      "bytes": 103858
+    },
+    {
+      "url": "shards/mobicom/2016.json",
+      "venueId": "mobicom",
+      "year": 2016,
+      "part": 1,
+      "parts": 1,
+      "records": 81,
+      "bytes": 80631
+    },
+    {
+      "url": "shards/mobicom/2017.json",
+      "venueId": "mobicom",
+      "year": 2017,
+      "part": 1,
+      "parts": 1,
+      "records": 88,
+      "bytes": 90750
+    },
+    {
+      "url": "shards/mobicom/2018.json",
+      "venueId": "mobicom",
+      "year": 2018,
+      "part": 1,
+      "parts": 1,
+      "records": 138,
+      "bytes": 125582
+    },
+    {
+      "url": "shards/mobicom/2019.json",
+      "venueId": "mobicom",
+      "year": 2019,
+      "part": 1,
+      "parts": 1,
+      "records": 111,
+      "bytes": 121838
+    },
+    {
+      "url": "shards/mobicom/2020.json",
+      "venueId": "mobicom",
+      "year": 2020,
+      "part": 1,
+      "parts": 1,
+      "records": 91,
+      "bytes": 115134
+    },
+    {
+      "url": "shards/mobicom/2021.json",
+      "venueId": "mobicom",
+      "year": 2021,
+      "part": 1,
+      "parts": 1,
+      "records": 84,
+      "bytes": 102097
+    },
+    {
+      "url": "shards/mobicom/2022.json",
+      "venueId": "mobicom",
+      "year": 2022,
+      "part": 1,
+      "parts": 1,
+      "records": 110,
+      "bytes": 119620
+    },
+    {
+      "url": "shards/mobicom/2023.json",
+      "venueId": "mobicom",
+      "year": 2023,
+      "part": 1,
+      "parts": 1,
+      "records": 152,
+      "bytes": 173660
+    },
+    {
+      "url": "shards/mobicom/2024.json",
+      "venueId": "mobicom",
+      "year": 2024,
+      "part": 1,
+      "parts": 1,
+      "records": 284,
+      "bytes": 308413
+    },
+    {
+      "url": "shards/mobicom/2025.json",
+      "venueId": "mobicom",
+      "year": 2025,
+      "part": 1,
+      "parts": 1,
+      "records": 157,
+      "bytes": 148684
+    },
+    {
+      "url": "shards/mobisys/2016.json",
+      "venueId": "mobisys",
+      "year": 2016,
+      "part": 1,
+      "parts": 1,
+      "records": 31,
+      "bytes": 40579
+    },
+    {
+      "url": "shards/mobisys/2017.json",
+      "venueId": "mobisys",
+      "year": 2017,
+      "part": 1,
+      "parts": 1,
+      "records": 84,
+      "bytes": 82616
+    },
+    {
+      "url": "shards/mobisys/2018.json",
+      "venueId": "mobisys",
+      "year": 2018,
+      "part": 1,
+      "parts": 1,
+      "records": 78,
+      "bytes": 83339
+    },
+    {
+      "url": "shards/mobisys/2019.json",
+      "venueId": "mobisys",
+      "year": 2019,
+      "part": 1,
+      "parts": 1,
+      "records": 134,
+      "bytes": 124823
+    },
+    {
+      "url": "shards/mobisys/2020.json",
+      "venueId": "mobisys",
+      "year": 2020,
+      "part": 1,
+      "parts": 1,
+      "records": 43,
+      "bytes": 56858
+    },
+    {
+      "url": "shards/mobisys/2021.json",
+      "venueId": "mobisys",
+      "year": 2021,
+      "part": 1,
+      "parts": 1,
+      "records": 50,
+      "bytes": 59091
+    },
+    {
+      "url": "shards/mobisys/2022.json",
+      "venueId": "mobisys",
+      "year": 2022,
+      "part": 1,
+      "parts": 1,
+      "records": 99,
+      "bytes": 98899
+    },
+    {
+      "url": "shards/mobisys/2023.json",
+      "venueId": "mobisys",
+      "year": 2023,
+      "part": 1,
+      "parts": 1,
+      "records": 76,
+      "bytes": 83174
+    },
+    {
+      "url": "shards/mobisys/2024.json",
+      "venueId": "mobisys",
+      "year": 2024,
+      "part": 1,
+      "parts": 1,
+      "records": 129,
+      "bytes": 126871
+    },
+    {
+      "url": "shards/mobisys/2025.json",
+      "venueId": "mobisys",
+      "year": 2025,
+      "part": 1,
+      "parts": 1,
+      "records": 112,
+      "bytes": 103814
+    },
+    {
+      "url": "shards/sensys/2016.json",
+      "venueId": "sensys",
+      "year": 2016,
+      "part": 1,
+      "parts": 1,
+      "records": 69,
+      "bytes": 67903
+    },
+    {
+      "url": "shards/sensys/2017.json",
+      "venueId": "sensys",
+      "year": 2017,
+      "part": 1,
+      "parts": 1,
+      "records": 76,
+      "bytes": 76145
+    },
+    {
+      "url": "shards/sensys/2018.json",
+      "venueId": "sensys",
+      "year": 2018,
+      "part": 1,
+      "parts": 1,
+      "records": 86,
+      "bytes": 81487
+    },
+    {
+      "url": "shards/sensys/2019.json",
+      "venueId": "sensys",
+      "year": 2019,
+      "part": 1,
+      "parts": 1,
+      "records": 67,
+      "bytes": 73071
+    },
+    {
+      "url": "shards/sensys/2020.json",
+      "venueId": "sensys",
+      "year": 2020,
+      "part": 1,
+      "parts": 1,
+      "records": 162,
+      "bytes": 155144
+    },
+    {
+      "url": "shards/sensys/2021.json",
+      "venueId": "sensys",
+      "year": 2021,
+      "part": 1,
+      "parts": 1,
+      "records": 108,
+      "bytes": 109385
+    },
+    {
+      "url": "shards/sensys/2022.json",
+      "venueId": "sensys",
+      "year": 2022,
+      "part": 1,
+      "parts": 1,
+      "records": 166,
+      "bytes": 173901
+    },
+    {
+      "url": "shards/sensys/2023.json",
+      "venueId": "sensys",
+      "year": 2023,
+      "part": 1,
+      "parts": 1,
+      "records": 74,
+      "bytes": 78394
+    },
+    {
+      "url": "shards/sensys/2024.json",
+      "venueId": "sensys",
+      "year": 2024,
+      "part": 1,
+      "parts": 1,
+      "records": 116,
+      "bytes": 131991
+    },
+    {
+      "url": "shards/sensys/2025.json",
+      "venueId": "sensys",
+      "year": 2025,
+      "part": 1,
+      "parts": 1,
+      "records": 116,
+      "bytes": 122436
+    },
+    {
+      "url": "shards/infocom/2016.json",
+      "venueId": "infocom",
+      "year": 2016,
+      "part": 1,
+      "parts": 1,
+      "records": 300,
+      "bytes": 337902
+    },
+    {
+      "url": "shards/infocom/2017.json",
+      "venueId": "infocom",
+      "year": 2017,
+      "part": 1,
+      "parts": 1,
+      "records": 291,
+      "bytes": 329730
+    },
+    {
+      "url": "shards/infocom/2018.json",
+      "venueId": "infocom",
+      "year": 2018,
+      "part": 1,
+      "parts": 1,
+      "records": 308,
+      "bytes": 355882
+    },
+    {
+      "url": "shards/infocom/2019.json",
+      "venueId": "infocom",
+      "year": 2019,
+      "part": 1,
+      "parts": 1,
+      "records": 289,
+      "bytes": 339072
+    },
+    {
+      "url": "shards/infocom/2020.json",
+      "venueId": "infocom",
+      "year": 2020,
+      "part": 1,
+      "parts": 1,
+      "records": 267,
+      "bytes": 348754
+    },
+    {
+      "url": "shards/infocom/2021.json",
+      "venueId": "infocom",
+      "year": 2021,
+      "part": 1,
+      "parts": 1,
+      "records": 251,
+      "bytes": 336253
+    },
+    {
+      "url": "shards/infocom/2022.json",
+      "venueId": "infocom",
+      "year": 2022,
+      "part": 1,
+      "parts": 1,
+      "records": 224,
+      "bytes": 300973
+    },
+    {
+      "url": "shards/infocom/2023.json",
+      "venueId": "infocom",
+      "year": 2023,
+      "part": 1,
+      "parts": 1,
+      "records": 251,
+      "bytes": 335160
+    },
+    {
+      "url": "shards/infocom/2024.json",
+      "venueId": "infocom",
+      "year": 2024,
+      "part": 1,
+      "parts": 1,
+      "records": 256,
+      "bytes": 331561
+    },
+    {
+      "url": "shards/infocom/2025.json",
+      "venueId": "infocom",
+      "year": 2025,
+      "part": 1,
+      "parts": 1,
+      "records": 272,
+      "bytes": 174961
+    },
+    {
+      "url": "shards/ubicomp/2016.json",
+      "venueId": "ubicomp",
+      "year": 2016,
+      "part": 1,
+      "parts": 1,
+      "records": 115,
+      "bytes": 146543
+    },
+    {
+      "url": "shards/ubicomp/2017.json",
+      "venueId": "ubicomp",
+      "year": 2017,
+      "part": 1,
+      "parts": 1,
+      "records": 177,
+      "bytes": 248498
+    },
+    {
+      "url": "shards/ubicomp/2018.json",
+      "venueId": "ubicomp",
+      "year": 2018,
+      "part": 1,
+      "parts": 1,
+      "records": 261,
+      "bytes": 344754
+    },
+    {
+      "url": "shards/ubicomp/2019.json",
+      "venueId": "ubicomp",
+      "year": 2019,
+      "part": 1,
+      "parts": 1,
+      "records": 161,
+      "bytes": 244056
+    },
+    {
+      "url": "shards/ubicomp/2020.json",
+      "venueId": "ubicomp",
+      "year": 2020,
+      "part": 1,
+      "parts": 1,
+      "records": 168,
+      "bytes": 260220
+    },
+    {
+      "url": "shards/ubicomp/2021.json",
+      "venueId": "ubicomp",
+      "year": 2021,
+      "part": 1,
+      "parts": 1,
+      "records": 193,
+      "bytes": 292957
+    },
+    {
+      "url": "shards/ubicomp/2022.json",
+      "venueId": "ubicomp",
+      "year": 2022,
+      "part": 1,
+      "parts": 1,
+      "records": 210,
+      "bytes": 324735
+    },
+    {
+      "url": "shards/ubicomp/2023.json",
+      "venueId": "ubicomp",
+      "year": 2023,
+      "part": 1,
+      "parts": 1,
+      "records": 205,
+      "bytes": 323954
+    },
+    {
+      "url": "shards/ubicomp/2024.json",
+      "venueId": "ubicomp",
+      "year": 2024,
+      "part": 1,
+      "parts": 1,
+      "records": 208,
+      "bytes": 336498
+    },
+    {
+      "url": "shards/ubicomp/2025.json",
+      "venueId": "ubicomp",
+      "year": 2025,
+      "part": 1,
+      "parts": 1,
+      "records": 242,
+      "bytes": 387468
+    },
+    {
+      "url": "shards/tit/2016.json",
+      "venueId": "tit",
+      "year": 2016,
+      "part": 1,
+      "parts": 1,
+      "records": 526,
+      "bytes": 368966
+    },
+    {
+      "url": "shards/tit/2017.json",
+      "venueId": "tit",
+      "year": 2017,
+      "part": 1,
+      "parts": 1,
+      "records": 628,
+      "bytes": 439187
+    },
+    {
+      "url": "shards/tit/2018.json",
+      "venueId": "tit",
+      "year": 2018,
+      "part": 1,
+      "parts": 1,
+      "records": 490,
+      "bytes": 342144
+    },
+    {
+      "url": "shards/tit/2019.json",
+      "venueId": "tit",
+      "year": 2019,
+      "part": 1,
+      "parts": 1,
+      "records": 495,
+      "bytes": 345327
+    },
+    {
+      "url": "shards/tit/2020.json",
+      "venueId": "tit",
+      "year": 2020,
+      "part": 1,
+      "parts": 1,
+      "records": 416,
+      "bytes": 290350
+    },
+    {
+      "url": "shards/tit/2021.json",
+      "venueId": "tit",
+      "year": 2021,
+      "part": 1,
+      "parts": 1,
+      "records": 483,
+      "bytes": 338317
+    },
+    {
+      "url": "shards/tit/2022.json",
+      "venueId": "tit",
+      "year": 2022,
+      "part": 1,
+      "parts": 1,
+      "records": 494,
+      "bytes": 345438
+    },
+    {
+      "url": "shards/tit/2023.json",
+      "venueId": "tit",
+      "year": 2023,
+      "part": 1,
+      "parts": 1,
+      "records": 457,
+      "bytes": 319703
+    },
+    {
+      "url": "shards/tit/2024.json",
+      "venueId": "tit",
+      "year": 2024,
+      "part": 1,
+      "parts": 1,
+      "records": 422,
+      "bytes": 290218
+    },
+    {
+      "url": "shards/tit/2025.json",
+      "venueId": "tit",
+      "year": 2025,
+      "part": 1,
+      "parts": 1,
+      "records": 516,
+      "bytes": 352614
+    }
+  ],
+  "stats": {
+    "totalRecords": 83869,
+    "totalShards": 156,
+    "totalBytes": 74951648,
+    "byVenue": {
+      "nature-communications": 69843,
+      "nsdi": 672,
+      "sigcomm": 606,
+      "mobicom": 1296,
+      "mobisys": 836,
+      "sensys": 1040,
+      "infocom": 2709,
+      "ubicomp": 1940,
+      "tit": 4927
+    },
+    "byYear": {
+      "2016": 4783,
+      "2017": 5830,
+      "2018": 6560,
+      "2019": 6778,
+      "2020": 7323,
+      "2021": 8255,
+      "2022": 8990,
+      "2023": 9521,
+      "2024": 12004,
+      "2025": 13825
+    },
+    "dedup": {
+      "doi": 8,
+      "sourceId": 0,
+      "titleYear": 206
+    },
+    "exclusions": {
+      "non-research-type:review": 93,
+      "correction-or-retraction-notice": 60,
+      "non-research-type:book-chapter": 1,
+      "non-research-type:paratext": 365,
+      "non-research-type:erratum": 3254,
+      "non-research-type:letter": 211,
+      "non-research-type:dissertation": 8,
+      "non-research-type:book-review": 3,
+      "non-research-type:retraction": 53,
+      "non-research-type:conference-abstract": 6,
+      "non-research-type:supplementary-materials": 1,
+      "non-research-type:editorial": 7,
+      "non-research-type:dataset": 3,
+      "year-out-of-range": 15517,
+      "non-research-type": 95,
+      "non-main-series:SIGCOMM Posters and Demos": 252,
+      "non-main-series:SIGCOMM (Posters and Demos)": 111,
+      "non-main-series:CryBlock@MOBICOM": 13,
+      "non-main-series:MobiSys (Companion Volume)": 147,
+      "non-main-series:MobiSys PhDForum": 10,
+      "non-main-series:SenSys-ML": 7,
+      "non-main-series:INFOCOM Workshops": 1721,
+      "non-main-series:INFOCOM (Workshops)": 193,
+      "non-main-series:INFOCOM WKSHPS": 243,
+      "welcome-or-editorial": 1,
+      "non-main-series:UbiComp Companion": 515,
+      "non-main-series:UbiComp/ISWC Adjunct": 1381,
+      "non-main-series:UbiComp Adjunct": 321,
+      "proceedings-volume-record": 2
+    },
+    "referenceCoverage": {
+      "recordsWithReferenceIds": 8006,
+      "recordsWithReferenceDois": 0,
+      "crossrefSourcePapersWithReferences": 72746,
+      "crossrefDoiReferenceEdges": 4173415,
+      "crossrefReferenceBytes": 120209307,
+      "byVenueYear": {
+        "nature-communications:2016": {
+          "knownPapersWithDoi": 3531,
+          "sourceItems": 3686,
+          "papersWithReferences": 3528,
+          "pages": 5
+        },
+        "nature-communications:2017": {
+          "knownPapersWithDoi": 4402,
+          "sourceItems": 4539,
+          "papersWithReferences": 4329,
+          "pages": 6
+        },
+        "nature-communications:2018": {
+          "knownPapersWithDoi": 5117,
+          "sourceItems": 5516,
+          "papersWithReferences": 5047,
+          "pages": 7
+        },
+        "nature-communications:2019": {
+          "knownPapersWithDoi": 5436,
+          "sourceItems": 5831,
+          "papersWithReferences": 5429,
+          "pages": 7
+        },
+        "nature-communications:2020": {
+          "knownPapersWithDoi": 6053,
+          "sourceItems": 6449,
+          "papersWithReferences": 6035,
+          "pages": 8
+        },
+        "nature-communications:2021": {
+          "knownPapersWithDoi": 6967,
+          "sourceItems": 7362,
+          "papersWithReferences": 6959,
+          "pages": 9
+        },
+        "nature-communications:2023": {
+          "knownPapersWithDoi": 8103,
+          "sourceItems": 8527,
+          "papersWithReferences": 8093,
+          "pages": 10
+        },
+        "nature-communications:2022": {
+          "knownPapersWithDoi": 7554,
+          "sourceItems": 7977,
+          "papersWithReferences": 7540,
+          "pages": 9
+        },
+        "nature-communications:2024": {
+          "knownPapersWithDoi": 10415,
+          "sourceItems": 10926,
+          "papersWithReferences": 10402,
+          "pages": 12
+        },
+        "tit:2016": {
+          "knownPapersWithDoi": 505,
+          "sourceItems": 528,
+          "papersWithReferences": 372,
+          "pages": 2
+        },
+        "tit:2017": {
+          "knownPapersWithDoi": 574,
+          "sourceItems": 514,
+          "papersWithReferences": 338,
+          "pages": 2
+        },
+        "tit:2018": {
+          "knownPapersWithDoi": 489,
+          "sourceItems": 551,
+          "papersWithReferences": 259,
+          "pages": 2
+        },
+        "tit:2019": {
+          "knownPapersWithDoi": 493,
+          "sourceItems": 566,
+          "papersWithReferences": 283,
+          "pages": 2
+        },
+        "tit:2020": {
+          "knownPapersWithDoi": 416,
+          "sourceItems": 535,
+          "papersWithReferences": 275,
+          "pages": 2
+        },
+        "tit:2021": {
+          "knownPapersWithDoi": 483,
+          "sourceItems": 531,
+          "papersWithReferences": 323,
+          "pages": 2
+        },
+        "nature-communications:2025": {
+          "knownPapersWithDoi": 12239,
+          "sourceItems": 12633,
+          "papersWithReferences": 12224,
+          "pages": 14
+        },
+        "tit:2022": {
+          "knownPapersWithDoi": 494,
+          "sourceItems": 514,
+          "papersWithReferences": 316,
+          "pages": 2
+        },
+        "tit:2023": {
+          "knownPapersWithDoi": 457,
+          "sourceItems": 482,
+          "papersWithReferences": 277,
+          "pages": 2
+        },
+        "tit:2024": {
+          "knownPapersWithDoi": 422,
+          "sourceItems": 547,
+          "papersWithReferences": 312,
+          "pages": 2
+        },
+        "tit:2025": {
+          "knownPapersWithDoi": 516,
+          "sourceItems": 569,
+          "papersWithReferences": 405,
+          "pages": 2
+        }
+      }
+    },
+    "incompleteSources": [],
+    "failedPages": [],
+    "reindexedFromValidatedShards": true
+  },
+  "provenance": {
+    "sources": {
+      "DBLP": "Official DBLP SPARQL venue streams.",
+      "OpenAlex": "Journal metadata and DOI-based conference enrichment.",
+      "Crossref": "Crossref journal works API; DOI references are stored in separate lazy-loadable reference shards."
+    },
+    "recoveryNote": "Index reconstructed from the complete validated shard set after OpenAlex exhausted its daily free API budget during a reference-only refresh. Publication records were not regenerated or dropped."
+  },
+  "referenceShards": [
+    {
+      "url": "references/nature-communications/2016.part-1.json",
+      "venueId": "nature-communications",
+      "year": 2016,
+      "part": 1,
+      "parts": 4,
+      "records": 1000,
+      "edges": 48829,
+      "bytes": 1393026,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2016.part-2.json",
+      "venueId": "nature-communications",
+      "year": 2016,
+      "part": 2,
+      "parts": 4,
+      "records": 1000,
+      "edges": 48774,
+      "bytes": 1389900,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2016.part-3.json",
+      "venueId": "nature-communications",
+      "year": 2016,
+      "part": 3,
+      "parts": 4,
+      "records": 1000,
+      "edges": 48665,
+      "bytes": 1389686,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2016.part-4.json",
+      "venueId": "nature-communications",
+      "year": 2016,
+      "part": 4,
+      "parts": 4,
+      "records": 528,
+      "edges": 25351,
+      "bytes": 722834,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2017.part-1.json",
+      "venueId": "nature-communications",
+      "year": 2017,
+      "part": 1,
+      "parts": 5,
+      "records": 1000,
+      "edges": 49910,
+      "bytes": 1416518,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2017.part-2.json",
+      "venueId": "nature-communications",
+      "year": 2017,
+      "part": 2,
+      "parts": 5,
+      "records": 1000,
+      "edges": 50357,
+      "bytes": 1427809,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2017.part-3.json",
+      "venueId": "nature-communications",
+      "year": 2017,
+      "part": 3,
+      "parts": 5,
+      "records": 1000,
+      "edges": 50488,
+      "bytes": 1443086,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2017.part-4.json",
+      "venueId": "nature-communications",
+      "year": 2017,
+      "part": 4,
+      "parts": 5,
+      "records": 1000,
+      "edges": 51899,
+      "bytes": 1481852,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2017.part-5.json",
+      "venueId": "nature-communications",
+      "year": 2017,
+      "part": 5,
+      "parts": 5,
+      "records": 329,
+      "edges": 17058,
+      "bytes": 487384,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2018.part-1.json",
+      "venueId": "nature-communications",
+      "year": 2018,
+      "part": 1,
+      "parts": 6,
+      "records": 1000,
+      "edges": 52604,
+      "bytes": 1497069,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2018.part-2.json",
+      "venueId": "nature-communications",
+      "year": 2018,
+      "part": 2,
+      "parts": 6,
+      "records": 1000,
+      "edges": 51770,
+      "bytes": 1474213,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2018.part-3.json",
+      "venueId": "nature-communications",
+      "year": 2018,
+      "part": 3,
+      "parts": 6,
+      "records": 1000,
+      "edges": 52690,
+      "bytes": 1499448,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2018.part-4.json",
+      "venueId": "nature-communications",
+      "year": 2018,
+      "part": 4,
+      "parts": 6,
+      "records": 1000,
+      "edges": 52652,
+      "bytes": 1496399,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2018.part-5.json",
+      "venueId": "nature-communications",
+      "year": 2018,
+      "part": 5,
+      "parts": 6,
+      "records": 1000,
+      "edges": 52555,
+      "bytes": 1498428,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2018.part-6.json",
+      "venueId": "nature-communications",
+      "year": 2018,
+      "part": 6,
+      "parts": 6,
+      "records": 47,
+      "edges": 2540,
+      "bytes": 72329,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2019.part-1.json",
+      "venueId": "nature-communications",
+      "year": 2019,
+      "part": 1,
+      "parts": 6,
+      "records": 1000,
+      "edges": 52537,
+      "bytes": 1499128,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2019.part-2.json",
+      "venueId": "nature-communications",
+      "year": 2019,
+      "part": 2,
+      "parts": 6,
+      "records": 1000,
+      "edges": 52886,
+      "bytes": 1507305,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2019.part-3.json",
+      "venueId": "nature-communications",
+      "year": 2019,
+      "part": 3,
+      "parts": 6,
+      "records": 1000,
+      "edges": 52547,
+      "bytes": 1502412,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2019.part-4.json",
+      "venueId": "nature-communications",
+      "year": 2019,
+      "part": 4,
+      "parts": 6,
+      "records": 1000,
+      "edges": 54810,
+      "bytes": 1562632,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2019.part-5.json",
+      "venueId": "nature-communications",
+      "year": 2019,
+      "part": 5,
+      "parts": 6,
+      "records": 1000,
+      "edges": 54783,
+      "bytes": 1562213,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2019.part-6.json",
+      "venueId": "nature-communications",
+      "year": 2019,
+      "part": 6,
+      "parts": 6,
+      "records": 429,
+      "edges": 23129,
+      "bytes": 664651,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2020.part-1.json",
+      "venueId": "nature-communications",
+      "year": 2020,
+      "part": 1,
+      "parts": 7,
+      "records": 1000,
+      "edges": 53851,
+      "bytes": 1540020,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2020.part-2.json",
+      "venueId": "nature-communications",
+      "year": 2020,
+      "part": 2,
+      "parts": 7,
+      "records": 1000,
+      "edges": 54660,
+      "bytes": 1565326,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2020.part-3.json",
+      "venueId": "nature-communications",
+      "year": 2020,
+      "part": 3,
+      "parts": 7,
+      "records": 1000,
+      "edges": 55171,
+      "bytes": 1582196,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2020.part-4.json",
+      "venueId": "nature-communications",
+      "year": 2020,
+      "part": 4,
+      "parts": 7,
+      "records": 1000,
+      "edges": 53638,
+      "bytes": 1541231,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2020.part-5.json",
+      "venueId": "nature-communications",
+      "year": 2020,
+      "part": 5,
+      "parts": 7,
+      "records": 1000,
+      "edges": 55197,
+      "bytes": 1585696,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2020.part-6.json",
+      "venueId": "nature-communications",
+      "year": 2020,
+      "part": 6,
+      "parts": 7,
+      "records": 1000,
+      "edges": 56525,
+      "bytes": 1617944,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2020.part-7.json",
+      "venueId": "nature-communications",
+      "year": 2020,
+      "part": 7,
+      "parts": 7,
+      "records": 35,
+      "edges": 2175,
+      "bytes": 62386,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2021.part-1.json",
+      "venueId": "nature-communications",
+      "year": 2021,
+      "part": 1,
+      "parts": 7,
+      "records": 1000,
+      "edges": 56597,
+      "bytes": 1623683,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2021.part-2.json",
+      "venueId": "nature-communications",
+      "year": 2021,
+      "part": 2,
+      "parts": 7,
+      "records": 1000,
+      "edges": 56966,
+      "bytes": 1636134,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2021.part-3.json",
+      "venueId": "nature-communications",
+      "year": 2021,
+      "part": 3,
+      "parts": 7,
+      "records": 1000,
+      "edges": 58596,
+      "bytes": 1679400,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2021.part-4.json",
+      "venueId": "nature-communications",
+      "year": 2021,
+      "part": 4,
+      "parts": 7,
+      "records": 1000,
+      "edges": 58484,
+      "bytes": 1673014,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2021.part-5.json",
+      "venueId": "nature-communications",
+      "year": 2021,
+      "part": 5,
+      "parts": 7,
+      "records": 1000,
+      "edges": 58985,
+      "bytes": 1690277,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2021.part-6.json",
+      "venueId": "nature-communications",
+      "year": 2021,
+      "part": 6,
+      "parts": 7,
+      "records": 1000,
+      "edges": 58574,
+      "bytes": 1686548,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2021.part-7.json",
+      "venueId": "nature-communications",
+      "year": 2021,
+      "part": 7,
+      "parts": 7,
+      "records": 959,
+      "edges": 57068,
+      "bytes": 1638748,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2022.part-1.json",
+      "venueId": "nature-communications",
+      "year": 2022,
+      "part": 1,
+      "parts": 8,
+      "records": 1000,
+      "edges": 59936,
+      "bytes": 1721556,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2022.part-2.json",
+      "venueId": "nature-communications",
+      "year": 2022,
+      "part": 2,
+      "parts": 8,
+      "records": 1000,
+      "edges": 59419,
+      "bytes": 1700955,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2022.part-3.json",
+      "venueId": "nature-communications",
+      "year": 2022,
+      "part": 3,
+      "parts": 8,
+      "records": 1000,
+      "edges": 58646,
+      "bytes": 1684517,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2022.part-4.json",
+      "venueId": "nature-communications",
+      "year": 2022,
+      "part": 4,
+      "parts": 8,
+      "records": 1000,
+      "edges": 59959,
+      "bytes": 1723978,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2022.part-5.json",
+      "venueId": "nature-communications",
+      "year": 2022,
+      "part": 5,
+      "parts": 8,
+      "records": 1000,
+      "edges": 60131,
+      "bytes": 1730359,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2022.part-6.json",
+      "venueId": "nature-communications",
+      "year": 2022,
+      "part": 6,
+      "parts": 8,
+      "records": 1000,
+      "edges": 60639,
+      "bytes": 1745596,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2022.part-7.json",
+      "venueId": "nature-communications",
+      "year": 2022,
+      "part": 7,
+      "parts": 8,
+      "records": 1000,
+      "edges": 60326,
+      "bytes": 1735514,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2022.part-8.json",
+      "venueId": "nature-communications",
+      "year": 2022,
+      "part": 8,
+      "parts": 8,
+      "records": 540,
+      "edges": 32998,
+      "bytes": 951672,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2023.part-1.json",
+      "venueId": "nature-communications",
+      "year": 2023,
+      "part": 1,
+      "parts": 9,
+      "records": 1000,
+      "edges": 61812,
+      "bytes": 1777386,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2023.part-2.json",
+      "venueId": "nature-communications",
+      "year": 2023,
+      "part": 2,
+      "parts": 9,
+      "records": 1000,
+      "edges": 60339,
+      "bytes": 1735895,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2023.part-3.json",
+      "venueId": "nature-communications",
+      "year": 2023,
+      "part": 3,
+      "parts": 9,
+      "records": 1000,
+      "edges": 60846,
+      "bytes": 1759639,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2023.part-4.json",
+      "venueId": "nature-communications",
+      "year": 2023,
+      "part": 4,
+      "parts": 9,
+      "records": 1000,
+      "edges": 62180,
+      "bytes": 1791794,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2023.part-5.json",
+      "venueId": "nature-communications",
+      "year": 2023,
+      "part": 5,
+      "parts": 9,
+      "records": 1000,
+      "edges": 60338,
+      "bytes": 1740242,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2023.part-6.json",
+      "venueId": "nature-communications",
+      "year": 2023,
+      "part": 6,
+      "parts": 9,
+      "records": 1000,
+      "edges": 62142,
+      "bytes": 1796083,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2023.part-7.json",
+      "venueId": "nature-communications",
+      "year": 2023,
+      "part": 7,
+      "parts": 9,
+      "records": 1000,
+      "edges": 60680,
+      "bytes": 1754642,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2023.part-8.json",
+      "venueId": "nature-communications",
+      "year": 2023,
+      "part": 8,
+      "parts": 9,
+      "records": 1000,
+      "edges": 62694,
+      "bytes": 1810251,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2023.part-9.json",
+      "venueId": "nature-communications",
+      "year": 2023,
+      "part": 9,
+      "parts": 9,
+      "records": 93,
+      "edges": 6031,
+      "bytes": 173188,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2024.part-1.json",
+      "venueId": "nature-communications",
+      "year": 2024,
+      "part": 1,
+      "parts": 11,
+      "records": 1000,
+      "edges": 61476,
+      "bytes": 1778977,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2024.part-2.json",
+      "venueId": "nature-communications",
+      "year": 2024,
+      "part": 2,
+      "parts": 11,
+      "records": 1000,
+      "edges": 62768,
+      "bytes": 1810475,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2024.part-3.json",
+      "venueId": "nature-communications",
+      "year": 2024,
+      "part": 3,
+      "parts": 11,
+      "records": 1000,
+      "edges": 63750,
+      "bytes": 1835767,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2024.part-4.json",
+      "venueId": "nature-communications",
+      "year": 2024,
+      "part": 4,
+      "parts": 11,
+      "records": 1000,
+      "edges": 63130,
+      "bytes": 1823007,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2024.part-5.json",
+      "venueId": "nature-communications",
+      "year": 2024,
+      "part": 5,
+      "parts": 11,
+      "records": 1000,
+      "edges": 63137,
+      "bytes": 1828103,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2024.part-6.json",
+      "venueId": "nature-communications",
+      "year": 2024,
+      "part": 6,
+      "parts": 11,
+      "records": 1000,
+      "edges": 64750,
+      "bytes": 1865361,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2024.part-7.json",
+      "venueId": "nature-communications",
+      "year": 2024,
+      "part": 7,
+      "parts": 11,
+      "records": 1000,
+      "edges": 62206,
+      "bytes": 1799208,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2024.part-8.json",
+      "venueId": "nature-communications",
+      "year": 2024,
+      "part": 8,
+      "parts": 11,
+      "records": 1000,
+      "edges": 63746,
+      "bytes": 1843550,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2024.part-9.json",
+      "venueId": "nature-communications",
+      "year": 2024,
+      "part": 9,
+      "parts": 11,
+      "records": 1000,
+      "edges": 62672,
+      "bytes": 1813244,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2024.part-10.json",
+      "venueId": "nature-communications",
+      "year": 2024,
+      "part": 10,
+      "parts": 11,
+      "records": 1000,
+      "edges": 64312,
+      "bytes": 1859872,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2024.part-11.json",
+      "venueId": "nature-communications",
+      "year": 2024,
+      "part": 11,
+      "parts": 11,
+      "records": 402,
+      "edges": 26724,
+      "bytes": 772096,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2025.part-1.json",
+      "venueId": "nature-communications",
+      "year": 2025,
+      "part": 1,
+      "parts": 13,
+      "records": 1000,
+      "edges": 62771,
+      "bytes": 1812736,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2025.part-2.json",
+      "venueId": "nature-communications",
+      "year": 2025,
+      "part": 2,
+      "parts": 13,
+      "records": 1000,
+      "edges": 65437,
+      "bytes": 1891817,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2025.part-3.json",
+      "venueId": "nature-communications",
+      "year": 2025,
+      "part": 3,
+      "parts": 13,
+      "records": 1000,
+      "edges": 63128,
+      "bytes": 1829733,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2025.part-4.json",
+      "venueId": "nature-communications",
+      "year": 2025,
+      "part": 4,
+      "parts": 13,
+      "records": 1000,
+      "edges": 64916,
+      "bytes": 1875690,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2025.part-5.json",
+      "venueId": "nature-communications",
+      "year": 2025,
+      "part": 5,
+      "parts": 13,
+      "records": 1000,
+      "edges": 62950,
+      "bytes": 1826561,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2025.part-6.json",
+      "venueId": "nature-communications",
+      "year": 2025,
+      "part": 6,
+      "parts": 13,
+      "records": 1000,
+      "edges": 63330,
+      "bytes": 1834900,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2025.part-7.json",
+      "venueId": "nature-communications",
+      "year": 2025,
+      "part": 7,
+      "parts": 13,
+      "records": 1000,
+      "edges": 64472,
+      "bytes": 1868304,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2025.part-8.json",
+      "venueId": "nature-communications",
+      "year": 2025,
+      "part": 8,
+      "parts": 13,
+      "records": 1000,
+      "edges": 66259,
+      "bytes": 1913701,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2025.part-9.json",
+      "venueId": "nature-communications",
+      "year": 2025,
+      "part": 9,
+      "parts": 13,
+      "records": 1000,
+      "edges": 63890,
+      "bytes": 1850265,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2025.part-10.json",
+      "venueId": "nature-communications",
+      "year": 2025,
+      "part": 10,
+      "parts": 13,
+      "records": 1000,
+      "edges": 64463,
+      "bytes": 1874199,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2025.part-11.json",
+      "venueId": "nature-communications",
+      "year": 2025,
+      "part": 11,
+      "parts": 13,
+      "records": 1000,
+      "edges": 63810,
+      "bytes": 1848580,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2025.part-12.json",
+      "venueId": "nature-communications",
+      "year": 2025,
+      "part": 12,
+      "parts": 13,
+      "records": 1000,
+      "edges": 64544,
+      "bytes": 1875230,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/nature-communications/2025.part-13.json",
+      "venueId": "nature-communications",
+      "year": 2025,
+      "part": 13,
+      "parts": 13,
+      "records": 224,
+      "edges": 13538,
+      "bytes": 394696,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/tit/2016.json",
+      "venueId": "tit",
+      "year": 2016,
+      "part": 1,
+      "parts": 1,
+      "records": 372,
+      "edges": 9883,
+      "bytes": 309424,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/tit/2017.json",
+      "venueId": "tit",
+      "year": 2017,
+      "part": 1,
+      "parts": 1,
+      "records": 338,
+      "edges": 9420,
+      "bytes": 293350,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/tit/2018.json",
+      "venueId": "tit",
+      "year": 2018,
+      "part": 1,
+      "parts": 1,
+      "records": 259,
+      "edges": 7140,
+      "bytes": 222052,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/tit/2019.json",
+      "venueId": "tit",
+      "year": 2019,
+      "part": 1,
+      "parts": 1,
+      "records": 283,
+      "edges": 8219,
+      "bytes": 254807,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/tit/2020.json",
+      "venueId": "tit",
+      "year": 2020,
+      "part": 1,
+      "parts": 1,
+      "records": 275,
+      "edges": 8026,
+      "bytes": 248989,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/tit/2021.json",
+      "venueId": "tit",
+      "year": 2021,
+      "part": 1,
+      "parts": 1,
+      "records": 323,
+      "edges": 10347,
+      "bytes": 316480,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/tit/2022.json",
+      "venueId": "tit",
+      "year": 2022,
+      "part": 1,
+      "parts": 1,
+      "records": 316,
+      "edges": 10577,
+      "bytes": 322867,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/tit/2023.json",
+      "venueId": "tit",
+      "year": 2023,
+      "part": 1,
+      "parts": 1,
+      "records": 277,
+      "edges": 9485,
+      "bytes": 289416,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/tit/2024.json",
+      "venueId": "tit",
+      "year": 2024,
+      "part": 1,
+      "parts": 1,
+      "records": 312,
+      "edges": 11030,
+      "bytes": 334633,
+      "source": "Crossref"
+    },
+    {
+      "url": "references/tit/2025.json",
+      "venueId": "tit",
+      "year": 2025,
+      "part": 1,
+      "parts": 1,
+      "records": 405,
+      "edges": 14672,
+      "bytes": 447025,
+      "source": "Crossref"
+    }
+  ]
+}
