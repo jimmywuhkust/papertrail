@@ -1,5 +1,6 @@
 import {
   expandWorks,
+  fetchCitingWorks,
   recommendPapers,
   resolveDois,
   searchPapers,
@@ -109,6 +110,19 @@ export async function clientExpand(ids: string[]): Promise<Paper[]> {
     }
   }
   const response = await postJson("/api/expand", { ids });
+  if (!response.ok) return [];
+  return ((await response.json()) as { papers: Paper[] }).papers;
+}
+
+export async function clientCitedBy(openAlexId: string, limit = 12): Promise<Paper[]> {
+  if (STATIC_EXPORT) {
+    try {
+      return (await fetchCitingWorks(openAlexId, limit)).papers;
+    } catch {
+      return [];
+    }
+  }
+  const response = await fetch(`${BASE_PATH}/api/citedby?id=${encodeURIComponent(openAlexId)}&limit=${limit}`);
   if (!response.ok) return [];
   return ((await response.json()) as { papers: Paper[] }).papers;
 }

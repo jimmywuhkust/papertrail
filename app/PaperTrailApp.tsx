@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { GraphView } from "./GraphView";
 import { detectDois, detectRfcs, extractPdf, paperToBibtex, type ExtractedDraft } from "@/lib/client-analysis";
-import { clientAnalyze, clientExpand, clientSearch, dataUrl } from "@/lib/client-gateway";
+import { clientAnalyze, clientCitedBy, clientExpand, clientSearch, dataUrl } from "@/lib/client-gateway";
 import type { GraphData, GraphEdge, GraphNode, Paper, VenueLibraryIndex, VenueLibraryPaper, VenueLibraryShardPayload } from "@/lib/types";
 
 type Lang = "zh" | "en";
@@ -69,6 +69,19 @@ const copy = {
     save: "收藏",
     saved: "已收藏",
     noResults: "没有结果。试试更具体的技术名词、协议或系统名称。",
+    browseTitle: "浏览这个会场·年份的全部论文",
+    filterPlaceholder: "按标题、作者或 DOI 筛选…",
+    allTypes: "全部类型",
+    sortCitations: "按被引量",
+    sortTitle: "按标题 A–Z",
+    showMore: "显示更多",
+    relations: "论文关系",
+    citedByInSlice: "被本列表中的论文引用",
+    refsInSlice: "引用了本列表中的论文",
+    relationsNote: "仅统计当前加载的会场·年份切片内的关系",
+    loadRelations: "从 OpenAlex 加载完整引用关系",
+    refsOpenAlex: "它引用的论文",
+    citingOpenAlex: "引用它的论文",
     methodology: "方法说明",
     privacy: "隐私",
     sources: "数据源",
@@ -115,6 +128,19 @@ const copy = {
     save: "Save",
     saved: "Saved",
     noResults: "No results. Try a more specific technique, protocol, or system name.",
+    browseTitle: "Browse every paper in this venue-year",
+    filterPlaceholder: "Filter by title, author, or DOI…",
+    allTypes: "All types",
+    sortCitations: "By citations",
+    sortTitle: "By title A–Z",
+    showMore: "Show more",
+    relations: "Paper relationships",
+    citedByInSlice: "Cited by papers in this list",
+    refsInSlice: "Cites papers in this list",
+    relationsNote: "Only edges inside the loaded venue-year slice are counted",
+    loadRelations: "Load full citations from OpenAlex",
+    refsOpenAlex: "References",
+    citingOpenAlex: "Cited by",
     methodology: "Methodology",
     privacy: "Privacy",
     sources: "Sources",
@@ -213,6 +239,12 @@ export default function PaperTrailApp() {
   const [venuePapers, setVenuePapers] = useState<VenueLibraryPaper[]>([]);
   const [venueSliceLoading, setVenueSliceLoading] = useState(false);
   const [venueTopic, setVenueTopic] = useState("");
+  const [venueQuery, setVenueQuery] = useState("");
+  const [venueType, setVenueType] = useState("");
+  const [venueSort, setVenueSort] = useState<"citations" | "title">("citations");
+  const [venueLimit, setVenueLimit] = useState(60);
+  const [relationCache, setRelationCache] = useState<Record<string, { refs: Paper[]; citing: Paper[] }>>({});
+  const [relationsLoadingFor, setRelationsLoadingFor] = useState("");
   const fileInput = useRef<HTMLInputElement>(null);
   const t = copy[lang];
 
@@ -434,6 +466,68 @@ export default function PaperTrailApp() {
     return venuePapers.filter((paper) => !venueTopic || paper.topics.includes(venueTopic));
   }, [venuePapers, venueTopic]);
 
+  const venueTypeCounts = useMemo(() => {
+    const counts = new Map<string, number>();
+    for (const paper of venuePapers) if (paper.type) counts.set(paper.type, (counts.get(paper.type) || 0) + 1);
+    return [...counts].sort((a, b) => b[1] - a[1]);
+  }, [venuePapers]);
+
+  const venueSearched = useMemo(() => {
+    const query = venueQuery.trim().toLowerCase();
+    const filtered = venueFiltered.filter((paper) => {
+      if (venueType && (paper.type || "") !== venueType) return false;
+      if (!query) return true;
+      const haystack = `${paper.title} ${paper.authors.join(" ")} ${paper.doi || ""} ${paper.series || ""}`.toLowerCase();
+      return haystack.includes(query);
+    });
+    return [...filtered].sort((a, b) =>
+      venueSort === "title" ? a.title.localeCompare(b.title) : (b.citationCount || 0) - (a.citationCount || 0),
+    );
+  }, [venueFiltered, venueQuery, venueType, venueSort]);
+
+  const venueVisible = useMemo(() => venueSearched.slice(0, venueLimit), [venueSearched, venueLimit]);
+
+  const openLibraryPaper = (paper: VenueLibraryPaper) =>
+    setSelectedPaper({
+      id: paper.id,
+      openAlexId: paper.openAlexId || undefined,
+      title: paper.title,
+      authors: paper.authors,
+      year: paper.year,
+      venue: paper.series ? `${paper.venueName} · ${paper.series}` : paper.venueName,
+      doi: paper.doi || undefined,
+      url: paper.url,
+      citationCount: paper.citationCount || 0,
+      topics: paper.topics,
+      referenceIds: paper.referenceIds,
+      relatedIds: [],
+      source: "Local",
+      kind: paper.type || undefined,
+    });
+
+  /* In-slice citation edges: which loaded papers this one cites / is cited by. */
+  const selectedRelations = useMemo(() => {
+    if (!selectedPaper?.openAlexId || !venuePapers.length) return null;
+    const refs = venuePapers.filter((paper) => paper.openAlexId && selectedPaper.referenceIds.includes(paper.openAlexId));
+    const citedBy = venuePapers.filter((paper) => paper.openAlexId && selectedPaper.openAlexId && paper.referenceIds.includes(selectedPaper.openAlexId));
+    if (!refs.length && !citedBy.length) return null;
+    return { refs, citedBy };
+  }, [selectedPaper, venuePapers]);
+
+  const loadRelations = async (paper: Paper) => {
+    if (!paper.openAlexId || relationsLoadingFor) return;
+    setRelationsLoadingFor(paper.id);
+    try {
+      const [refs, citing] = await Promise.all([
+        paper.referenceIds.length ? clientExpand(paper.referenceIds.slice(0, 40)) : Promise.resolve([]),
+        clientCitedBy(paper.openAlexId, 12),
+      ]);
+      setRelationCache((previous) => ({ ...previous, [paper.id]: { refs, citing } }));
+    } finally {
+      setRelationsLoadingFor("");
+    }
+  };
+
   const selectedVenues = useMemo(
     () => venueIndex?.venues.filter((venue) => venuePicks.has(venue.id)) || [],
     [venueIndex, venuePicks],
@@ -556,9 +650,9 @@ export default function PaperTrailApp() {
             </div>
             <div className="venue-controls venue-slice-controls">
               <span className="eyebrow">{lang === "zh" ? "按需浏览论文" : "LAZY PAPER BROWSER"}</span>
-              <select value={venueFocus} onChange={(event) => { setVenueFocus(event.target.value); setVenueTopic(""); }} aria-label="Paper collection">{venueIndex?.venues.map((venue) => <option key={venue.id} value={venue.id}>{venue.name}</option>)}</select>
-              <select value={venueFocusYear} onChange={(event) => { setVenueFocusYear(Number(event.target.value)); setVenueTopic(""); }} aria-label="Publication year">{Array.from({ length: 10 }, (_, index) => 2025 - index).map((year) => <option key={year} value={year}>{year}</option>)}</select>
-              <select value={venueTopic} onChange={(event) => setVenueTopic(event.target.value)}><option value="">All aspects</option>{venueTopicCounts.slice(0, 50).map((topic) => <option key={topic.id} value={topic.id}>{topic.name}</option>)}</select>
+              <select value={venueFocus} onChange={(event) => { setVenueFocus(event.target.value); setVenueTopic(""); setVenueQuery(""); setVenueType(""); setVenueLimit(60); }} aria-label="Paper collection">{venueIndex?.venues.map((venue) => <option key={venue.id} value={venue.id}>{venue.name}</option>)}</select>
+              <select value={venueFocusYear} onChange={(event) => { setVenueFocusYear(Number(event.target.value)); setVenueTopic(""); setVenueQuery(""); setVenueType(""); setVenueLimit(60); }} aria-label="Publication year">{Array.from({ length: 10 }, (_, index) => 2025 - index).map((year) => <option key={year} value={year}>{year}</option>)}</select>
+              <select value={venueTopic} onChange={(event) => { setVenueTopic(event.target.value); setVenueLimit(60); }}><option value="">All aspects</option>{venueTopicCounts.slice(0, 50).map((topic) => <option key={topic.id} value={topic.id}>{topic.name}</option>)}</select>
             </div>
             {venueLoading && <div className="venue-loading"><i /><i /><i /></div>}
             {venueIndex && (
@@ -567,8 +661,32 @@ export default function PaperTrailApp() {
                 <div className="venue-dashboard">
                   <article className="dashboard-card volume-card"><div className="card-heading"><span>01 · VOLUME</span><h2>{lang === "zh" ? "每年发表了多少？" : "How much did each venue publish?"}</h2></div><div className="annual-chart">{annualVenueCounts.map((item) => <div className="year-column" key={item.year}><div className="stack" style={{ height: `${Math.max(4, item.total / maxAnnual * 100)}%` }}>{selectedVenues.map((venue) => { const count = item.counts[venue.id] || 0; return count && item.total ? <i key={venue.id} style={{ height: `${count / item.total * 100}%`, background: VENUE_COLORS[venue.id] }} title={`${venue.name}: ${count}`} /> : null; })}</div><b>{format(item.total)}</b><span>{item.year}</span></div>)}</div></article>
                   <article className="dashboard-card topics-card"><div className="card-heading"><span>02 · ASPECTS · {venueFocusYear}</span><h2>{lang === "zh" ? "这一切片在研究什么？" : "What is this venue-year about?"}</h2></div>{venueSliceLoading ? <div className="venue-loading"><i /><i /><i /></div> : <div className="topic-bars">{venueTopicCounts.slice(0, 9).map((topic) => <button type="button" key={topic.id} onClick={() => setVenueTopic(venueTopic === topic.id ? "" : topic.id)} className={venueTopic === topic.id ? "active" : ""}><span>{topic.name}</span><i style={{ width: `${topic.count / maxTopic * 100}%`, background: topic.color }} /><b>{topic.count}</b></button>)}</div>}</article>
-                  <article className="dashboard-card impact-card"><div className="card-heading"><span>03 · IMPACT · {format(venuePapers.length)} PAPERS LOADED</span><h2>{lang === "zh" ? "这一会场年份中被引最多" : "Most cited in this venue-year"}</h2></div><div className="ranked-papers">{[...venueFiltered].sort((a, b) => (b.citationCount || 0) - (a.citationCount || 0)).slice(0, 8).map((paper, index) => <button type="button" key={paper.id} onClick={() => setSelectedPaper({ id: paper.id, openAlexId: paper.openAlexId || undefined, title: paper.title, authors: paper.authors, year: paper.year, venue: paper.venueName, doi: paper.doi || undefined, url: paper.url, citationCount: paper.citationCount || 0, topics: paper.topics, referenceIds: paper.referenceIds, relatedIds: [], source: "Local", kind: paper.type || undefined })}><em>{String(index + 1).padStart(2, "0")}</em><span><b>{paper.title}</b><small>{paper.venueName} · {paper.year}</small></span><strong>{format(paper.citationCount || 0)}</strong></button>)}</div></article>
+                  <article className="dashboard-card impact-card"><div className="card-heading"><span>03 · IMPACT · {format(venuePapers.length)} PAPERS LOADED</span><h2>{lang === "zh" ? "这一会场年份中被引最多" : "Most cited in this venue-year"}</h2></div><div className="ranked-papers">{[...venueFiltered].sort((a, b) => (b.citationCount || 0) - (a.citationCount || 0)).slice(0, 8).map((paper, index) => <button type="button" key={paper.id} onClick={() => openLibraryPaper(paper)}><em>{String(index + 1).padStart(2, "0")}</em><span><b>{paper.title}</b><small>{paper.venueName} · {paper.year}</small></span><strong>{format(paper.citationCount || 0)}</strong></button>)}</div></article>
                 </div>
+                <article className="dashboard-card browser-card">
+                  <div className="card-heading"><span>04 · BROWSER · {venueIndex.venues.find((venue) => venue.id === venueFocus)?.name} {venueFocusYear}</span><h2>{t.browseTitle}</h2></div>
+                  <div className="browser-controls">
+                    <input type="search" value={venueQuery} onChange={(event) => { setVenueQuery(event.target.value); setVenueLimit(60); }} placeholder={t.filterPlaceholder} aria-label={t.filterPlaceholder} />
+                    <select value={venueType} onChange={(event) => { setVenueType(event.target.value); setVenueLimit(60); }} aria-label="Type"><option value="">{t.allTypes}</option>{venueTypeCounts.map(([type, count]) => <option key={type} value={type}>{type} · {count}</option>)}</select>
+                    <select value={venueSort} onChange={(event) => setVenueSort(event.target.value as "citations" | "title")} aria-label="Sort"><option value="citations">{t.sortCitations}</option><option value="title">{t.sortTitle}</option></select>
+                  </div>
+                  {venueSliceLoading ? <div className="venue-loading"><i /></div> : (
+                    <>
+                      <div className="browser-count">{format(venueSearched.length)} / {format(venuePapers.length)} {t.papers}</div>
+                      <div className="paper-list">
+                        {venueVisible.map((paper, index) => (
+                          <button type="button" key={paper.id} onClick={() => openLibraryPaper(paper)}>
+                            <em>{String(index + 1).padStart(2, "0")}</em>
+                            <span><b>{paper.title}</b><small>{paper.authors.slice(0, 4).join(", ")}{paper.authors.length > 4 ? " et al." : ""}</small></span>
+                            <i className="paper-list-side"><strong>{format(paper.citationCount || 0)}</strong>{paper.type && <u>{paper.type}</u>}</i>
+                          </button>
+                        ))}
+                        {!venueVisible.length && <div className="empty-state">{t.noResults}</div>}
+                      </div>
+                      {venueSearched.length > venueLimit && <button type="button" className="show-more" onClick={() => setVenueLimit(venueLimit + 200)}>{t.showMore} · {format(venueSearched.length - venueLimit)}</button>}
+                    </>
+                  )}
+                </article>
               </>
             )}
           </section>
@@ -590,6 +708,41 @@ export default function PaperTrailApp() {
           <div className="drawer-venue"><span className={selectedPaper.isTopVenue ? "venue-badge top" : "venue-badge"}>{selectedPaper.venue}</span><b>{format(selectedPaper.citationCount)} citations</b></div>
           {selectedPaper.topics.length > 0 && <div className="drawer-topics">{selectedPaper.topics.map((topic) => <span key={topic}>{topic}</span>)}</div>}
           {selectedPaper.reasons?.length ? <section><h3>Why it surfaced</h3><ul>{selectedPaper.reasons.map((reason) => <li key={reason}>{reason}</li>)}</ul></section> : null}
+          {(selectedRelations || selectedPaper.openAlexId) && (
+            <section>
+              <h3>{t.relations}</h3>
+              {selectedRelations && (
+                <>
+                  <p className="relations-note">{t.relationsNote}</p>
+                  {selectedRelations.citedBy.length > 0 && (
+                    <>
+                      <h4>{t.citedByInSlice} · {selectedRelations.citedBy.length}</h4>
+                      <ul className="relation-list">{selectedRelations.citedBy.slice(0, 12).map((paper) => <li key={paper.id}><button type="button" onClick={() => openLibraryPaper(paper)}><b>{paper.title}</b><small>{paper.authors.slice(0, 3).join(", ")} · {format(paper.citationCount || 0)} cites</small></button></li>)}</ul>
+                    </>
+                  )}
+                  {selectedRelations.refs.length > 0 && (
+                    <>
+                      <h4>{t.refsInSlice} · {selectedRelations.refs.length}</h4>
+                      <ul className="relation-list">{selectedRelations.refs.slice(0, 12).map((paper) => <li key={paper.id}><button type="button" onClick={() => openLibraryPaper(paper)}><b>{paper.title}</b><small>{paper.authors.slice(0, 3).join(", ")} · {format(paper.citationCount || 0)} cites</small></button></li>)}</ul>
+                    </>
+                  )}
+                </>
+              )}
+              {selectedPaper.openAlexId && (
+                relationCache[selectedPaper.id] ? (
+                  <>
+                    <h4>{t.refsOpenAlex} · {relationCache[selectedPaper.id].refs.length}</h4>
+                    <ul className="relation-list">{relationCache[selectedPaper.id].refs.slice(0, 12).map((paper) => <li key={paper.id}><button type="button" onClick={() => setSelectedPaper(paper)}><b>{paper.title}</b><small>{paper.venue} · {paper.year} · {format(paper.citationCount)} cites</small></button></li>)}</ul>
+                    <h4>{t.citingOpenAlex} · {relationCache[selectedPaper.id].citing.length}</h4>
+                    <ul className="relation-list">{relationCache[selectedPaper.id].citing.map((paper) => <li key={paper.id}><button type="button" onClick={() => setSelectedPaper(paper)}><b>{paper.title}</b><small>{paper.venue} · {paper.year} · {format(paper.citationCount)} cites</small></button></li>)}</ul>
+                  </>
+                ) : (
+                  <button type="button" className="show-more" onClick={() => loadRelations(selectedPaper)} disabled={relationsLoadingFor === selectedPaper.id}>{relationsLoadingFor === selectedPaper.id ? "…" : t.loadRelations}</button>
+                )
+              )}
+              {selectedPaper.referenceIds.length > 0 && <p className="relations-note">{selectedPaper.referenceIds.length} references indexed via OpenAlex</p>}
+            </section>
+          )}
           <div className="drawer-actions"><a className="primary-button" href={selectedPaper.url} target="_blank" rel="noreferrer">{t.openDoi}</a><button type="button" onClick={() => navigator.clipboard.writeText(paperToBibtex(selectedPaper))}>{t.copyBib}</button><button type="button" onClick={() => savePaper(selectedPaper)}>{savedIds.has(selectedPaper.doi || selectedPaper.id) ? t.saved : t.save}</button></div>
           {selectedPaper.doi && <code>doi:{selectedPaper.doi}</code>}
         </aside>

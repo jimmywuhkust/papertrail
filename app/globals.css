@@ -271,6 +271,31 @@ h1, h2 { font-family: var(--display); letter-spacing: -0.035em; }
 .ranked-papers button { display: grid; grid-template-columns: 32px 1fr auto; gap: 10px; align-items: center; padding: 13px 5px; border: 0; border-top: 1px solid var(--rule-soft); background: transparent; cursor: pointer; text-align: left; }
 .ranked-papers em { color: var(--muted); font-family: var(--mono); font-size: 9px; font-style: normal; }.ranked-papers span { display: grid; gap: 4px; }.ranked-papers span b { font-family: var(--display); font-size: 14px; }.ranked-papers span small { color: var(--muted); font-size: 9px; }.ranked-papers strong { color: var(--red-dark); font-family: var(--mono); font-size: 11px; }
 
+.browser-card { grid-column: 1 / -1; }
+.browser-controls { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.browser-controls input { flex: 1; min-width: 220px; height: 37px; padding: 0 12px; border: 1px solid var(--rule); border-radius: 8px; background: var(--paper); font-family: inherit; font-size: 11px; }
+.browser-controls input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(60,111,168,.11); outline: none; }
+.browser-controls select { height: 37px; padding: 0 10px; border: 1px solid var(--rule); border-radius: 8px; background: var(--paper); font-family: inherit; font-size: 11px; }
+.browser-count { margin-top: 16px; color: var(--muted); font-family: var(--mono); font-size: 10px; }
+.paper-list { margin-top: 6px; }
+.paper-list > button { display: grid; grid-template-columns: 34px 1fr auto; gap: 12px; align-items: center; width: 100%; padding: 12px 5px; border: 0; border-top: 1px solid var(--rule-soft); background: transparent; cursor: pointer; text-align: left; }
+.paper-list > button:hover b { color: var(--blue); }
+.paper-list em { color: var(--muted); font-family: var(--mono); font-size: 9px; font-style: normal; }
+.paper-list span { display: grid; gap: 4px; }
+.paper-list span b { font-family: var(--display); font-size: 15px; font-weight: 600; line-height: 1.35; }
+.paper-list span small { color: var(--muted); font-size: 10px; }
+.paper-list-side { display: grid; gap: 3px; justify-items: end; font-style: normal; }
+.paper-list-side strong { color: var(--red-dark); font-family: var(--mono); font-size: 11px; }
+.paper-list-side u { color: var(--muted); font-size: 9px; text-decoration: none; }
+.show-more { width: 100%; margin-top: 12px; padding: 11px; border: 1px solid var(--rule); border-radius: 9px; background: var(--card-2); cursor: pointer; font-size: 11px; font-weight: 700; }
+.paper-drawer h4 { margin-top: 16px; font-size: 12px; }
+.relations-note { margin-top: 8px; color: var(--muted); font-size: 10px; }
+.relation-list { display: grid; padding-left: 0 !important; list-style: none; }
+.relation-list button { display: grid; gap: 3px; width: 100%; padding: 9px 0; border: 0; border-top: 1px solid var(--rule-soft); background: transparent; cursor: pointer; text-align: left; }
+.relation-list button:hover b { color: var(--blue); }
+.relation-list b { color: var(--ink); font-size: 12px; font-weight: 600; line-height: 1.4; }
+.relation-list small { color: var(--muted); font-size: 9px; }
+
 .paper-drawer { position: fixed; z-index: 100; top: 14px; right: 14px; bottom: 14px; width: min(450px, calc(100% - 28px)); padding: 36px; overflow-y: auto; border: 1px solid var(--rule); border-radius: 18px; background: rgba(255,253,250,.97); box-shadow: 0 32px 90px -35px rgba(20,30,40,.58); backdrop-filter: blur(20px); animation: drawerIn .24s ease-out; }
 @keyframes drawerIn { from { opacity: 0; transform: translateX(28px); } }
 .drawer-close { position: absolute; top: 14px; right: 14px; display: grid; width: 34px; height: 34px; place-items: center; border: 1px solid var(--rule-soft); border-radius: 50%; background: var(--card); cursor: pointer; font-size: 22px; }

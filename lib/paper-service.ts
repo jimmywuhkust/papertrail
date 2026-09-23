@@ -188,3 +188,16 @@ export async function expandWorks(input: string[]): Promise<{ papers: Paper[] }>
   const papers = normalizeResults(await fetchJson<OpenAlexResults>(`https://api.openalex.org/works?${params}`));
   return { papers };
 }
+
+export async function fetchCitingWorks(openAlexId: string, limit = 12): Promise<{ papers: Paper[] }> {
+  const id = shortOpenAlexId(openAlexId);
+  if (!/^W\d+$/i.test(id)) return { papers: [] };
+  const params = new URLSearchParams({
+    filter: `cites:${id}`,
+    "per-page": String(Math.max(1, Math.min(50, limit))),
+    select: OPENALEX_SELECT,
+    sort: "cited_by_count:desc",
+  });
+  const papers = normalizeResults(await fetchJson<OpenAlexResults>(`https://api.openalex.org/works?${params}`));
+  return { papers };
+}
