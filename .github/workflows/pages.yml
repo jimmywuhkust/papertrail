@@ -1,0 +1,52 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Static export build
+        run: npm run build
+        env:
+          GH_PAGES: "true"
+      # vinext nests the exported site under dist/client/<basePath>; GitHub
+      # Pages already mounts the artifact at /<repo>, so the inner directory
+      # is the correct site root. The root-level 404.html becomes the custom
+      # 404 page.
+      - name: Assemble Pages artifact
+        run: |
+          mkdir -p dist/pages
+          cp -r dist/client/papertrail/. dist/pages/
+          cp dist/client/404.html dist/pages/404.html
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist/pages
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -41,19 +41,33 @@ export default defineConfig(async () => {
   process.env.MINIFLARE_REGISTRY_PATH ??= ".wrangler/registry";
 
   // Wrangler snapshots its log path while the Cloudflare plugin is imported.
-  const { cloudflare } = await import("@cloudflare/vite-plugin");
+  // The GitHub Pages build is a static export and needs no Workers runtime.
+  const githubPages = process.env.GH_PAGES === "true";
+  const { cloudflare } = githubPages
+    ? { cloudflare: null }
+    : await import("@cloudflare/vite-plugin");
 
   return {
     server: isCodexSeatbeltSandbox
       ? { watch: { useFsEvents: false, usePolling: true } }
       : undefined,
+    // Literal-baked client flags: vite define replaces these process.env
+    // references in the browser bundle (no runtime process object exists).
+    define: {
+      "process.env.NEXT_PUBLIC_STATIC_EXPORT": JSON.stringify(githubPages ? "true" : ""),
+      "process.env.NEXT_PUBLIC_BASE_PATH": JSON.stringify(githubPages ? "/papertrail" : ""),
+    },
     plugins: [
       vinext(),
       sites(),
-      cloudflare({
-        viteEnvironment: { name: "rsc", childEnvironments: ["ssr"] },
-        config: localBindingConfig,
-      }),
+      ...(cloudflare
+        ? [
+            cloudflare({
+              viteEnvironment: { name: "rsc", childEnvironments: ["ssr"] },
+              config: localBindingConfig,
+            }),
+          ]
+        : []),
     ],
   };
 });

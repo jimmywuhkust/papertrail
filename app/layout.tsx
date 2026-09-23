@@ -1,17 +1,10 @@
 import type { Metadata } from "next";
-import { headers } from "next/headers";
 import { Geist, Geist_Mono } from "next/font/google";
+import { requestOrigin } from "@/lib/request-origin";
 import "./globals.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
-
-async function requestOrigin() {
-  const store = await headers();
-  const host = store.get("x-forwarded-host") || store.get("host") || "localhost:3000";
-  const protocol = store.get("x-forwarded-proto") || (host.includes("localhost") ? "http" : "https");
-  return `${protocol}://${host}`;
-}
 
 export async function generateMetadata(): Promise<Metadata> {
   const origin = await requestOrigin();
@@ -39,8 +32,8 @@ export async function generateMetadata(): Promise<Metadata> {
       images: [{ url: `${origin}/og.png`, width: 1200, height: 630, alt: "PaperTrail citation intelligence" }],
     },
     twitter: { card: "summary_large_image", title, description, images: [`${origin}/og.png`] },
-    icons: { icon: "/icon.png", apple: "/apple-touch-icon.png" },
-    manifest: "/manifest.webmanifest",
+    icons: { icon: `${origin}/icon.png`, apple: `${origin}/apple-touch-icon.png` },
+    manifest: `${origin}/manifest.webmanifest`,
   };
 }
 

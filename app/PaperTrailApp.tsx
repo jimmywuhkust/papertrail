@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { GraphView } from "./GraphView";
 import { detectDois, detectRfcs, extractPdf, paperToBibtex, type ExtractedDraft } from "@/lib/client-analysis";
+import { clientAnalyze, clientExpand, clientSearch, dataUrl } from "@/lib/client-gateway";
 import type { GraphData, GraphEdge, GraphNode, Paper, VenueLibraryIndex, VenueLibraryPaper, VenueLibraryShardPayload } from "@/lib/types";
 
 type Lang = "zh" | "en";
@@ -236,7 +237,7 @@ export default function PaperTrailApp() {
     setMode(nextMode);
     if (nextMode !== "venues" || venueIndex || venueLoading) return;
     setVenueLoading(true);
-    fetch("/data/venue-library/index.json")
+    fetch(dataUrl("/data/venue-library/index.json"))
       .then((response) => {
         if (!response.ok) throw new Error("Venue index unavailable");
         return response.json() as Promise<VenueLibraryIndex>;
@@ -254,7 +255,7 @@ export default function PaperTrailApp() {
     const shards = venueIndex.shards.filter((shard) => shard.venueId === venueFocus && shard.year === venueFocusYear);
     setVenueSliceLoading(true);
     Promise.all(shards.map(async (shard) => {
-      const response = await fetch(`/data/venue-library/${shard.url}`, { signal: controller.signal });
+      const response = await fetch(dataUrl(`/data/venue-library/${shard.url}`), { signal: controller.signal });
       if (!response.ok) throw new Error(`Venue shard unavailable: ${shard.url}`);
       return response.json() as Promise<VenueLibraryShardPayload>;
     }))
@@ -311,10 +312,7 @@ export default function PaperTrailApp() {
         .slice(0, 28);
       if (!candidateIds.length) break;
       setProgress({ value: 72 + layer * 6, message: lang === "zh" ? `扩展第 ${layer} 层关系…` : `Expanding graph layer ${layer}…` });
-      const response = await fetch("/api/expand", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ids: candidateIds }) });
-      if (!response.ok) break;
-      const payload = (await response.json()) as { papers: Paper[] };
-      const additions = payload.papers.map((paper) => ({ ...paper, depth: layer, relation: "expanded" as const }));
+      const additions = (await clientExpand(candidateIds)).map((paper) => ({ ...paper, depth: layer, relation: "expanded" as const }));
       for (const paper of additions) if (paper.openAlexId) knownOpenAlex.add(paper.openAlexId);
       for (const sourcePaper of frontier) {
         for (const target of additions) {
@@ -344,19 +342,11 @@ export default function PaperTrailApp() {
       const manualRfcs = detectRfcs(manualText);
       const rfcDois = [...(draft?.rfcs || []), ...manualRfcs].map((rfc) => `10.17487/${rfc}`.toLowerCase());
       const dois = [...new Set([...(draft?.dois || []), ...manualDois, ...rfcDois])];
-      const [resolvedResponse, recommendationResponse] = await Promise.all([
-        fetch("/api/resolve", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ dois }) }),
-        fetch("/api/recommend", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ title, text, citedDois: dois, fromYear, source, limit: 20 }) }),
-      ]);
-      const resolvedPayload = (await resolvedResponse.json()) as { papers?: Paper[]; unresolved?: string[]; error?: string };
-      const recommendationPayload = (await recommendationResponse.json()) as { papers?: Paper[]; keywords?: string[]; error?: string };
-      if (!recommendationResponse.ok) throw new Error(recommendationPayload.error || "Recommendation failed");
-      const resolved = resolvedPayload.papers || [];
-      const suggestions = recommendationPayload.papers || [];
+      const { resolved, unresolved: unresolvedDois, suggestions, keywords: foundKeywords } = await clientAnalyze({ title, text, dois, fromYear, source });
       setCitedPapers(resolved);
       setSuggestedPapers(suggestions);
-      setKeywords(recommendationPayload.keywords || []);
-      setUnresolved(resolvedPayload.unresolved || []);
+      setKeywords(foundKeywords);
+      setUnresolved(unresolvedDois);
 
       const root: GraphNode = {
         id: "draft:current",
@@ -365,7 +355,7 @@ export default function PaperTrailApp() {
         venue: "Your draft",
         url: "",
         citationCount: 0,
-        topics: recommendationPayload.keywords || [],
+        topics: foundKeywords,
         referenceIds: [],
         relatedIds: [],
         source: "Local",
@@ -397,7 +387,7 @@ export default function PaperTrailApp() {
     setError("");
     setProgress({ value: 30, message: lang === "zh" ? "加载七层公开示例…" : "Loading the public seven-layer demo…" });
     try {
-      const response = await fetch("/data/demo-paper-graph.json");
+      const response = await fetch(dataUrl("/data/demo-paper-graph.json"));
       const payload = (await response.json()) as {
         root: string;
         nodes: Array<Paper & { depth?: number; venueShort?: string; fields?: string[] }>;
@@ -432,11 +422,7 @@ export default function PaperTrailApp() {
     setSearching(true);
     setError("");
     try {
-      const params = new URLSearchParams({ q: searchQuery.trim(), source: searchSource, fromYear: String(searchFromYear), limit: "30" });
-      const response = await fetch(`/api/search?${params}`);
-      const payload = (await response.json()) as { papers?: Paper[]; error?: string };
-      if (!response.ok) throw new Error(payload.error || "Search failed");
-      setSearchResults(payload.papers || []);
+      setSearchResults(await clientSearch({ query: searchQuery.trim(), source: searchSource, fromYear: searchFromYear, limit: 30 }));
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : "Search failed");
     } finally {
@@ -592,7 +578,7 @@ export default function PaperTrailApp() {
       <footer>
         <div className="brand footer-brand"><span className="brand-mark">文</span><span><b>文脉</b><small>PAPERTRAIL</small></span></div>
         <p>{lang === "zh" ? "公开、可解释、隐私优先的论文关系与引用发现工具。" : "Open, explainable, privacy-first paper relationships and citation discovery."}</p>
-        <nav><a href="/methodology">{t.methodology}</a><a href="/privacy">{t.privacy}</a><a href="/methodology#sources">{t.sources}</a></nav>
+        <nav><a href={dataUrl("/methodology")}>{t.methodology}</a><a href={dataUrl("/privacy")}>{t.privacy}</a><a href={dataUrl("/methodology#sources")}>{t.sources}</a></nav>
       </footer>
 
       {selectedPaper && (
