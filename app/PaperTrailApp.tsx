@@ -4,10 +4,10 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { GraphView } from "./GraphView";
 import { detectDois, detectRfcs, extractPdf, paperToBibtex, type ExtractedDraft } from "@/lib/client-analysis";
 import { clientAnalyze, clientCitedBy, clientExpand, clientSearch, dataUrl } from "@/lib/client-gateway";
-import type { GraphData, GraphEdge, GraphNode, Paper, VenueLibraryIndex, VenueLibraryPaper, VenueLibraryShardPayload } from "@/lib/types";
+import type { DailyEpisode, DailyEpisodesIndex, GraphData, GraphEdge, GraphNode, Paper, VenueLibraryIndex, VenueLibraryPaper, VenueLibraryShardPayload } from "@/lib/types";
 
 type Lang = "zh" | "en";
-type Mode = "analyze" | "discover" | "venues";
+type Mode = "analyze" | "discover" | "venues" | "daily";
 type AnalysisTab = "map" | "cited" | "missing" | "coverage";
 
 const CURRENT_YEAR = new Date().getFullYear();
@@ -22,6 +22,7 @@ const VENUE_COLORS: Record<string, string> = {
   infocom: "#5a9ab1",
   ubicomp: "#b45f9a",
   tit: "#7771ad",
+  jsac: "#c47f3f",
 };
 
 const DEFAULT_VENUES = new Set(["nsdi", "sigcomm", "mobicom", "mobisys", "sensys", "infocom", "ubicomp"]);
@@ -82,6 +83,11 @@ const copy = {
     loadRelations: "从 OpenAlex 加载完整引用关系",
     refsOpenAlex: "它引用的论文",
     citingOpenAlex: "引用它的论文",
+    navDaily: "每日速读",
+    dailyTitle: "每天三分钟，一篇顶会论文",
+    dailyBody: "每天自动挑选一篇高被引顶会论文（2021 年至今），生成口播稿并渲染成竖屏速读视频。",
+    scriptLabel: "口播稿",
+    videoPending: "视频渲染中，先看口播稿",
     methodology: "方法说明",
     privacy: "隐私",
     sources: "数据源",
@@ -141,6 +147,11 @@ const copy = {
     loadRelations: "Load full citations from OpenAlex",
     refsOpenAlex: "References",
     citingOpenAlex: "Cited by",
+    navDaily: "Daily read",
+    dailyTitle: "One top-conference paper in three minutes, daily",
+    dailyBody: "Every day we pick one highly-cited top-conference paper (2021+), write a narration script, and render a short vertical speed-read video.",
+    scriptLabel: "Narration script",
+    videoPending: "Video is being rendered — read the script",
     methodology: "Methodology",
     privacy: "Privacy",
     sources: "Sources",
@@ -245,6 +256,10 @@ export default function PaperTrailApp() {
   const [venueLimit, setVenueLimit] = useState(60);
   const [relationCache, setRelationCache] = useState<Record<string, { refs: Paper[]; citing: Paper[] }>>({});
   const [relationsLoadingFor, setRelationsLoadingFor] = useState("");
+  const [dailyEpisodes, setDailyEpisodes] = useState<DailyEpisode[] | null>(null);
+  const [dailyLoading, setDailyLoading] = useState(false);
+  const [dailyFocus, setDailyFocus] = useState(0);
+  const [brokenVideos, setBrokenVideos] = useState<Record<string, boolean>>({});
   const fileInput = useRef<HTMLInputElement>(null);
   const t = copy[lang];
 
@@ -267,16 +282,28 @@ export default function PaperTrailApp() {
 
   const selectMode = (nextMode: Mode) => {
     setMode(nextMode);
-    if (nextMode !== "venues" || venueIndex || venueLoading) return;
-    setVenueLoading(true);
-    fetch(dataUrl("/data/venue-library/index.json"))
-      .then((response) => {
-        if (!response.ok) throw new Error("Venue index unavailable");
-        return response.json() as Promise<VenueLibraryIndex>;
-      })
-      .then(setVenueIndex)
-      .catch(() => setError("The venue index could not be loaded."))
-      .finally(() => setVenueLoading(false));
+    if (nextMode === "venues" && !venueIndex && !venueLoading) {
+      setVenueLoading(true);
+      fetch(dataUrl("/data/venue-library/index.json"))
+        .then((response) => {
+          if (!response.ok) throw new Error("Venue index unavailable");
+          return response.json() as Promise<VenueLibraryIndex>;
+        })
+        .then(setVenueIndex)
+        .catch(() => setError("The venue index could not be loaded."))
+        .finally(() => setVenueLoading(false));
+    }
+    if (nextMode === "daily" && !dailyEpisodes && !dailyLoading) {
+      setDailyLoading(true);
+      fetch(dataUrl("/data/daily/episodes.json"))
+        .then((response) => {
+          if (!response.ok) throw new Error("Daily episodes unavailable");
+          return response.json() as Promise<DailyEpisodesIndex>;
+        })
+        .then((payload) => setDailyEpisodes(payload.episodes || []))
+        .catch(() => setDailyEpisodes([]))
+        .finally(() => setDailyLoading(false));
+    }
   };
 
   /* This effect hydrates only the selected venue/year shard, never the 195 MB archive. */
@@ -565,6 +592,7 @@ export default function PaperTrailApp() {
           <button type="button" className={mode === "analyze" ? "active" : ""} onClick={() => selectMode("analyze")}>{t.navAnalyze}</button>
           <button type="button" className={mode === "discover" ? "active" : ""} onClick={() => selectMode("discover")}>{t.navDiscover}</button>
           <button type="button" className={mode === "venues" ? "active" : ""} onClick={() => selectMode("venues")}>{t.navVenues}</button>
+          <button type="button" className={mode === "daily" ? "active" : ""} onClick={() => selectMode("daily")}>{t.navDaily}</button>
         </nav>
         <div className="top-actions">
           {savedPapers.length > 0 && <span className="saved-count">{savedPapers.length} saved</span>}
@@ -643,7 +671,7 @@ export default function PaperTrailApp() {
 
         {mode === "venues" && (
           <section className="venues-page">
-            <div className="section-heading"><span className="eyebrow">VENUE RADAR · 2016—2025</span><h1>{t.venuesTitle}</h1><p>{t.venuesBody}</p></div>
+            <div className="section-heading"><span className="eyebrow">VENUE RADAR · 2016—2025</span><h1>{t.venuesTitle}</h1><p>{venueIndex ? (lang === "zh" ? `${venueIndex.venues.length} 个会议与期刊 · ${format(venueIndex.stats.totalRecords)} 篇论文 · ${format(venueIndex.stats.referenceCoverage.crossrefDoiReferenceEdges)} 条 DOI 引用边，按会场与年份即时加载。` : `${venueIndex.venues.length} conference and journal collections · ${format(venueIndex.stats.totalRecords)} papers · ${format(venueIndex.stats.referenceCoverage.crossrefDoiReferenceEdges)} DOI citation edges, loaded lazily by venue and year.`) : t.venuesBody}</p></div>
             <div className="venue-controls">
               <div className="segmented"><button type="button" className={venueYears === 5 ? "active" : ""} onClick={() => setVenueYears(5)}>5 years</button><button type="button" className={venueYears === 10 ? "active" : ""} onClick={() => setVenueYears(10)}>10 years</button></div>
               <div className="venue-picks">{venueIndex?.venues.map((venue) => <label key={venue.id}><input type="checkbox" checked={venuePicks.has(venue.id)} onChange={() => setVenuePicks((previous) => { const next = new Set(previous); if (next.has(venue.id)) next.delete(venue.id); else next.add(venue.id); return next; })} /><span style={{ color: VENUE_COLORS[venue.id], background: `${VENUE_COLORS[venue.id]}12` }}>{venue.name.replace(/^ACM |^IEEE |^USENIX /, "")}</span></label>)}</div>
@@ -688,6 +716,39 @@ export default function PaperTrailApp() {
                   )}
                 </article>
               </>
+            )}
+          </section>
+        )}
+        {mode === "daily" && (
+          <section className="daily-page">
+            <div className="section-heading"><span className="eyebrow">DAILY SPEED-READ</span><h1>{t.dailyTitle}</h1><p>{t.dailyBody}</p></div>
+            {dailyLoading && <div className="venue-loading"><i /><i /></div>}
+            {!dailyLoading && dailyEpisodes && !dailyEpisodes.length && <div className="empty-state">{t.noResults}</div>}
+            {dailyEpisodes && dailyEpisodes.length > 0 && dailyEpisodes[dailyFocus] && (
+              <div className="daily-layout">
+                <div className="episode-list">
+                  {dailyEpisodes.map((episode, index) => (
+                    <button type="button" key={episode.date} className={index === dailyFocus ? "active" : ""} onClick={() => setDailyFocus(index)}>
+                      <em>{episode.date}</em>
+                      <span><b>{episode.title}</b><small>{episode.venueName} · {episode.year} · {format(episode.citationCount)} cites</small></span>
+                    </button>
+                  ))}
+                </div>
+                <article className="episode-view">
+                  <h2>{dailyEpisodes[dailyFocus].title}</h2>
+                  <p className="episode-meta">{dailyEpisodes[dailyFocus].venueName} {dailyEpisodes[dailyFocus].year} · {dailyEpisodes[dailyFocus].authors.slice(0, 3).join(", ")}{dailyEpisodes[dailyFocus].authors.length > 3 ? " et al." : ""} · {dailyEpisodes[dailyFocus].date}</p>
+                  {!brokenVideos[dailyEpisodes[dailyFocus].date] ? (
+                    <video key={dailyEpisodes[dailyFocus].date} className="episode-video" controls preload="metadata" src={dataUrl(`/${dailyEpisodes[dailyFocus].video}`)} onError={() => setBrokenVideos((previous) => ({ ...previous, [dailyEpisodes[dailyFocus].date]: true }))}>
+                      <track kind="captions" src={dataUrl(`/daily/${dailyEpisodes[dailyFocus].date}.vtt`)} srcLang="zh" label="中文字幕" default />
+                    </video>
+                  ) : (
+                    <div className="episode-pending">{t.videoPending}</div>
+                  )}
+                  <h3>{t.scriptLabel}</h3>
+                  <div className="episode-script">{dailyEpisodes[dailyFocus].script.map((paragraph, index) => <p key={index}>{paragraph}</p>)}</div>
+                  <a className="text-button" href={dailyEpisodes[dailyFocus].url} target="_blank" rel="noreferrer">{t.openDoi}</a>
+                </article>
+              </div>
             )}
           </section>
         )}

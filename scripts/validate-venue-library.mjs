@@ -41,6 +41,7 @@ const EXPECTED_VENUES = [
   "infocom",
   "ubicomp",
   "tit",
+  "jsac",
 ];
 
 const failures = [];

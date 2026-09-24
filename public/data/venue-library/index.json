@@ -4,7 +4,7 @@
     "name": "build-venue-library.mjs + reindex-venue-library.mjs",
     "version": "1.1.0"
   },
-  "generatedAt": "2026-09-18T03:17:30.595Z",
+  "generatedAt": "2026-09-24T05:20:01.968Z",
   "range": {
     "startYear": 2016,
     "endYear": 2025
@@ -321,6 +321,38 @@
         "2025": 516
       },
       "records": 4927
+    },
+    {
+      "id": "jsac",
+      "name": "IEEE Journal on Selected Areas in Communications",
+      "aliases": [
+        "IEEE JSAC",
+        "JSAC",
+        "J. Sel. Areas Commun."
+      ],
+      "kind": "journal",
+      "source": {
+        "strategy": "openalex-journal",
+        "issn": "0733-8716",
+        "openAlexSourceId": "https://openalex.org/S90422530",
+        "openAlexSourceIssnL": "0733-8716",
+        "verifiedName": "IEEE Journal on Selected Areas in Communications",
+        "verifiedHost": "Institute of Electrical and Electronics Engineers",
+        "openAlexMetaCount": 3387
+      },
+      "years": {
+        "2016": 290,
+        "2017": 214,
+        "2018": 226,
+        "2019": 199,
+        "2020": 274,
+        "2021": 213,
+        "2022": 235,
+        "2023": 267,
+        "2024": 208,
+        "2025": 431
+      },
+      "records": 2557
     }
   ],
   "shards": [
@@ -1727,212 +1759,98 @@
       "parts": 1,
       "records": 516,
       "bytes": 352614
+    },
+    {
+      "url": "shards/jsac/2016.json",
+      "venueId": "jsac",
+      "year": 2016,
+      "part": 1,
+      "parts": 1,
+      "records": 290,
+      "bytes": 363341
+    },
+    {
+      "url": "shards/jsac/2017.json",
+      "venueId": "jsac",
+      "year": 2017,
+      "part": 1,
+      "parts": 1,
+      "records": 214,
+      "bytes": 283014
+    },
+    {
+      "url": "shards/jsac/2018.json",
+      "venueId": "jsac",
+      "year": 2018,
+      "part": 1,
+      "parts": 1,
+      "records": 226,
+      "bytes": 291321
+    },
+    {
+      "url": "shards/jsac/2019.json",
+      "venueId": "jsac",
+      "year": 2019,
+      "part": 1,
+      "parts": 1,
+      "records": 199,
+      "bytes": 269218
+    },
+    {
+      "url": "shards/jsac/2020.json",
+      "venueId": "jsac",
+      "year": 2020,
+      "part": 1,
+      "parts": 1,
+      "records": 274,
+      "bytes": 384932
+    },
+    {
+      "url": "shards/jsac/2021.json",
+      "venueId": "jsac",
+      "year": 2021,
+      "part": 1,
+      "parts": 1,
+      "records": 213,
+      "bytes": 327524
+    },
+    {
+      "url": "shards/jsac/2022.json",
+      "venueId": "jsac",
+      "year": 2022,
+      "part": 1,
+      "parts": 1,
+      "records": 235,
+      "bytes": 351890
+    },
+    {
+      "url": "shards/jsac/2023.json",
+      "venueId": "jsac",
+      "year": 2023,
+      "part": 1,
+      "parts": 1,
+      "records": 267,
+      "bytes": 384711
+    },
+    {
+      "url": "shards/jsac/2024.json",
+      "venueId": "jsac",
+      "year": 2024,
+      "part": 1,
+      "parts": 1,
+      "records": 208,
+      "bytes": 301614
+    },
+    {
+      "url": "shards/jsac/2025.json",
+      "venueId": "jsac",
+      "year": 2025,
+      "part": 1,
+      "parts": 1,
+      "records": 431,
+      "bytes": 558596
     }
   ],
-  "stats": {
-    "totalRecords": 83869,
-    "totalShards": 156,
-    "totalBytes": 74951648,
-    "byVenue": {
-      "nature-communications": 69843,
-      "nsdi": 672,
-      "sigcomm": 606,
-      "mobicom": 1296,
-      "mobisys": 836,
-      "sensys": 1040,
-      "infocom": 2709,
-      "ubicomp": 1940,
-      "tit": 4927
-    },
-    "byYear": {
-      "2016": 4783,
-      "2017": 5830,
-      "2018": 6560,
-      "2019": 6778,
-      "2020": 7323,
-      "2021": 8255,
-      "2022": 8990,
-      "2023": 9521,
-      "2024": 12004,
-      "2025": 13825
-    },
-    "dedup": {
-      "doi": 8,
-      "sourceId": 0,
-      "titleYear": 206
-    },
-    "exclusions": {
-      "non-research-type:review": 93,
-      "correction-or-retraction-notice": 60,
-      "non-research-type:book-chapter": 1,
-      "non-research-type:paratext": 365,
-      "non-research-type:erratum": 3254,
-      "non-research-type:letter": 211,
-      "non-research-type:dissertation": 8,
-      "non-research-type:book-review": 3,
-      "non-research-type:retraction": 53,
-      "non-research-type:conference-abstract": 6,
-      "non-research-type:supplementary-materials": 1,
-      "non-research-type:editorial": 7,
-      "non-research-type:dataset": 3,
-      "year-out-of-range": 15517,
-      "non-research-type": 95,
-      "non-main-series:SIGCOMM Posters and Demos": 252,
-      "non-main-series:SIGCOMM (Posters and Demos)": 111,
-      "non-main-series:CryBlock@MOBICOM": 13,
-      "non-main-series:MobiSys (Companion Volume)": 147,
-      "non-main-series:MobiSys PhDForum": 10,
-      "non-main-series:SenSys-ML": 7,
-      "non-main-series:INFOCOM Workshops": 1721,
-      "non-main-series:INFOCOM (Workshops)": 193,
-      "non-main-series:INFOCOM WKSHPS": 243,
-      "welcome-or-editorial": 1,
-      "non-main-series:UbiComp Companion": 515,
-      "non-main-series:UbiComp/ISWC Adjunct": 1381,
-      "non-main-series:UbiComp Adjunct": 321,
-      "proceedings-volume-record": 2
-    },
-    "referenceCoverage": {
-      "recordsWithReferenceIds": 8006,
-      "recordsWithReferenceDois": 0,
-      "crossrefSourcePapersWithReferences": 72746,
-      "crossrefDoiReferenceEdges": 4173415,
-      "crossrefReferenceBytes": 120209307,
-      "byVenueYear": {
-        "nature-communications:2016": {
-          "knownPapersWithDoi": 3531,
-          "sourceItems": 3686,
-          "papersWithReferences": 3528,
-          "pages": 5
-        },
-        "nature-communications:2017": {
-          "knownPapersWithDoi": 4402,
-          "sourceItems": 4539,
-          "papersWithReferences": 4329,
-          "pages": 6
-        },
-        "nature-communications:2018": {
-          "knownPapersWithDoi": 5117,
-          "sourceItems": 5516,
-          "papersWithReferences": 5047,
-          "pages": 7
-        },
-        "nature-communications:2019": {
-          "knownPapersWithDoi": 5436,
-          "sourceItems": 5831,
-          "papersWithReferences": 5429,
-          "pages": 7
-        },
-        "nature-communications:2020": {
-          "knownPapersWithDoi": 6053,
-          "sourceItems": 6449,
-          "papersWithReferences": 6035,
-          "pages": 8
-        },
-        "nature-communications:2021": {
-          "knownPapersWithDoi": 6967,
-          "sourceItems": 7362,
-          "papersWithReferences": 6959,
-          "pages": 9
-        },
-        "nature-communications:2023": {
-          "knownPapersWithDoi": 8103,
-          "sourceItems": 8527,
-          "papersWithReferences": 8093,
-          "pages": 10
-        },
-        "nature-communications:2022": {
-          "knownPapersWithDoi": 7554,
-          "sourceItems": 7977,
-          "papersWithReferences": 7540,
-          "pages": 9
-        },
-        "nature-communications:2024": {
-          "knownPapersWithDoi": 10415,
-          "sourceItems": 10926,
-          "papersWithReferences": 10402,
-          "pages": 12
-        },
-        "tit:2016": {
-          "knownPapersWithDoi": 505,
-          "sourceItems": 528,
-          "papersWithReferences": 372,
-          "pages": 2
-        },
-        "tit:2017": {
-          "knownPapersWithDoi": 574,
-          "sourceItems": 514,
-          "papersWithReferences": 338,
-          "pages": 2
-        },
-        "tit:2018": {
-          "knownPapersWithDoi": 489,
-          "sourceItems": 551,
-          "papersWithReferences": 259,
-          "pages": 2
-        },
-        "tit:2019": {
-          "knownPapersWithDoi": 493,
-          "sourceItems": 566,
-          "papersWithReferences": 283,
-          "pages": 2
-        },
-        "tit:2020": {
-          "knownPapersWithDoi": 416,
-          "sourceItems": 535,
-          "papersWithReferences": 275,
-          "pages": 2
-        },
-        "tit:2021": {
-          "knownPapersWithDoi": 483,
-          "sourceItems": 531,
-          "papersWithReferences": 323,
-          "pages": 2
-        },
-        "nature-communications:2025": {
-          "knownPapersWithDoi": 12239,
-          "sourceItems": 12633,
-          "papersWithReferences": 12224,
-          "pages": 14
-        },
-        "tit:2022": {
-          "knownPapersWithDoi": 494,
-          "sourceItems": 514,
-          "papersWithReferences": 316,
-          "pages": 2
-        },
-        "tit:2023": {
-          "knownPapersWithDoi": 457,
-          "sourceItems": 482,
-          "papersWithReferences": 277,
-          "pages": 2
-        },
-        "tit:2024": {
-          "knownPapersWithDoi": 422,
-          "sourceItems": 547,
-          "papersWithReferences": 312,
-          "pages": 2
-        },
-        "tit:2025": {
-          "knownPapersWithDoi": 516,
-          "sourceItems": 569,
-          "papersWithReferences": 405,
-          "pages": 2
-        }
-      }
-    },
-    "incompleteSources": [],
-    "failedPages": [],
-    "reindexedFromValidatedShards": true
-  },
-  "provenance": {
-    "sources": {
-      "DBLP": "Official DBLP SPARQL venue streams.",
-      "OpenAlex": "Journal metadata and DOI-based conference enrichment.",
-      "Crossref": "Crossref journal works API; DOI references are stored in separate lazy-loadable reference shards."
-    },
-    "recoveryNote": "Index reconstructed from the complete validated shard set after OpenAlex exhausted its daily free API budget during a reference-only refresh. Publication records were not regenerated or dropped."
-  },
   "referenceShards": [
     {
       "url": "references/nature-communications/2016.part-1.json",
@@ -2880,5 +2798,91 @@
       "bytes": 447025,
       "source": "Crossref"
     }
-  ]
+  ],
+  "stats": {
+    "totalRecords": 86426,
+    "totalShards": 166,
+    "totalBytes": 78467809,
+    "byVenue": {
+      "nature-communications": 69843,
+      "nsdi": 672,
+      "sigcomm": 606,
+      "mobicom": 1296,
+      "mobisys": 836,
+      "sensys": 1040,
+      "infocom": 2709,
+      "ubicomp": 1940,
+      "tit": 4927,
+      "jsac": 2557
+    },
+    "byYear": {
+      "2016": 5073,
+      "2017": 6044,
+      "2018": 6786,
+      "2019": 6977,
+      "2020": 7597,
+      "2021": 8468,
+      "2022": 9225,
+      "2023": 9788,
+      "2024": 12212,
+      "2025": 14256
+    },
+    "dedup": {
+      "doi": 8,
+      "sourceId": 0,
+      "titleYear": 442
+    },
+    "exclusions": {
+      "non-research-type:review": 93,
+      "correction-or-retraction-notice": 60,
+      "non-research-type:book-chapter": 1,
+      "non-research-type:paratext": 709,
+      "non-research-type:erratum": 3258,
+      "non-research-type:letter": 211,
+      "non-research-type:dissertation": 8,
+      "non-research-type:book-review": 3,
+      "non-research-type:retraction": 53,
+      "non-research-type:conference-abstract": 6,
+      "non-research-type:supplementary-materials": 1,
+      "non-research-type:editorial": 130,
+      "non-research-type:dataset": 3,
+      "non-english-record:ja": 112,
+      "non-english-record:영어": 1,
+      "annual-volume-index": 10,
+      "year-out-of-range": 15517,
+      "non-research-type": 95,
+      "non-main-series:SIGCOMM Posters and Demos": 252,
+      "non-main-series:SIGCOMM (Posters and Demos)": 111,
+      "non-main-series:CryBlock@MOBICOM": 13,
+      "non-main-series:MobiSys (Companion Volume)": 147,
+      "non-main-series:MobiSys PhDForum": 10,
+      "non-main-series:SenSys-ML": 7,
+      "non-main-series:INFOCOM Workshops": 1721,
+      "non-main-series:INFOCOM (Workshops)": 193,
+      "non-main-series:INFOCOM WKSHPS": 243,
+      "welcome-or-editorial": 1,
+      "non-main-series:UbiComp Companion": 515,
+      "non-main-series:UbiComp/ISWC Adjunct": 1381,
+      "non-main-series:UbiComp Adjunct": 321,
+      "proceedings-volume-record": 2
+    },
+    "referenceCoverage": {
+      "crossrefSourcePapersWithReferences": 72746,
+      "crossrefDoiReferenceEdges": 4173415,
+      "crossrefReferenceBytes": 120209307,
+      "recordsWithReferenceIds": 10473,
+      "recordsWithReferenceDois": 0
+    },
+    "incompleteSources": [],
+    "failedPages": [],
+    "reindexedFromValidatedShards": true
+  },
+  "provenance": {
+    "sources": {
+      "DBLP": "Official DBLP SPARQL venue streams.",
+      "OpenAlex": "Journal metadata and DOI-based conference enrichment.",
+      "Crossref": "Journal DOI reference enrichment when present in record metadataSources."
+    },
+    "recoveryNote": "Index reconstructed from the complete validated shard set after OpenAlex exhausted its daily free API budget during a reference-only refresh. Publication records were not regenerated or dropped."
+  }
 }

@@ -128,3 +128,25 @@ export type VenueLibraryShardPayload = {
   count: number;
   records: VenueLibraryPaper[];
 };
+
+export type DailyEpisode = {
+  date: string;
+  id: string;
+  title: string;
+  authors: string[];
+  venueId: string;
+  venueName: string;
+  year: number;
+  doi: string | null;
+  url: string;
+  citationCount: number;
+  topics: string[];
+  scriptSource: "llm" | "template" | "seed";
+  script: string[];
+  video: string;
+};
+
+export type DailyEpisodesIndex = {
+  generatedAt: string;
+  episodes: DailyEpisode[];
+};

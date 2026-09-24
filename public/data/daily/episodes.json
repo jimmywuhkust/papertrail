@@ -1,0 +1,41 @@
+{
+  "generatedAt": "2026-09-24T05:21:59.045Z",
+  "episodes": [
+    {
+      "date": "2026-09-24",
+      "id": "dblp:conf/mobicom/DongWLKHZWZ25",
+      "title": "PassiveBLE: Towards Fully Commodity-Compatible BLE Backscatter",
+      "authors": [
+        "Huixin Dong",
+        "Yijie Wu",
+        "Feiyu Li",
+        "Wei Kuang",
+        "Yuan He",
+        "Qian Zhang",
+        "Wei Wang"
+      ],
+      "venueId": "mobicom",
+      "venueName": "ACM MobiCom",
+      "year": 2025,
+      "doi": "10.1145/3680207.3723465",
+      "url": "https://doi.org/10.1145/3680207.3723465",
+      "citationCount": 8,
+      "topics": [
+        "Energy Harvesting in Wireless Networks",
+        "Innovative Energy Harvesting Technologies",
+        "Bluetooth and Wireless Communication Technologies"
+      ],
+      "scriptSource": "seed",
+      "script": [
+        "各位观众,大家好,欢迎收看今天的论文速读。每天三分钟,带你读懂一篇顶级会议论文。今天的主角,来自移动计算领域的顶会 MobiCom 2025,标题是《PassiveBLE: Towards Fully Commodity-Compatible BLE Backscatter》,中文可以理解为:让低功耗蓝牙反向散射,真正做到和商用设备完全兼容。",
+        "先说说它要解决的问题。现在的物联网传感器越来越多,如果每个都要装电池,维护成本简直是灾难。反向散射技术让设备不用主动发射信号,只要反射别人的无线电波就能通信,几乎不耗电。但尴尬的是,以前的蓝牙反向散射系统和普通蓝牙设备说不到一块儿去——你的手机、耳机,根本认不出这些标签。",
+        "PassiveBLE 的核心思路,就是让反向散射标签反射出来的信号,和真正的蓝牙数据包长得一模一样。像到什么程度呢?商用蓝牙设备完全察觉不到,对面其实是一个没有电池的反射器,可以和它建立货真价实的蓝牙连接。",
+        "它是怎么做到的?作者团队用了三个关键技术。第一,一个同步电路,能以符号级的精度唤醒标签,让反射波形严格对齐蓝牙时序;第二,一套分布式编码方案,把最繁重的编码计算从标签外包给了激发源,标签做得又便宜又省电,吞吐量反而更高;第三,一个连接调度器,让多个标签也能像正常蓝牙设备一样,完成连接的建立、维持和断开。",
+        "效果怎么样?论文给出的数字相当漂亮:建立商用蓝牙连接的成功率超过百分之 99.9;在 LE 2M 物理层模式下,有效吞吐率达到 974 kbps,1M 模式下也有 532 kbps,比此前同类商用级蓝牙反向散射系统,高了大约 63 倍。",
+        "为什么这项工作重要?因为它第一次让无电池设备,真正接入了我们身边无处不在的蓝牙生态。未来的仓储标签、可穿戴传感器、环境监测节点,可能都不用换电池,就能直接和你的手机对话。",
+        "今天的速读就到这里。这篇论文的作者是 Huixin Dong、Yijie Wu 等,感兴趣的话,视频下方有 DOI 链接,欢迎去读原文。我们明天见。"
+      ],
+      "video": "daily/2026-09-24.mp4"
+    }
+  ]
+}

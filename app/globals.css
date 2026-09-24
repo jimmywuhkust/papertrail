@@ -296,6 +296,29 @@ h1, h2 { font-family: var(--display); letter-spacing: -0.035em; }
 .relation-list b { color: var(--ink); font-size: 12px; font-weight: 600; line-height: 1.4; }
 .relation-list small { color: var(--muted); font-size: 9px; }
 
+.daily-layout { display: grid; grid-template-columns: minmax(300px, 420px) 1fr; gap: 18px; margin-top: 26px; align-items: start; }
+.episode-list { display: grid; gap: 4px; max-height: 70vh; overflow-y: auto; }
+.episode-list button { display: grid; grid-template-columns: 86px 1fr; gap: 12px; align-items: center; padding: 12px 14px; border: 1px solid transparent; border-radius: 10px; background: transparent; cursor: pointer; text-align: left; }
+.episode-list button:hover { background: var(--card-2); }
+.episode-list button.active { border-color: var(--rule); background: var(--card); }
+.episode-list em { color: var(--muted); font-family: var(--mono); font-size: 9px; font-style: normal; }
+.episode-list span { display: grid; gap: 4px; }
+.episode-list span b { font-family: var(--display); font-size: 13px; font-weight: 600; line-height: 1.35; }
+.episode-list span small { color: var(--muted); font-size: 9px; }
+.episode-view { padding: 28px; border: 1px solid var(--rule); border-radius: 14px; background: var(--card); }
+.episode-view h2 { font-family: var(--display); font-size: 26px; line-height: 1.25; }
+.episode-meta { margin-top: 10px; color: var(--muted); font-size: 11px; }
+.episode-video { display: block; width: min(360px, 100%); margin: 20px auto 0; border-radius: 14px; background: #101418; aspect-ratio: 9 / 16; }
+.episode-pending { display: grid; width: min(360px, 100%); margin: 20px auto 0; place-items: center; border: 1px dashed var(--rule); border-radius: 14px; color: var(--muted); aspect-ratio: 9 / 16; font-size: 12px; }
+.episode-view h3 { margin-top: 24px; font-family: var(--display); font-size: 18px; }
+.episode-script { margin-top: 12px; display: grid; gap: 12px; color: var(--ink-2); font-size: 14px; line-height: 1.9; }
+.episode-view .text-button { display: inline-block; margin-top: 20px; }
+
+@media (max-width: 1050px) {
+  .daily-layout { grid-template-columns: 1fr; }
+  .episode-list { max-height: 240px; }
+}
+
 .paper-drawer { position: fixed; z-index: 100; top: 14px; right: 14px; bottom: 14px; width: min(450px, calc(100% - 28px)); padding: 36px; overflow-y: auto; border: 1px solid var(--rule); border-radius: 18px; background: rgba(255,253,250,.97); box-shadow: 0 32px 90px -35px rgba(20,30,40,.58); backdrop-filter: blur(20px); animation: drawerIn .24s ease-out; }
 @keyframes drawerIn { from { opacity: 0; transform: translateX(28px); } }
 .drawer-close { position: absolute; top: 14px; right: 14px; display: grid; width: 34px; height: 34px; place-items: center; border: 1px solid var(--rule-soft); border-radius: 50%; background: var(--card); cursor: pointer; font-size: 22px; }

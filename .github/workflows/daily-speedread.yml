@@ -1,0 +1,77 @@
+name: Daily paper speed-read
+
+on:
+  schedule:
+    # 08:37 Beijing time (00:37 UTC), after the Pages deploy window.
+    - cron: "37 0 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-speedread
+  cancel-in-progress: false
+
+jobs:
+  episode:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # Picks one top-conference paper (2021+, highest citations, no repeats),
+      # fetches its OpenAlex abstract, and writes a ~3 minute narration script.
+      # With LLM_API_KEY set (any OpenAI-compatible endpoint) the script is
+      # written by the model in a single small chat call (~2-3k tokens/day);
+      # otherwise a zero-cost metadata template is used.
+      - name: Generate today's episode script
+        run: node scripts/build-daily-speedread.mjs
+        env:
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          LLM_BASE_URL: ${{ vars.LLM_BASE_URL }}
+          LLM_MODEL: ${{ vars.LLM_MODEL }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install TTS and rendering tools
+        run: pip install edge-tts pillow
+
+      - uses: actions/cache@v4
+        with:
+          path: .cache/fonts
+          key: noto-sans-sc-v1
+
+      - name: Install CJK font
+        run: |
+          mkdir -p .cache/fonts
+          if [ ! -f .cache/fonts/NotoSansCJKsc-Regular.otf ]; then
+            curl -sSL -o .cache/fonts/NotoSansCJKsc-Regular.otf \
+              https://github.com/notofonts/noto-cjk/raw/main/Sans/OTF/SimplifiedChinese/NotoSansCJKsc-Regular.otf
+          fi
+          mkdir -p ~/.local/share/fonts
+          cp .cache/fonts/*.otf ~/.local/share/fonts/
+          fc-cache -f
+
+      - name: Write TTS assets for all episodes
+        run: node scripts/build-daily-speedread.mjs --write-txt
+
+      - name: Render missing episode videos
+        run: bash scripts/render-daily-video.sh
+
+      - name: Commit new episodes
+        run: |
+          git config user.name "papertrail-bot"
+          git config user.email "papertrail-bot@users.noreply.github.com"
+          git add public/data/daily public/daily
+          if git diff --cached --quiet; then
+            echo "No new episode content."
+            exit 0
+          fi
+          git commit -m "Daily speed-read episode $(date +%F)"
+          git push

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -20,24 +20,28 @@ const VENUES = [
   { id: "infocom", name: "IEEE INFOCOM", aliases: ["INFOCOM"], kind: "conference", stream: "infocom" },
   { id: "ubicomp", name: "ACM UbiComp / IMWUT", aliases: ["UbiComp", "UBICOM", "IMWUT", "PACM IMWUT", "Proc. ACM Interact. Mob. Wearable Ubiquitous Technol."], kind: "conference", stream: "ubicomp" },
   { id: "tit", name: "IEEE Transactions on Information Theory", aliases: ["IEEE TIT", "TIT", "Trans. Inf. Theory"], kind: "journal", source: { strategy: "openalex-journal", issn: "0018-9448", openAlexSourceId: "https://openalex.org/S4502562", openAlexSourceIssnL: "0018-9448", verifiedName: "IEEE Transactions on Information Theory", verifiedHost: "Institute of Electrical and Electronics Engineers", openAlexMetaCount: 5502 } },
+  { id: "jsac", name: "IEEE Journal on Selected Areas in Communications", aliases: ["IEEE JSAC", "JSAC", "J. Sel. Areas Commun."], kind: "journal", source: { strategy: "openalex-journal", issn: "0733-8716", openAlexSourceId: "https://openalex.org/S90422530", openAlexSourceIssnL: "0733-8716", verifiedName: "IEEE Journal on Selected Areas in Communications", verifiedHost: "Institute of Electrical and Electronics Engineers", openAlexMetaCount: 3387 } },
 ];
 
 const RECOVERED_GENERATION_STATS = {
-  dedup: { doi: 8, sourceId: 0, titleYear: 206 },
+  dedup: { doi: 8, sourceId: 0, titleYear: 442 },
   exclusions: {
     "non-research-type:review": 93,
     "correction-or-retraction-notice": 60,
     "non-research-type:book-chapter": 1,
-    "non-research-type:paratext": 365,
-    "non-research-type:erratum": 3254,
+    "non-research-type:paratext": 709,
+    "non-research-type:erratum": 3258,
     "non-research-type:letter": 211,
     "non-research-type:dissertation": 8,
     "non-research-type:book-review": 3,
     "non-research-type:retraction": 53,
     "non-research-type:conference-abstract": 6,
     "non-research-type:supplementary-materials": 1,
-    "non-research-type:editorial": 7,
+    "non-research-type:editorial": 130,
     "non-research-type:dataset": 3,
+    "non-english-record:ja": 112,
+    "non-english-record:영어": 1,
+    "annual-volume-index": 10,
     "year-out-of-range": 15517,
     "non-research-type": 95,
     "non-main-series:SIGCOMM Posters and Demos": 252,
@@ -134,6 +138,37 @@ for (const venue of VENUES) {
   });
 }
 
+const referenceShards = [];
+const crossrefCoverage = { papers: 0, edges: 0, bytes: 0 };
+for (const venue of VENUES) {
+  const directory = path.join(OUT, "references", venue.id);
+  if (!existsSync(directory)) continue;
+  const names = readdirSync(directory).filter((name) => name.endsWith(".json")).sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+  for (const name of names) {
+    const fullPath = path.join(directory, name);
+    const payload = JSON.parse(readFileSync(fullPath, "utf8"));
+    if (payload.venueId !== venue.id || payload.relationType !== "cites-doi" || payload.count !== payload.records.length) {
+      throw new Error(`invalid reference shard ${venue.id}/${name}`);
+    }
+    const edges = payload.records.reduce((sum, relation) => sum + relation.referenceDois.length, 0);
+    const bytes = statSync(fullPath).size;
+    crossrefCoverage.papers += payload.count;
+    crossrefCoverage.edges += edges;
+    crossrefCoverage.bytes += bytes;
+    referenceShards.push({
+      url: `references/${venue.id}/${name}`,
+      venueId: venue.id,
+      year: payload.year,
+      part: payload.part,
+      parts: payload.parts,
+      records: payload.count,
+      edges,
+      bytes,
+      source: "Crossref",
+    });
+  }
+}
+
 const index = {
   schemaVersion: 1,
   generator: { name: "build-venue-library.mjs + reindex-venue-library.mjs", version: "1.1.0" },
@@ -141,6 +176,7 @@ const index = {
   range: { startYear: START_YEAR, endYear: END_YEAR },
   venues: venueEntries,
   shards,
+  referenceShards,
   stats: {
     totalRecords: ids.size,
     totalShards: shards.length,
@@ -148,7 +184,13 @@ const index = {
     byVenue,
     byYear,
     ...RECOVERED_GENERATION_STATS,
-    referenceCoverage: { recordsWithReferenceIds, recordsWithReferenceDois },
+    referenceCoverage: {
+      crossrefSourcePapersWithReferences: crossrefCoverage.papers,
+      crossrefDoiReferenceEdges: crossrefCoverage.edges,
+      crossrefReferenceBytes: crossrefCoverage.bytes,
+      recordsWithReferenceIds,
+      recordsWithReferenceDois,
+    },
     incompleteSources: [],
     failedPages: [],
     reindexedFromValidatedShards: true,

@@ -131,6 +131,16 @@ const VENUES = [
     expectedSourceName: "IEEE Transactions on Information Theory",
     expectedHost: "Institute of Electrical and Electronics Engineers",
   },
+  {
+    id: "jsac",
+    name: "IEEE Journal on Selected Areas in Communications",
+    aliases: ["IEEE JSAC", "JSAC", "J. Sel. Areas Commun."],
+    kind: "journal",
+    strategy: "openalex-journal",
+    issn: "0733-8716",
+    expectedSourceName: "IEEE Journal on Selected Areas in Communications",
+    expectedHost: "Institute of Electrical and Electronics Engineers",
+  },
 ];
 
 // ---------------------------------------------------------------------------
@@ -138,6 +148,7 @@ const VENUES = [
 // ---------------------------------------------------------------------------
 const EXCLUSION_RULES = [
   ["front-matter-or-index", /^(front\s*matter|back\s*matter|table of contents|contents|preface|foreword|prologue|author index|subject index|program committee|organizing committee|front cover|back cover|inside front cover|title page|call for papers|list of (authors|reviewers)|reviewers?)\b/i],
+  ["annual-volume-index", /^\d{4}\s*index\s*ieee/i],
   ["welcome-or-editorial", /^(welcome|message from|chairs['’] message|editorial)\b/i],
   ["correction-or-retraction-notice", /^(correction|corrigendum|erratum|errata|retraction|retracted|publisher correction|author correction|publisher'?s note|expression of concern)\b/i],
   ["proceedings-volume-record", /^proceedings of\b/i],
