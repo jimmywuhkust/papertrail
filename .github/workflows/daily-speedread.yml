@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: daily-speedread
@@ -85,6 +86,7 @@ jobs:
       # dispatch the Pages deploy explicitly after committing an episode.
       - name: Redeploy GitHub Pages
         if: steps.commit.outputs.committed == 'true'
+        continue-on-error: true
         run: gh workflow run pages.yml --ref main
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
