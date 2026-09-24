@@ -7,6 +7,9 @@ FONT=.cache/fonts/NotoSansCJKsc-Regular.otf
 mkdir -p public/daily
 
 for txt in public/data/daily/*.txt; do
+  case "$txt" in
+    *.meta.txt) continue ;;
+  esac
   date=$(basename "$txt" .txt)
   mp4="public/daily/${date}.mp4"
   if [ -f "$mp4" ]; then
