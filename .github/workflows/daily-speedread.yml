@@ -40,7 +40,9 @@ jobs:
           python-version: "3.12"
 
       - name: Install TTS and rendering tools
-        run: pip install edge-tts pillow
+        run: |
+          pip install edge-tts pillow
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg fonts-noto-cjk
 
       - uses: actions/cache@v4
         with:
