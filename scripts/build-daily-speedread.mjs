@@ -122,11 +122,12 @@ function extractPdfPages(pdfPath) {
 const LLM_PROMPT = (paper, abstract, pages, date) => `你是一档"每天三分钟论文速读"短视频的主播。视频会一边播放论文 PDF 的页面,一边播放你的中文口播。请根据论文信息和逐页文本,写一份分段口播稿。
 
 要求:
-- 输出严格的 JSON,格式: {"segments": [{"text": "口播段落", "page": 页码整数}, ...]},不要输出任何其他内容
+- 输出严格的 JSON,格式: {"segments": [{"text": "口播段落", "page": 页码整数, "figure": "Figure 5"}, ...]},不要输出任何其他内容
 - 6~9 个 segment,全部 text 加起来 650~800 字(约 3 分钟语速)
 - 第一个 segment 直接报名字,一句话带过,不要寒暄和节目介绍,例如:"各位观众,今天给大家带来的是 ${paper.venueName} ${paper.year} 的论文《${paper.title}》,再补一句它做了什么。"
 - 之后按论文结构讲:要解决什么问题 → 核心思路 → 2~3 个关键技术(用比喻讲清楚)→ 实验怎么做的、最关键的数字 → 为什么重要 → 一句收尾(引导读原文,说明天见)
-- 每个 segment 的 page 必须是你这段正在讲的内容所在的 PDF 页码(1 起);讲到某张图或某个表格时,page 必须是那张图所在的页——观众会看到那一页
+- 每个 segment 的 page 必须是你这段正在讲的内容所在的 PDF 页码(1 起)
+- 如果这段在讲某张具体的图或表(讨论方法、读实验结果时应该这样),把 "figure" 设成它在论文里的原始标签(例如 "Figure 5" 或 "Table 1",必须和页面文本中的写法一致),观众会看到那张图被放大高亮;没有具体图表时省略该字段
 - 语气口语化,像跟朋友聊天;不要列表、标题、markdown;论文标题保持英文
 - 实验数字优先讲图表里的结果
 
@@ -168,6 +169,9 @@ async function generateWithLlm(paper, abstract, pages, date) {
     .map((segment) => ({
       text: String(segment.text || "").trim(),
       page: Number.isInteger(segment.page) && pages.length ? Math.max(1, Math.min(pages.length, segment.page)) : null,
+      ...(typeof segment.figure === "string" && /^(figure|fig\.?|table)\s*\d+/i.test(segment.figure.trim())
+        ? { figure: segment.figure.trim() }
+        : {}),
     }))
     .filter((segment) => segment.text.length > 0);
   if (segments.length < 3) throw new Error("LLM returned too few segments");
