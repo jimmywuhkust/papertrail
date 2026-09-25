@@ -2,8 +2,9 @@ name: Daily paper speed-read
 
 on:
   schedule:
-    # 08:37 Beijing time (00:37 UTC), after the Pages deploy window.
-    - cron: "37 0 * * *"
+    # 02:23 Beijing time (18:23 UTC). GitHub scheduled runs can lag by
+    # several hours, so fire early to have the episode ready by ~08:00.
+    - cron: "23 18 * * *"
   workflow_dispatch:
 
 permissions:
