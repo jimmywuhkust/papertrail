@@ -33,7 +33,9 @@ const MAX_PDF_BYTES = 60 * 1024 * 1024;
 const FLAG_WRITE_TXT = process.argv.includes("--write-txt");
 
 function today() {
-  return new Date().toISOString().slice(0, 10);
+  // Episodes are dated in Beijing time (UTC+8) — the audience reads them in
+  // the Beijing morning, and the render cron fires at 02:23 Beijing.
+  return new Date(Date.now() + 8 * 3600 * 1000).toISOString().slice(0, 10);
 }
 
 async function loadJson(path, fallback) {
@@ -54,13 +56,44 @@ async function loadCandidates() {
   return papers.filter((paper) => paper.type === "Main paper" || paper.citationCount > 0);
 }
 
-function pickPaper(candidates, episodes) {
+function pickPaper(candidates, episodes, withPdf) {
   const used = new Set(episodes.map((episode) => episode.id));
   const previousVenue = episodes[0]?.venueId;
   const fresh = candidates
     .filter((paper) => !used.has(paper.id))
     .sort((a, b) => (b.citationCount || 0) - (a.citationCount || 0));
-  return fresh.find((paper) => paper.venueId !== previousVenue) || fresh[0] || null;
+  // Strongly prefer papers whose PDF we can actually walk through.
+  const pool = withPdf && withPdf.size ? fresh.filter((paper) => paper.doi && withPdf.has(paper.doi)) : [];
+  const ranked = pool.length ? pool : fresh;
+  return ranked.find((paper) => paper.venueId !== previousVenue) || ranked[0] || null;
+}
+
+// Batch-check OpenAlex for downloadable OA PDFs among the top candidates.
+async function findPapersWithPdf(candidates, limit = 40) {
+  const top = candidates.filter((paper) => paper.doi).slice(0, limit);
+  const withPdf = new Set();
+  for (let index = 0; index < top.length; index += 25) {
+    const batch = top.slice(index, index + 25);
+    try {
+      const params = new URLSearchParams({
+        filter: `doi:${batch.map((paper) => paper.doi).join("|")}`,
+        select: "doi,best_oa_location",
+        "per-page": "25",
+      });
+      const response = await fetch(`https://api.openalex.org/works?${params}`, {
+        headers: { "User-Agent": USER_AGENT },
+        signal: AbortSignal.timeout(20_000),
+      });
+      if (!response.ok) continue;
+      const payload = await response.json();
+      for (const work of payload.results || []) {
+        if (work.best_oa_location?.pdf_url) withPdf.add((work.doi || "").replace(/^https?:\/\/doi\.org\//i, "").toLowerCase());
+      }
+    } catch {
+      // Keep whatever batches succeeded.
+    }
+  }
+  return withPdf;
 }
 
 async function fetchWork(paper) {
@@ -230,7 +263,9 @@ async function main() {
   }
 
   const candidates = await loadCandidates();
-  const paper = pickPaper(candidates, episodes);
+  const withPdf = await findPapersWithPdf(candidates);
+  console.log(`Candidates with OA PDF: ${withPdf.size} of top 40`);
+  const paper = pickPaper(candidates, episodes, withPdf);
   if (!paper) throw new Error("No unused candidate paper found");
 
   const { abstract, pdfUrl } = await fetchWork(paper);

@@ -1,73 +1,154 @@
 {
-  "generatedAt": "2026-09-25T05:18:42.262Z",
+  "generatedAt": "2026-09-25T16:18:37.250Z",
   "episodes": [
     {
-      "date": "2026-09-25",
-      "id": "dblp:conf/sigcomm/NarayananZZHJZZ21",
-      "title": "A variegated look at 5G in the wild: performance, power, and QoE implications",
+      "date": "2026-09-26",
+      "id": "dblp:conf/mobicom/ZhaoAPY23",
+      "title": "NeRF2: Neural Radio-Frequency Radiance Fields",
       "authors": [
-        "Arvind Narayanan",
-        "Xumiao Zhang",
-        "Ruiyang Zhu",
-        "Ahmad Hassan",
-        "Shuowei Jin",
-        "Xiao Zhu",
-        "Xiaoxuan Zhang",
-        "Denis Rybkin",
-        "Zhengxuan Yang",
-        "Zhuoqing Morley Mao",
-        "Feng Qian",
-        "Zhi-Li Zhang"
+        "Xiaopeng Zhao",
+        "Zhenlin An",
+        "Qingrui Pan",
+        "Lei Yang"
       ],
-      "venueId": "sigcomm",
-      "venueName": "ACM SIGCOMM",
-      "year": 2021,
-      "doi": "10.1145/3452296.3472923",
-      "url": "https://doi.org/10.1145/3452296.3472923",
-      "citationCount": 253,
+      "venueId": "mobicom",
+      "venueName": "ACM MobiCom",
+      "year": 2023,
+      "doi": "10.1145/3570361.3592527",
+      "url": "https://doi.org/10.1145/3570361.3592527",
+      "citationCount": 116,
       "topics": [
-        "Green IT and Sustainability",
-        "Advanced MIMO Systems Optimization",
-        "Image and Video Quality Assessment"
+        "Indoor and Outdoor Localization Technologies",
+        "Millimeter-Wave Propagation and Modeling",
+        "Advanced Optical Sensing Technologies"
       ],
-      "pdfUrl": null,
-      "pageCount": 0,
-      "scriptSource": "template",
-      "script": [
-        "各位观众,今天给大家带来的是 ACM SIGCOMM 2021 的论文《A variegated look at 5G in the wild: performance, power, and QoE implications》。",
-        "这篇论文由 Arvind Narayanan、Xumiao Zhang 等作者完成,目前已经被引用 253 次,研究方向涉及Green IT and Sustainability、Advanced MIMO Systems Optimization、Image and Video Quality Assessment。",
-        "用论文自己的话来说:Motivated by the rapid deployment of 5G, we carry out an in-depth measurement study of the performance, power consumption, and application quality-of-experience (QoE) of commercial 5G networks in the wild.",
-        "如果你想快速抓住重点,可以记住这几个关键词:Green IT and Sustainability、Advanced MIMO Systems Optimization、Image and Video Quality Assessment。",
-        "好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。",
-        "感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。"
-      ],
+      "pdfUrl": "https://arxiv.org/pdf/2305.06118",
+      "pageCount": 15,
+      "scriptSource": "llm",
       "segments": [
         {
-          "text": "各位观众,今天给大家带来的是 ACM SIGCOMM 2021 的论文《A variegated look at 5G in the wild: performance, power, and QoE implications》。",
-          "page": null
+          "text": "各位观众,今天给大家带来的是 MobiCom 2023 的论文《NeRF2》,把计算机视觉里大火的神经辐射场,搬到了射频信号上。一句话:学出一个射频辐射场之后,只要知道发射机在哪,就能预测空间任意一点会收到什么信号。",
+          "page": 1,
+          "figure": "Fig. 1"
         },
         {
-          "text": "这篇论文由 Arvind Narayanan、Xumiao Zhang 等作者完成,目前已经被引用 253 次,研究方向涉及Green IT and Sustainability、Advanced MIMO Systems Optimization、Image and Video Quality Assessment。",
-          "page": null
+          "text": "问题有多老?麦克斯韦 160 年前就写下了电磁波的物理定律,自由空间里我们有 Friis 公式。但一到真实环境,信号和障碍物之间的反射、衍射、散射搅在一起,精确建模至今是个老大难。",
+          "page": 2
         },
         {
-          "text": "用论文自己的话来说:Motivated by the rapid deployment of 5G, we carry out an in-depth measurement study of the performance, power consumption, and application quality-of-experience (QoE) of commercial 5G networks in the wild.",
-          "page": null
+          "text": "NeRF2 的思路,是把整个空间学成一个连续的体素场景函数:少量实测信号喂进去,神经网络就学会了这个环境里射频信号的传播规律。大家看它的网络结构——它同时吃位置坐标和发射机信息,输出该点的信号强度和相位。",
+          "page": 4,
+          "figure": "Fig. 3"
         },
         {
-          "text": "如果你想快速抓住重点,可以记住这几个关键词:Green IT and Sustainability、Advanced MIMO Systems Optimization、Image and Video Quality Assessment。",
-          "page": null
+          "text": "更妙的是它不止能预测,还能造数据。物理层的 NeRF2 把学到的统计模型加上光线追踪的物理模型,批量生成合成数据集,再用一个叫 turbo-learning 的配方,把真实数据和合成数据混在一起训练应用层的网络——性能提升大约百分之五十。",
+          "page": 6,
+          "figure": "Fig. 6"
         },
         {
-          "text": "好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。",
-          "page": null
+          "text": "看实验:这是到达角估计误差的累积分布和合成频谱的 SSIM 对比,NeRF2 明显压过所有基线方法。",
+          "page": 7,
+          "figure": "Fig. 7"
         },
         {
-          "text": "感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。",
-          "page": null
+          "text": "它还真刀真枪做了落地演示:在一间养老院里部署 BLE 网关,用 NeRF2 增强室内定位;还展示了 5G MIMO 场景下的信道预测。无线定位、信道建模、数据集合成,一个模型全包了。",
+          "page": 10,
+          "figure": "Fig. 12"
+        },
+        {
+          "text": "为什么重要?它给了无线系统一个可微分、可学习的数字孪生——以后训练定位、感知模型,可能不用再人肉采海量数据了。感兴趣的话打开下方 DOI 读原文,我们明天见。",
+          "page": 12,
+          "figure": "Fig. 16"
         }
       ],
-      "video": "daily/2026-09-25.mp4"
+      "video": "daily/2026-09-26.mp4",
+      "script": [
+        "各位观众,今天给大家带来的是 MobiCom 2023 的论文《NeRF2》,把计算机视觉里大火的神经辐射场,搬到了射频信号上。一句话:学出一个射频辐射场之后,只要知道发射机在哪,就能预测空间任意一点会收到什么信号。",
+        "问题有多老?麦克斯韦 160 年前就写下了电磁波的物理定律,自由空间里我们有 Friis 公式。但一到真实环境,信号和障碍物之间的反射、衍射、散射搅在一起,精确建模至今是个老大难。",
+        "NeRF2 的思路,是把整个空间学成一个连续的体素场景函数:少量实测信号喂进去,神经网络就学会了这个环境里射频信号的传播规律。大家看它的网络结构——它同时吃位置坐标和发射机信息,输出该点的信号强度和相位。",
+        "更妙的是它不止能预测,还能造数据。物理层的 NeRF2 把学到的统计模型加上光线追踪的物理模型,批量生成合成数据集,再用一个叫 turbo-learning 的配方,把真实数据和合成数据混在一起训练应用层的网络——性能提升大约百分之五十。",
+        "看实验:这是到达角估计误差的累积分布和合成频谱的 SSIM 对比,NeRF2 明显压过所有基线方法。",
+        "它还真刀真枪做了落地演示:在一间养老院里部署 BLE 网关,用 NeRF2 增强室内定位;还展示了 5G MIMO 场景下的信道预测。无线定位、信道建模、数据集合成,一个模型全包了。",
+        "为什么重要?它给了无线系统一个可微分、可学习的数字孪生——以后训练定位、感知模型,可能不用再人肉采海量数据了。感兴趣的话打开下方 DOI 读原文,我们明天见。"
+      ]
+    },
+    {
+      "date": "2026-09-25",
+      "id": "dblp:conf/sensys/ZhengCZCL21",
+      "title": "MoRe-Fi: Motion-robust and Fine-grained Respiration Monitoring via Deep-Learning UWB Radar",
+      "authors": [
+        "Tianyue Zheng",
+        "Zhe Chen",
+        "Shujie Zhang",
+        "Chao Cai",
+        "Jun Luo"
+      ],
+      "venueId": "sensys",
+      "venueName": "ACM SenSys",
+      "year": 2021,
+      "doi": "10.1145/3485730.3485932",
+      "url": "https://doi.org/10.1145/3485730.3485932",
+      "citationCount": 142,
+      "topics": [
+        "Non-Invasive Vital Sign Monitoring",
+        "Indoor and Outdoor Localization Technologies",
+        "Wireless Body Area Networks"
+      ],
+      "pdfUrl": "https://arxiv.org/pdf/2111.08195",
+      "pageCount": 14,
+      "scriptSource": "llm",
+      "segments": [
+        {
+          "text": "各位观众,今天给大家带来的是 SenSys 2021 的论文《MoRe-Fi》。一句话概括:用 UWB 雷达,在你随便乱动的时候,也能非接触地把你的呼吸波形测准。",
+          "page": 1
+        },
+        {
+          "text": "呼吸监测对医疗很重要,但现有方案要么要戴传感器,要么要求你一动不动。大家看这张图:人一动,之前的射频方法测出来的波形就全乱了——这是这个行业最大的痛点。",
+          "page": 1,
+          "figure": "Figure 1"
+        },
+        {
+          "text": "MoRe-Fi 的硬件很简单,就是一台 IR-UWB 雷达,对着人发射脉冲,接收反射回来的 I/Q 两路复数信号。关键创新在算法:它充分利用复数信号做数据增强,而不是像传统方法那样只用幅度或相位。",
+          "page": 2,
+          "figure": "Figure 2"
+        },
+        {
+          "text": "系统核心是一个变分编码器-解码器网络。呼吸信号是被身体运动以非线性方式调制进去的,传统滤波根本分不开;这个网络的任务,就是把呼吸波形从运动干扰里单独蒸馏出来。",
+          "page": 4,
+          "figure": "Figure 8"
+        },
+        {
+          "text": "具体结构上,I 路和 Q 路信号分别走两条编码流,再联合解码重建呼吸波形。这种双流设计让网络能学到 I/Q 之间微妙的相位关系,这正是运动干扰藏身处。",
+          "page": 6,
+          "figure": "Figure 11"
+        },
+        {
+          "text": "效果直接看图:这是被试一边运动一边测试时恢复出的呼吸波形,红色是恢复的,和胸带 ground truth 几乎重合。实验覆盖 12 名受试者、66 小时数据。",
+          "page": 7,
+          "figure": "Figure 13"
+        },
+        {
+          "text": "数字上,呼吸率估计误差大部分在 0.1 次每分钟以内,波形峰值和谷值的时间误差大部分低于 0.1 秒——已经够到肺病初筛的可用门槛,论文最后还演示了用流量-容积环区分肺部疾病模式。",
+          "page": 10,
+          "figure": "Figure 17"
+        },
+        {
+          "text": "为什么重要?它第一次让非接触呼吸监测走出实验室的静止假设,走向真实生活场景。感兴趣的话打开下方 DOI 读原文。我们明天见。",
+          "page": 12,
+          "figure": "Figure 27"
+        }
+      ],
+      "video": "daily/2026-09-25.mp4",
+      "script": [
+        "各位观众,今天给大家带来的是 SenSys 2021 的论文《MoRe-Fi》。一句话概括:用 UWB 雷达,在你随便乱动的时候,也能非接触地把你的呼吸波形测准。",
+        "呼吸监测对医疗很重要,但现有方案要么要戴传感器,要么要求你一动不动。大家看这张图:人一动,之前的射频方法测出来的波形就全乱了——这是这个行业最大的痛点。",
+        "MoRe-Fi 的硬件很简单,就是一台 IR-UWB 雷达,对着人发射脉冲,接收反射回来的 I/Q 两路复数信号。关键创新在算法:它充分利用复数信号做数据增强,而不是像传统方法那样只用幅度或相位。",
+        "系统核心是一个变分编码器-解码器网络。呼吸信号是被身体运动以非线性方式调制进去的,传统滤波根本分不开;这个网络的任务,就是把呼吸波形从运动干扰里单独蒸馏出来。",
+        "具体结构上,I 路和 Q 路信号分别走两条编码流,再联合解码重建呼吸波形。这种双流设计让网络能学到 I/Q 之间微妙的相位关系,这正是运动干扰藏身处。",
+        "效果直接看图:这是被试一边运动一边测试时恢复出的呼吸波形,红色是恢复的,和胸带 ground truth 几乎重合。实验覆盖 12 名受试者、66 小时数据。",
+        "数字上,呼吸率估计误差大部分在 0.1 次每分钟以内,波形峰值和谷值的时间误差大部分低于 0.1 秒——已经够到肺病初筛的可用门槛,论文最后还演示了用流量-容积环区分肺部疾病模式。",
+        "为什么重要?它第一次让非接触呼吸监测走出实验室的静止假设,走向真实生活场景。感兴趣的话打开下方 DOI 读原文。我们明天见。"
+      ]
     },
     {
       "date": "2026-09-24",
