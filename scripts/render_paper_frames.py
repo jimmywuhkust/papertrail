@@ -24,8 +24,12 @@ BG = (16, 20, 28)
 
 
 def load_bbox_pages(xhtml_path):
-    tree = ET.parse(xhtml_path)
-    root = tree.getroot()
+    # pdftotext -bbox output is not guaranteed well-formed XML (bare "&",
+    # control characters), so sanitize before parsing.
+    raw = open(xhtml_path, encoding="utf-8", errors="replace").read()
+    raw = re.sub(r"[\x00-\x08\x0b\x0c\x0e-\x1f]", "", raw)
+    raw = re.sub(r"&(?!amp;|lt;|gt;|quot;|apos;|#)", "&amp;", raw)
+    root = ET.fromstring(raw)
     ns = ""
     if root.tag.startswith("{"):
         ns = root.tag.split("}")[0] + "}"
