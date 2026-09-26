@@ -56,8 +56,8 @@ async function loadCandidates() {
   return papers.filter((paper) => paper.type === "Main paper" || paper.citationCount > 0);
 }
 
-function pickPaper(candidates, episodes, withPdf) {
-  const used = new Set(episodes.map((episode) => episode.id));
+function pickPaper(candidates, episodes, withPdf, rejected = new Set()) {
+  const used = new Set([...episodes.map((episode) => episode.id), ...rejected]);
   const previousVenue = episodes[0]?.venueId;
   const fresh = candidates
     .filter((paper) => !used.has(paper.id))
@@ -265,24 +265,42 @@ async function main() {
   const candidates = await loadCandidates();
   const withPdf = await findPapersWithPdf(candidates);
   console.log(`Candidates with OA PDF: ${withPdf.size} of top 40`);
-  const paper = pickPaper(candidates, episodes, withPdf);
-  if (!paper) throw new Error("No unused candidate paper found");
 
-  const { abstract, pdfUrl } = await fetchWork(paper);
+  // Pick a paper whose PDF we can actually download and parse; OpenAlex
+  // sometimes lists PDF URLs that 403 for scripted clients (e.g. ACM DL).
+  let paper = null;
+  let abstract = "";
+  let pdfUrl = null;
   let pages = [];
-  if (pdfUrl && hasPdftotext()) {
-    const pdfPath = path.join(tmpdir(), `papertrail-${date}.pdf`);
-    if (await downloadPdf(pdfUrl, pdfPath)) {
-      try {
-        pages = extractPdfPages(pdfPath);
-        console.log(`PDF: ${pages.length} pages extracted from ${pdfUrl}`);
-      } catch (error) {
-        console.warn(`pdftotext failed: ${error.message}`);
+  const rejected = new Set();
+  for (let attempt = 0; attempt < 4; attempt += 1) {
+    paper = pickPaper(candidates, episodes, withPdf, rejected);
+    if (!paper) break;
+    const work = await fetchWork(paper);
+    abstract = work.abstract;
+    pdfUrl = work.pdfUrl;
+    pages = [];
+    if (pdfUrl) {
+      const pdfPath = path.join(tmpdir(), `papertrail-${date}.pdf`);
+      if (await downloadPdf(pdfUrl, pdfPath)) {
+        if (hasPdftotext()) {
+          try {
+            pages = extractPdfPages(pdfPath);
+            console.log(`PDF: ${pages.length} pages extracted from ${pdfUrl}`);
+          } catch (error) {
+            console.warn(`pdftotext failed for ${paper.title}: ${error.message}`);
+          }
+        }
+        break;
       }
+      console.warn(`PDF download failed for ${paper.title} (${pdfUrl}), trying next candidate`);
     } else {
-      console.warn(`PDF download skipped/failed: ${pdfUrl}`);
+      break; // No PDF claimed — accept as-is.
     }
+    rejected.add(paper.id);
+    paper = null;
   }
+  if (!paper) throw new Error("No usable candidate paper found (all top picks lack a downloadable PDF)");
 
   let segments = null;
   let scriptSource = "template";
