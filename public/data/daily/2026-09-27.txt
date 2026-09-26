@@ -1,0 +1,11 @@
+各位观众,今天给大家带来的是 ACM SIGCOMM 2021 的论文《A variegated look at 5G in the wild: performance, power, and QoE implications》。
+
+这篇论文由 Arvind Narayanan、Xumiao Zhang 等作者完成,目前已经被引用 253 次,研究方向涉及Green IT and Sustainability、Advanced MIMO Systems Optimization、Image and Video Quality Assessment。
+
+用论文自己的话来说:Motivated by the rapid deployment of 5G, we carry out an in-depth measurement study of the performance, power consumption, and application quality-of-experience (QoE) of commercial 5G networks in the wild.
+
+如果你想快速抓住重点,可以记住这几个关键词:Green IT and Sustainability、Advanced MIMO Systems Optimization、Image and Video Quality Assessment。
+
+好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。
+
+感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。
