@@ -1,30 +1,39 @@
 {
-  "pdfUrl": null,
-  "pageCount": 0,
+  "pdfUrl": "https://arxiv.org/pdf/2402.02338",
+  "pageCount": 18,
   "segments": [
     {
-      "text": "各位观众,今天给大家带来的是 ACM SIGCOMM 2021 的论文《A variegated look at 5G in the wild: performance, power, and QoE implications》。",
-      "page": null
+      "text": "各位观众,今天给大家带来的是 SIGCOMM 2024 的论文《NetLLM》。一句话概括:把大语言模型改造成网络领域的通用底座,一个模型通吃预测、优化各种网络任务。",
+      "page": 1
     },
     {
-      "text": "这篇论文由 Arvind Narayanan、Xumiao Zhang 等作者完成,目前已经被引用 253 次,研究方向涉及Green IT and Sustainability、Advanced MIMO Systems Optimization、Image and Video Quality Assessment。",
-      "page": null
+      "text": "现在做网络算法,几乎每个任务都要手工设计一个专用神经网络:预测带宽的、调视频码率的、调度任务的,各搞一套,工程量大不说,换个环境就掉点。作者问了一个问题:能不能像 NLP 那样,用一个预训练大模型当底座,全部任务共享?",
+      "page": 4
     },
     {
-      "text": "用论文自己的话来说:Motivated by the rapid deployment of 5G, we carry out an in-depth measurement study of the performance, power consumption, and application quality-of-experience (QoE) of commercial 5G networks in the wild.",
-      "page": null
+      "text": "直接套是不行的。大家看这页:网络任务的输入不是文字,是时间序列、矩阵这些多模态数据;输出也不是对话,而是具体的预测值或调度决策。而且全参数微调一个大模型,成本高得离谱。",
+      "page": 5,
+      "figure": "Figure 2"
     },
     {
-      "text": "如果你想快速抓住重点,可以记住这几个关键词:Green IT and Sustainability、Advanced MIMO Systems Optimization、Image and Video Quality Assessment。",
-      "page": null
+      "text": "NetLLM 的方案有三个核心组件:多模态编码器,把各种网络数据统一编码成大模型能理解的表示;网络任务头,替代原来的语言模型输出头,直接产出任务答案;还有一个数据驱动的低秩适配器——冻结大模型本体,只训练极少量的适配参数来学习领域知识。",
+      "page": 7,
+      "figure": "Figure 5"
     },
     {
-      "text": "好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。",
-      "page": null
+      "text": "成本降了多少?看这组数字:微调只占百分之 0.31 的可训练参数,GPU 显存省了百分之 60.9,训练时间少了百分之 15.1——大模型适配的成本直接被打到地板价。",
+      "page": 8,
+      "figure": "Figure 8"
     },
     {
-      "text": "感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。",
-      "page": null
+      "text": "效果上,作者在三个经典任务上做了验证:带宽预测、自适应码率、集群任务调度。NetLLM 一致性地超过所有基线:带宽预测误差降低百分之 10 到 36,视频体验分数提升百分之 14 到 36,任务完成时间降低百分之 6.8 到 41。而且在没见过的环境分布上,优势还在扩大。",
+      "page": 9,
+      "figure": "Figure 10"
+    },
+    {
+      "text": "为什么重要?它给网络领域指了一条新路:别再每个任务从零造轮子了,站在预训练大模型的肩膀上,一个底座加上轻量适配就能通吃。这可能真的是网络 AI 的未来形态。感兴趣的话打开下方 DOI 读原文,我们明天见。",
+      "page": 11,
+      "figure": "Figure 13"
     }
   ]
 }
