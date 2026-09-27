@@ -30,10 +30,12 @@ for txt in public/data/daily/*.txt; do
   use_pdf=0
 
   # 1. Optional: download the paper PDF, rasterize pages, extract word boxes.
-  if [ -n "$pdf_url" ] && [ "$page_count" -gt 0 ]; then
+  if [ -n "$pdf_url" ]; then
     mkdir -p "$work/pages"
     if curl -sSL --max-time 120 -o "$work/paper.pdf" "$pdf_url"; then
       pdftoppm -r 110 -png "$work/paper.pdf" "$work/pages/page"
+      # The episode JSON's pageCount is advisory; count the rendered pages.
+      page_count=$(ls "$work/pages" | wc -l)
       pdftotext -bbox "$work/paper.pdf" "$work/bbox.xhtml"
       python scripts/render_paper_frames.py "$segments_json" "$work/pages" "$work/bbox.xhtml" "$FONT" "$work"
       use_pdf=1

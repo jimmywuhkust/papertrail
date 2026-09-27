@@ -52,7 +52,7 @@ def load_bbox_pages(xhtml_path):
 
 def find_caption(words, label):
     """Locate '<Figure|Table> <N>' in reading order; return its bbox."""
-    match = re.match(r"(?i)\s*(figure|fig\.?|table)\s*(\d+)", label or "")
+    match = re.match(r"(?i)\s*(figure|fig\.?|table)\s*(\d+|[ivxlc]+)\b", label or "")
     if not match:
         return None
     kind, number = match.group(1).lower(), match.group(2)
@@ -66,7 +66,7 @@ def find_caption(words, label):
         for follow in ordered[index + 1 : index + 3]:
             if follow["y0"] > word["y1"] + 6:
                 break
-            if re.match(rf"^{number}\b", follow["text"]):
+            if re.match(rf"^{re.escape(number)}\b", follow["text"], re.IGNORECASE):
                 return {
                     "x0": min(word["x0"], follow["x0"]),
                     "y0": min(word["y0"], follow["y0"]),

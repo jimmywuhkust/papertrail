@@ -68,10 +68,33 @@ function pickPaper(candidates, episodes, withPdf, rejected = new Set()) {
   return ranked.find((paper) => paper.venueId !== previousVenue) || ranked[0] || null;
 }
 
-// Batch-check OpenAlex for downloadable OA PDFs among the top candidates.
+// Probe a PDF URL: follow redirects, read just the first chunk, and check
+// for the %PDF magic. Landing pages and bot-blocked hosts fail this.
+async function probePdf(url) {
+  try {
+    const response = await fetch(url, {
+      headers: { "User-Agent": USER_AGENT },
+      signal: AbortSignal.timeout(20_000),
+      redirect: "follow",
+    });
+    if (!response.ok || !response.body) return false;
+    const reader = response.body.getReader();
+    const { value } = await reader.read();
+    await response.body.cancel().catch(() => {});
+    return Boolean(value) && Buffer.from(value).subarray(0, 5).toString("latin1") === "%PDF-";
+  } catch {
+    return false;
+  }
+}
+
+// Batch-check OpenAlex for OA PDFs among the top candidates, then probe each
+// URL for a real PDF payload. Returns Map<doi, pdfUrl> of verified PDFs.
 async function findPapersWithPdf(candidates, limit = 40) {
-  const top = candidates.filter((paper) => paper.doi).slice(0, limit);
-  const withPdf = new Set();
+  const top = candidates
+    .filter((paper) => paper.doi)
+    .sort((a, b) => (b.citationCount || 0) - (a.citationCount || 0))
+    .slice(0, limit);
+  const unverified = new Map();
   for (let index = 0; index < top.length; index += 25) {
     const batch = top.slice(index, index + 25);
     try {
@@ -84,16 +107,38 @@ async function findPapersWithPdf(candidates, limit = 40) {
         headers: { "User-Agent": USER_AGENT },
         signal: AbortSignal.timeout(20_000),
       });
-      if (!response.ok) continue;
+      if (!response.ok) {
+        console.warn(`OpenAlex batch ${index} returned ${response.status}`);
+        continue;
+      }
       const payload = await response.json();
+      console.log(`OpenAlex batch ${index}: ${(payload.results || []).length} works`);
       for (const work of payload.results || []) {
-        if (work.best_oa_location?.pdf_url) withPdf.add((work.doi || "").replace(/^https?:\/\/doi\.org\//i, "").toLowerCase());
+        const pdfUrl = work.best_oa_location?.pdf_url || "";
+        // ACM DL and similar hosts serve 403/HTML to scripted clients, so a
+        // listed PDF URL there is not usable for the walkthrough pipeline.
+        if (pdfUrl && !/dl\.acm\.org|dl\.ieee\.org|ieeexplore\.ieee\.org/.test(pdfUrl)) {
+          const doi = (work.doi || "").replace(/^https?:\/\/doi\.org\//i, "").toLowerCase();
+          console.log(`OA pdf candidate: ${doi} -> ${pdfUrl.slice(0, 60)}`);
+          unverified.set(doi, pdfUrl);
+        }
       }
     } catch {
       // Keep whatever batches succeeded.
     }
   }
-  return withPdf;
+  const verified = new Map();
+  const entries = [...unverified.entries()];
+  console.log(`PDF probe: ${entries.length} URLs to verify`);
+  for (let index = 0; index < entries.length; index += 8) {
+    const batch = entries.slice(index, index + 8);
+    const results = await Promise.all(batch.map(([, url]) => probePdf(url)));
+    for (let j = 0; j < batch.length; j += 1) {
+      if (results[j]) verified.set(batch[j][0], batch[j][1]);
+      else console.warn(`PDF probe failed: ${batch[j][0]} (${batch[j][1]})`);
+    }
+  }
+  return verified;
 }
 
 async function fetchWork(paper) {
@@ -202,7 +247,7 @@ async function generateWithLlm(paper, abstract, pages, date) {
     .map((segment) => ({
       text: String(segment.text || "").trim(),
       page: Number.isInteger(segment.page) && pages.length ? Math.max(1, Math.min(pages.length, segment.page)) : null,
-      ...(typeof segment.figure === "string" && /^(figure|fig\.?|table)\s*\d+/i.test(segment.figure.trim())
+      ...(typeof segment.figure === "string" && /^(figure|fig\.?|table)\s*(\d+|[ivxlc]+)\b/i.test(segment.figure.trim())
         ? { figure: segment.figure.trim() }
         : {}),
     }))
@@ -263,8 +308,10 @@ async function main() {
   }
 
   const candidates = await loadCandidates();
-  const withPdf = await findPapersWithPdf(candidates);
-  console.log(`Candidates with OA PDF: ${withPdf.size} of top 40`);
+  const usedIds = new Set(episodes.map((episode) => episode.id));
+  const unused = candidates.filter((paper) => !usedIds.has(paper.id));
+  const withPdf = await findPapersWithPdf(unused);
+  console.log(`Candidates with OA PDF: ${withPdf.size} of top 40 unused`);
 
   // Pick a paper whose PDF we can actually download and parse; OpenAlex
   // sometimes lists PDF URLs that 403 for scripted clients (e.g. ACM DL).
@@ -273,12 +320,12 @@ async function main() {
   let pdfUrl = null;
   let pages = [];
   const rejected = new Set();
-  for (let attempt = 0; attempt < 4; attempt += 1) {
+  for (let attempt = 0; attempt < 12; attempt += 1) {
     paper = pickPaper(candidates, episodes, withPdf, rejected);
     if (!paper) break;
     const work = await fetchWork(paper);
     abstract = work.abstract;
-    pdfUrl = work.pdfUrl;
+    pdfUrl = withPdf.get(paper.doi) || work.pdfUrl;
     pages = [];
     if (pdfUrl) {
       const pdfPath = path.join(tmpdir(), `papertrail-${date}.pdf`);
