@@ -76,15 +76,23 @@ def find_caption(words, label):
     return None
 
 
+def spans_gutter(words, y0, y1, gutter):
+    """True if any text line in the y-window crosses the mid-page gutter —
+    a sign of single-column layout (e.g. IMWUT journal style)."""
+    lines = {}
+    for word in words:
+        if word["y1"] < y0 or word["y0"] > y1:
+            continue
+        key = round(word["y0"] / 3)
+        line = lines.setdefault(key, [word["x0"], word["x1"]])
+        line[0] = min(line[0], word["x0"])
+        line[1] = max(line[1], word["x1"])
+    return any(x0 < gutter - 30 and x1 > gutter + 30 for x0, x1 in lines.values())
+
+
 def region_for(page, caption, is_table):
     page_w, page_h = page["width"], page["height"]
     gutter = page_w / 2
-    # Single-line captions are column-centered in ACM style, so the caption's
-    # own position says nothing about figure width — always crop the column.
-    if caption["x0"] < gutter - 20:
-        col_x0, col_x1 = 46.0, gutter - 18
-    else:
-        col_x0, col_x1 = gutter + 12, page_w - 46.0
     if is_table:
         y0, y1 = caption["y0"] - 8, caption["y1"] + 0.34 * page_h
     else:
@@ -93,6 +101,13 @@ def region_for(page, caption, is_table):
     y1 = min(page_h - 46.0, y1)
     if y1 - y0 > 0.8 * page_h or y1 - y0 < 60:
         return None
+    if spans_gutter(page["words"], y0, y1, gutter):
+        # Single-column (or full-width figure): use the whole text width.
+        col_x0, col_x1 = 46.0, page_w - 46.0
+    elif caption["x0"] < gutter - 20:
+        col_x0, col_x1 = 46.0, gutter - 18
+    else:
+        col_x0, col_x1 = gutter + 12, page_w - 46.0
     return (col_x0, y0, col_x1, y1)
 
 
