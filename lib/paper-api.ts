@@ -194,6 +194,11 @@ export function jsonResponse(payload: unknown, status = 200, cacheSeconds = 300)
 }
 
 export async function fetchJson<T>(url: string, init?: RequestInit): Promise<T> {
+  // OpenAlex steers clients without a mailto into a throttled pool; add it
+  // as a query parameter (a custom header would trigger a CORS preflight).
+  if (url.includes("api.openalex.org") && !url.includes("mailto=")) {
+    url += `${url.includes("?") ? "&" : "?"}mailto=papertrail@users.noreply.github.com`;
+  }
   // Browsers may not override User-Agent (Safari puts it into the CORS
   // preflight, which OpenAlex/Crossref reject); only set it server-side.
   const isBrowser = typeof window !== "undefined" && typeof window.document !== "undefined";
