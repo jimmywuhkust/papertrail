@@ -1,3 +1,4 @@
+import { dataUrl } from "./client-gateway";
 import type { Paper } from "./types";
 
 export type ExtractedDraft = {
@@ -35,7 +36,7 @@ export async function extractPdf(
   if (file.size > 45 * 1024 * 1024) throw new Error("PDF_LIMIT");
   onProgress?.(5, "Opening PDF locally");
   const pdfjs = await import("pdfjs-dist");
-  pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.mjs";
+  pdfjs.GlobalWorkerOptions.workerSrc = dataUrl("/pdf.worker.min.mjs");
   const data = new Uint8Array(await file.arrayBuffer());
   const pdf = await pdfjs.getDocument({ data }).promise;
   const pageLimit = Math.min(pdf.numPages, 100);
