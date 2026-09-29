@@ -229,6 +229,7 @@ export default function PaperTrailApp() {
   const [progress, setProgress] = useState({ value: 0, message: "" });
   const [analyzing, setAnalyzing] = useState(false);
   const [error, setError] = useState("");
+  const [errorDebug, setErrorDebug] = useState("");
   const [graph, setGraph] = useState<GraphData | null>(null);
   const [citedPapers, setCitedPapers] = useState<Paper[]>([]);
   const [suggestedPapers, setSuggestedPapers] = useState<Paper[]>([]);
@@ -356,6 +357,8 @@ export default function PaperTrailApp() {
       setProgress({ value: 52, message: lang === "zh" ? `识别到 ${extracted.dois.length + extracted.rfcs.length} 个文献标识` : `${extracted.dois.length + extracted.rfcs.length} reference identifiers found` });
     } catch (cause) {
       setProgress({ value: 0, message: "" });
+      console.error("[PaperTrail] PDF parse failure:", cause);
+      setErrorDebug(cause instanceof Error ? `${cause.message}\n${cause.stack || ""}` : String(cause));
       setError(cause instanceof Error && cause.message === "PDF_LIMIT" ? "PDF must be smaller than 45 MB." : `This PDF could not be parsed. You can paste its abstract instead. (${cause instanceof Error ? cause.message : "unknown error"})`);
     }
   };
@@ -630,7 +633,7 @@ export default function PaperTrailApp() {
                   <button className="text-button" type="button" onClick={loadDemo} disabled={analyzing}>{t.demo}</button>
                 </div>
                 {(progress.value > 0 || analyzing) && <div className="progress" role="status"><div><span>{progress.message}</span><b>{progress.value}%</b></div><i style={{ width: `${progress.value}%` }} /></div>}
-                {error && <div className="error-banner" role="alert">{error}</div>}
+                {error && <div className="error-banner" role="alert">{error}{errorDebug && <details className="error-debug"><summary>debug info（点开展示，可发我）</summary><pre>{errorDebug}</pre></details>}</div>}
                 <div className="privacy-note"><b>{t.private}</b><span>{t.privateBody}</span></div>
               </div>
             </section>

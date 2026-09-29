@@ -295,6 +295,9 @@ h1, h2 { font-family: var(--display); letter-spacing: -0.035em; }
 .relation-list b { color: var(--ink); font-size: 12px; font-weight: 600; line-height: 1.4; }
 .relation-list small { color: var(--muted); font-size: 9px; }
 
+.error-debug { margin-top: 8px; font-size: 10px; }
+.error-debug pre { max-height: 200px; overflow: auto; padding: 8px; border-radius: 6px; background: var(--paper); white-space: pre-wrap; word-break: break-all; font-size: 9px; }
+
 .daily-layout { display: grid; grid-template-columns: minmax(300px, 420px) 1fr; gap: 18px; margin-top: 26px; align-items: start; }
 .episode-list { display: grid; gap: 4px; max-height: 70vh; overflow-y: auto; }
 .episode-list button { display: grid; grid-template-columns: 86px 1fr; gap: 12px; align-items: center; padding: 12px 14px; border: 1px solid transparent; border-radius: 10px; background: transparent; cursor: pointer; text-align: left; }
