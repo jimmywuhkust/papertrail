@@ -54,6 +54,8 @@ export async function clientAnalyze(input: {
   source: SourceFilter;
 }): Promise<{ resolved: Paper[]; unresolved: string[]; suggestions: Paper[]; keywords: string[] }> {
   if (STATIC_EXPORT) {
+    // Degrade gracefully: if the recommendation call is rate-limited, still
+    // show resolved citations and the graph with an empty suggestion list.
     const [resolved, recommendation] = await Promise.all([
       resolveDois(input.dois),
       recommendPapers({
@@ -63,13 +65,13 @@ export async function clientAnalyze(input: {
         fromYear: input.fromYear,
         source: input.source,
         limit: 20,
-      }),
+      }).catch(() => null),
     ]);
     return {
       resolved: resolved.papers,
       unresolved: resolved.unresolved,
-      suggestions: recommendation.papers,
-      keywords: recommendation.keywords,
+      suggestions: recommendation?.papers || [],
+      keywords: recommendation?.keywords || [],
     };
   }
   const [resolvedResponse, recommendationResponse] = await Promise.all([

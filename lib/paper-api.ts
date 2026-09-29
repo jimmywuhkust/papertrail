@@ -209,11 +209,12 @@ export async function fetchJson<T>(url: string, init?: RequestInit): Promise<T> 
   // Browsers may not override User-Agent (Safari puts it into the CORS
   // preflight, which OpenAlex/Crossref reject); only set it server-side.
   const isBrowser = typeof window !== "undefined" && typeof window.document !== "undefined";
+  const endpoint = url.replace(/^https?:\/\//, "").split("?")[0].slice(0, 80);
   let lastError: Error | null = null;
-  for (let attempt = 0; attempt < 3; attempt += 1) {
+  for (let attempt = 0; attempt < 4; attempt += 1) {
     if (attempt > 0) {
       // Retryable upstream errors (rate limit / transient 5xx): back off.
-      await new Promise((resolve) => setTimeout(resolve, 800 * 2 ** attempt + Math.random() * 400));
+      await new Promise((resolve) => setTimeout(resolve, 1000 * 2 ** (attempt - 1) * 1.5 + Math.random() * 500));
     }
     try {
       const response = await fetch(url, {
@@ -227,9 +228,9 @@ export async function fetchJson<T>(url: string, init?: RequestInit): Promise<T> 
       });
       if (response.ok) return (await response.json()) as T;
       if (![429, 500, 502, 503, 504].includes(response.status)) throw new Error(`Upstream returned ${response.status}`);
-      lastError = new Error(`Upstream returned ${response.status}`);
+      lastError = new Error(`Upstream ${response.status} from ${endpoint}`);
     } catch (error) {
-      if (error instanceof Error && !/^Upstream returned/.test(error.message)) throw error;
+      if (error instanceof Error && !/^Upstream/.test(error.message)) throw error;
       lastError = error as Error;
     }
   }
