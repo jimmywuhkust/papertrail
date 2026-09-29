@@ -1,5 +1,8 @@
-// Polyfill for Safari < 26: Math.sumPrecise (ES2025) used by pdf.js font code.
+// Polyfills for Safari stable (missing ES2023-2025 APIs used by pdf.js).
 if (typeof Math.sumPrecise !== 'function') { Math.sumPrecise = function (values) { let total = 0; for (const value of values) total += value; return total; }; }
+if (typeof Promise.withResolvers !== 'function') { Promise.withResolvers = function () { let resolve, reject; const promise = new Promise((res, rej) => { resolve = res; reject = rej; }); return { promise, resolve, reject }; }; }
+if (typeof Object.hasOwn !== 'function') { Object.hasOwn = function (obj, key) { return Object.prototype.hasOwnProperty.call(obj, key); }; }
+if (!Array.prototype.at) { const at = function (index) { const i = Math.trunc(index) || 0; const j = i < 0 ? this.length + i : i; return this[j]; }; Array.prototype.at = at; Object.getPrototypeOf(Uint8Array).prototype.at = at; }
 
 /**
  * @licstart The following is the entire license notice for the
