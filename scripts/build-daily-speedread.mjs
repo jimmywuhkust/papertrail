@@ -371,7 +371,7 @@ async function main() {
     url: paper.url,
     citationCount: paper.citationCount ?? 0,
     topics: paper.topics || [],
-    pdfUrl: pages.length ? pdfUrl : null,
+    pdfUrl: pdfUrl || null,
     pageCount: pages.length,
     scriptSource,
     script: segments.map((segment) => segment.text),

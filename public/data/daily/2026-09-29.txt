@@ -1,11 +1,13 @@
-各位观众,今天给大家带来的是 ACM UbiComp / IMWUT 2022 的论文《Revisiting Reflection in HCI: Four Design Resources for Technologies that Support Reflection》。
+各位观众,今天给大家带来的是 UbiComp 2022 的论文《Revisiting Reflection in HCI》。一句话概括:它系统梳理了人机交互领域里所有支持"反思"的技术设计,总结出一套设计师拿来就能用的工具箱。
 
-这篇论文由 Marit Bentvelzen、Pawel W. Wozniak 等作者完成,目前已经被引用 127 次,研究方向涉及Innovative Human-Technology Interaction、Technology Use by Older Adults、Personal Information Management and User Behavior。
+什么是反思?就是技术帮助用户停下来,回头看看自己的行为和想法,比如健康 App 让你回顾这周的运动数据。这类设计在 HCI 里一直很火,但尴尬的是:想设计"促反思"系统的工程师,手里并没有一份靠谱的设计指南。
 
-用论文自己的话来说:Reflection is a commonly addressed design goal in commercial systems and in Human-Computer Interaction (HCI) research.
+作者的解法是做了一次大规模系统性综述。大家看这张流程图:他们先筛出几十篇研究原型论文,再加上对应用商店里反思类 App 的评论分析,两条证据线交叉验证。
 
-如果你想快速抓住重点,可以记住这几个关键词:Innovative Human-Technology Interaction、Technology Use by Older Adults、Personal Information Management and User Behavior。
+这个语料库的时间跨度图很有意思:反思类研究从 2010 年后明显升温,说明这确实是个正在成长的方向。但论文们对"反思"的定义五花八门——这张表统计了语料里出现过的所有定义和关联概念,差异大到惊人。
 
-好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。
+核心贡献来了:作者提炼出四个设计资源——时间视角,让你回看过去或展望未来;对话,通过问答和叙事引导思考;比较,把你和他人、和自己的过去对照;发现,主动呈现你没注意到的新信息。这张分类图就是整篇论文最值得截图收藏的一页。
 
-感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。
+最后这张桑基图把历史设计模式和四个资源连了起来:哪种交互手法实现哪个资源,一目了然。设计师以后做反思类功能,照着这张图查就行。
+
+为什么推荐一篇 HCI 论文?因为我们做移动计算、做感知系统,最终都是要影响人的行为。怎么让用户真正看进去我们采集的数据,这篇论文给的是方法论级别的答案。感兴趣的话打开下方 DOI 读原文,我们明天见。
