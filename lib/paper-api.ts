@@ -194,11 +194,14 @@ export function jsonResponse(payload: unknown, status = 200, cacheSeconds = 300)
 }
 
 export async function fetchJson<T>(url: string, init?: RequestInit): Promise<T> {
+  // Browsers may not override User-Agent (Safari puts it into the CORS
+  // preflight, which OpenAlex/Crossref reject); only set it server-side.
+  const isBrowser = typeof window !== "undefined" && typeof window.document !== "undefined";
   const response = await fetch(url, {
     ...init,
     headers: {
       Accept: "application/json",
-      "User-Agent": "PaperTrail/2.0 (public research discovery service)",
+      ...(isBrowser ? {} : { "User-Agent": "PaperTrail/2.0 (public research discovery service)" }),
       ...(init?.headers || {}),
     },
     signal: AbortSignal.timeout(18_000),
