@@ -197,16 +197,30 @@ export async function fetchJson<T>(url: string, init?: RequestInit): Promise<T> 
   // Browsers may not override User-Agent (Safari puts it into the CORS
   // preflight, which OpenAlex/Crossref reject); only set it server-side.
   const isBrowser = typeof window !== "undefined" && typeof window.document !== "undefined";
-  const response = await fetch(url, {
-    ...init,
-    headers: {
-      Accept: "application/json",
-      ...(isBrowser ? {} : { "User-Agent": "PaperTrail/2.0 (public research discovery service)" }),
-      ...(init?.headers || {}),
-    },
-    signal: AbortSignal.timeout(18_000),
-  });
-  if (!response.ok) throw new Error(`Upstream returned ${response.status}`);
-  return (await response.json()) as T;
+  let lastError: Error | null = null;
+  for (let attempt = 0; attempt < 3; attempt += 1) {
+    if (attempt > 0) {
+      // Retryable upstream errors (rate limit / transient 5xx): back off.
+      await new Promise((resolve) => setTimeout(resolve, 800 * 2 ** attempt + Math.random() * 400));
+    }
+    try {
+      const response = await fetch(url, {
+        ...init,
+        headers: {
+          Accept: "application/json",
+          ...(isBrowser ? {} : { "User-Agent": "PaperTrail/2.0 (public research discovery service)" }),
+          ...(init?.headers || {}),
+        },
+        signal: AbortSignal.timeout(18_000),
+      });
+      if (response.ok) return (await response.json()) as T;
+      if (![429, 500, 502, 503, 504].includes(response.status)) throw new Error(`Upstream returned ${response.status}`);
+      lastError = new Error(`Upstream returned ${response.status}`);
+    } catch (error) {
+      if (error instanceof Error && !/^Upstream returned/.test(error.message)) throw error;
+      lastError = error as Error;
+    }
+  }
+  throw lastError || new Error("Upstream request failed");
 }
 
