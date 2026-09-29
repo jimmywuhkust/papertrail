@@ -1,3 +1,6 @@
+// Polyfill for Safari < 26: Math.sumPrecise (ES2025) used by pdf.js font code.
+if (typeof Math.sumPrecise !== 'function') { Math.sumPrecise = function (values) { let total = 0; for (const value of values) total += value; return total; }; }
+
 /**
  * @licstart The following is the entire license notice for the
  * JavaScript code in this page
