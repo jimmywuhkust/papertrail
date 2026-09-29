@@ -1,6 +1,28 @@
 import { dataUrl } from "./client-gateway";
 import type { Paper } from "./types";
 
+// pdf.js v6 getTextContent() uses `for await` over a WHATWG ReadableStream.
+// ReadableStream async iteration needs Safari 16.4+; polyfill it for older
+// Safari so PDF parsing works there.
+type AsyncIterableStream = ReadableStream & {
+  [Symbol.asyncIterator]?: () => AsyncGenerator<unknown, void, unknown>;
+};
+const streamPrototype = typeof ReadableStream !== "undefined" ? (ReadableStream.prototype as AsyncIterableStream) : null;
+if (streamPrototype && !streamPrototype[Symbol.asyncIterator]) {
+  streamPrototype[Symbol.asyncIterator] = async function* (this: ReadableStream) {
+    const reader = this.getReader();
+    try {
+      for (;;) {
+        const { done, value } = await reader.read();
+        if (done) return;
+        yield value;
+      }
+    } finally {
+      reader.releaseLock();
+    }
+  };
+}
+
 export type ExtractedDraft = {
   text: string;
   title: string;
