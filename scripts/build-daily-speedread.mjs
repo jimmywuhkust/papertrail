@@ -257,7 +257,6 @@ async function generateWithLlm(paper, abstract, pages, date) {
 }
 
 function generateWithTemplate(paper, abstract, date, pageCount) {
-  const [, month, day] = date.split("-");
   const authors = paper.authors.slice(0, 2).join("、");
   const firstSentence = abstract.split(/(?<=\.)\s/)[0] || "";
   const topics = (paper.topics || []).slice(0, 3).join("、");

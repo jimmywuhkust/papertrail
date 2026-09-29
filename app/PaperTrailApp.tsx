@@ -356,7 +356,7 @@ export default function PaperTrailApp() {
       setProgress({ value: 52, message: lang === "zh" ? `识别到 ${extracted.dois.length + extracted.rfcs.length} 个文献标识` : `${extracted.dois.length + extracted.rfcs.length} reference identifiers found` });
     } catch (cause) {
       setProgress({ value: 0, message: "" });
-      setError(cause instanceof Error && cause.message === "PDF_LIMIT" ? "PDF must be smaller than 45 MB." : "This PDF could not be parsed. You can paste its abstract instead.");
+      setError(cause instanceof Error && cause.message === "PDF_LIMIT" ? "PDF must be smaller than 45 MB." : `This PDF could not be parsed. You can paste its abstract instead. (${cause instanceof Error ? cause.message : "unknown error"})`);
     }
   };
 
