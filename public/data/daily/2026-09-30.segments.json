@@ -1,30 +1,39 @@
 {
-  "pdfUrl": null,
-  "pageCount": 0,
+  "pdfUrl": "https://arxiv.org/pdf/2208.00467",
+  "pageCount": 27,
   "segments": [
     {
-      "text": "各位观众,今天给大家带来的是 IEEE INFOCOM 2022 的论文《BrokerChain: A Cross-Shard Blockchain Protocol for Account/Balance-based State Sharding》。",
-      "page": null
+      "text": "各位观众,今天给大家带来的是 UbiComp 2022 的论文《COCOA》。一句话概括:让可穿戴设备上的各种传感器互相\"对照学习\",不用人工标注,也能训练出很好的活动识别模型。",
+      "page": 2
     },
     {
-      "text": "这篇论文由 Huawei Huang、Xiaowen Peng 等作者完成,目前已经被引用 230 次,研究方向涉及Blockchain Technology Applications and Security、Caching and Content Delivery、Cloud Computing and Resource Management。",
-      "page": null
+      "text": "做人体活动识别、健康监测,最大的瓶颈是标注数据太贵——要专家一条条标,有些医疗场景还涉及隐私。自监督学习号称不需要标注,但以往方法大多只在单一模态内部找规律。COCOA 换了个角度:同一段活动,加速度计、陀螺仪、心率这些不同传感器看到的是同一件事的多个侧面,侧面之间天然存在对应关系,这就是免费的监督信号。",
+      "page": 2
     },
     {
-      "text": "用论文自己的话来说:State-of-the-art blockchain sharding solutions, say Monoxide, can induce imbalanced transaction (TX) distributions among all blockchain shards due to their account deployment mechanisms.",
-      "page": null
+      "text": "大家看这张架构图:COCOA 的核心创新是把对比学习的目标从\"同一模态的数据增强对\"换成了\"不同模态之间\"。它先独立编码每个模态,再让一个模态的表示去预测另一个模态的表示,迫使模型学到跨模态共享的底层结构。",
+      "page": 9,
+      "figure": "Fig. 1"
     },
     {
-      "text": "如果你想快速抓住重点,可以记住这几个关键词:Blockchain Technology Applications and Security、Caching and Content Delivery、Cloud Computing and Resource Management。",
-      "page": null
+      "text": "配套的采样策略也很关键:这张图展示了它的正负样本怎么挑——跨模态正对拉近距离,随机组合的负对推远,避免了简单对比方法里\"假负样本\"把同类活动错误推开的问题。",
+      "page": 10,
+      "figure": "Fig. 2"
     },
     {
-      "text": "好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。",
-      "page": null
+      "text": "评测用了五个公开数据集,覆盖日常活动识别、压力检测、睡眠分期这些经典任务,这张表列出了每个数据集的规模、传感器和任务设置。",
+      "page": 14,
+      "figure": "Table 5"
     },
     {
-      "text": "感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。",
-      "page": null
+      "text": "结果相当扎实:主结果表显示,COCOA 微调后的编码器全面超过自监督基线,甚至击败了全监督基线——在 WESAD 压力数据集上领先百分之 35.8;用全部传感器对比只用两个模态,还能再涨百分之 5 到 24。",
+      "page": 16,
+      "figure": "Table 6"
+    },
+    {
+      "text": "最后这张图是它最实用的地方:低数据场景。只有百分之一到五的标注数据时,COCOA 预训练的优势被进一步放大——标注越少,越见真章。对做传感的同学来说,这套跨模态对比思路可以直接搬到自己的多传感器系统里。感兴趣的话打开下方 DOI 读原文,我们明天见。",
+      "page": 18,
+      "figure": "Fig. 3"
     }
   ]
 }
