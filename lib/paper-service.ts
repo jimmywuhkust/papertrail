@@ -3,6 +3,7 @@ import {
   cleanDoi,
   dedupePapers,
   fetchJson,
+  isPlausibleDoi,
   normalizeCrossref,
   normalizeOpenAlex,
   rankPaper,
@@ -160,8 +161,26 @@ async function resolveCrossref(doi: string): Promise<Paper | null> {
   }
 }
 
+// Crossref 429s when a browser fires a dozen single-DOI lookups at once, so
+// run the fallback with limited concurrency.
+async function mapLimited<T, R>(items: T[], concurrency: number, fn: (item: T) => Promise<R>): Promise<R[]> {
+  const results: R[] = new Array(items.length);
+  let index = 0;
+  const workers = Array.from({ length: Math.min(concurrency, items.length) }, async () => {
+    while (index < items.length) {
+      const current = index;
+      index += 1;
+      results[current] = await fn(items[current]);
+    }
+  });
+  await Promise.all(workers);
+  return results;
+}
+
 export async function resolveDois(input: string[]): Promise<{ papers: Paper[]; unresolved: string[] }> {
-  const dois = [...new Set(input.map(cleanDoi).filter(Boolean))].slice(0, 60);
+  const dois = [...new Set(input.map(cleanDoi).filter(Boolean))]
+    .filter(isPlausibleDoi)
+    .slice(0, 60);
   if (!dois.length) return { papers: [], unresolved: [] };
   let papers: Paper[] = [];
   try {
@@ -171,7 +190,7 @@ export async function resolveDois(input: string[]): Promise<{ papers: Paper[]; u
   }
   const found = new Set(papers.map((paper) => cleanDoi(paper.doi)));
   const unresolved = dois.filter((doi) => !found.has(doi));
-  const fallback = await Promise.all(unresolved.slice(0, 12).map(resolveCrossref));
+  const fallback = await mapLimited(unresolved.slice(0, 12), 3, resolveCrossref);
   papers = dedupePapers([...papers, ...fallback.filter((paper): paper is Paper => Boolean(paper))]);
   const nowFound = new Set(papers.map((paper) => cleanDoi(paper.doi)));
   return { papers, unresolved: dois.filter((doi) => !nowFound.has(doi)) };

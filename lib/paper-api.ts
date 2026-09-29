@@ -63,9 +63,16 @@ export const OPENALEX_SELECT = [
 export function cleanDoi(value?: string | null): string {
   return (value || "")
     .replace(/^https?:\/\/(?:dx\.)?doi\.org\//i, "")
-    .replace(/[\s)>\],.;]+$/g, "")
+    .replace(/[\s)>\],.;-]+$/g, "")
     .trim()
     .toLowerCase();
+}
+
+// Reject DOI fragments whose suffix carries no digit (e.g. the truncated
+// "10.48550/arxiv" from a line-wrapped bibliography entry).
+export function isPlausibleDoi(doi: string): boolean {
+  const suffix = doi.split("/").pop() || "";
+  return /\d/.test(suffix);
 }
 
 export function shortOpenAlexId(value?: string | null): string {
