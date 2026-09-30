@@ -27,6 +27,8 @@ const LIBRARY = "public/data/venue-library";
 const DAILY_DIR = "public/data/daily";
 const EPISODES_PATH = `${DAILY_DIR}/episodes.json`;
 const CONFERENCE_VENUES = ["mobicom", "mobisys", "sensys", "nsdi", "sigcomm", "infocom", "ubicomp"];
+// Papers that should never be picked (no usable PDF, off-topic, etc).
+const SKIP_IDS = new Set(["dblp:conf/infocom/HuangPZZLZG22"]);
 const MIN_YEAR = 2021;
 const USER_AGENT = "PaperTrail-daily-speedread (mailto:papertrail@localhost)";
 const MAX_PDF_BYTES = 60 * 1024 * 1024;
@@ -57,7 +59,7 @@ async function loadCandidates() {
 }
 
 function pickPaper(candidates, episodes, withPdf, rejected = new Set()) {
-  const used = new Set([...episodes.map((episode) => episode.id), ...rejected]);
+  const used = new Set([...episodes.map((episode) => episode.id), ...rejected, ...SKIP_IDS]);
   const previousVenue = episodes[0]?.venueId;
   const fresh = candidates
     .filter((paper) => !used.has(paper.id))
@@ -89,7 +91,7 @@ async function probePdf(url) {
 
 // Batch-check OpenAlex for OA PDFs among the top candidates, then probe each
 // URL for a real PDF payload. Returns Map<doi, pdfUrl> of verified PDFs.
-async function findPapersWithPdf(candidates, limit = 40) {
+async function findPapersWithPdf(candidates, limit = 100) {
   const top = candidates
     .filter((paper) => paper.doi)
     .sort((a, b) => (b.citationCount || 0) - (a.citationCount || 0))
