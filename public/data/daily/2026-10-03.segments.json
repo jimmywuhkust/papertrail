@@ -1,30 +1,39 @@
 {
-  "pdfUrl": null,
-  "pageCount": 0,
+  "pdfUrl": "https://storage.googleapis.com/gweb-research2023-media/pubtools/6752.pdf",
+  "pageCount": 20,
   "segments": [
     {
-      "text": "各位观众,今天给大家带来的是 ACM SIGCOMM 2022 的论文《Jupiter evolving: transforming google's datacenter network via optical circuit switches and software-defined networking》。",
-      "page": null
+      "text": "各位观众,今天给大家带来的是 SIGCOMM 2022 的论文《Jupiter Evolving》。一句话概括:谷歌公开了自家数据中心网络十年的演进史——速度容量翻 5 倍,成本降三成,功耗降四成,还全程在线跑生产流量。",
+      "page": 1
     },
     {
-      "text": "这篇论文由 Leon Poutievski、Omid Mashayekhi 等作者完成,目前已经被引用 228 次,研究方向涉及Software-Defined Networks and 5G、Interconnection Networks and Systems、Advanced Optical Network Technologies。",
-      "page": null
+      "text": "问题背景:数据中心网络传统上是 Clos 架构,层级越多,交换机芯片和光模块越烧钱。当流量规模一路狂飙,这条老路的成本和功耗都撑不住了。谷歌的答案,是把网络从多级 Clos 改成聚合块之间直连,中间的\"纵横\"调度交给一层光交换。",
+      "page": 2,
+      "figure": "Figure 2"
     },
     {
-      "text": "用论文自己的话来说:We present a decade of evolution and production experience with Jupiter datacenter network fabrics.",
-      "page": null
+      "text": "这层光交换是核心黑科技:MEMS 微镜阵列,靠物理转动镜片切换光路,不需要光电转换,几乎零功耗。配的图里能看到它怎么用环行器做单纤双向收发。光路一旦切好就是纯直连,但切换是毫秒到秒级——所以拓扑是\"缓慢可编程\"的。",
+      "page": 3,
+      "figure": "Figure 3"
     },
     {
-      "text": "如果你想快速抓住重点,可以记住这几个关键词:Software-Defined Networks and 5G、Interconnection Networks and Systems、Advanced Optical Network Technologies。",
-      "page": null
+      "text": "慢速可编程拓扑要能用,得有聪明的控制面。Jupiter 用集中式 SDN(Orion)做流量工程:先测出流量矩阵,再计算拓扑和路由。这张图对比了两种路由方案——预测流量矩阵加拓扑联合优化,明显比纯静态更优。",
+      "page": 7,
+      "figure": "Figure 8"
     },
     {
-      "text": "好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。",
-      "page": null
+      "text": "直连拓扑会不会牺牲吞吐?这是最需要证明的一点。实验给出定心丸:在谷歌真实生产流量模式下,直连加流量加拓扑联合工程,吞吐和 Clos 打平;而且六成流量走源到目的聚合块的直连路径,其余的只多跳一次。",
+      "page": 10,
+      "figure": "Figure 12"
     },
     {
-      "text": "感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。",
-      "page": null
+      "text": "工程细节也漂亮:扩容不需要停网,增量布线就能加容量;光交换机 Palomar 的内部光路设计也公开了,插入损耗压得很低。这套系统已经支撑了谷歌多次硬件代际更替。",
+      "page": 19,
+      "figure": "Figure 19"
+    },
+    {
+      "text": "为什么值得读?这是\"软件定义网络\"最硬核的一次正名——从论文概念到支撑全球最大规模之一的网络十年。无论你是做系统还是做网络,这种把物理层、拓扑、控制面协同设计的思路都值得借鉴。感兴趣的话打开下方链接读原文,我们明天见。",
+      "page": 1
     }
   ]
 }
