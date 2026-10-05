@@ -23,3 +23,14 @@ test("renders privacy and methodology pages", async () => {
   assert.match(await (await render("/methodology")).text(), /Explain the ranking/);
 });
 
+test("renders a readable agent guide and query explorer", async () => {
+  const response = await render("/agents");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /Query the connections/);
+  assert.match(html, /86,426/);
+  assert.match(html, /local MCP server/);
+  assert.match(html, /api\/v1\/manifest.json/);
+  assert.match(html, /Research question/);
+});
+

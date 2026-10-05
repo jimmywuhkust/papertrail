@@ -760,7 +760,7 @@ export default function PaperTrailApp() {
       <footer>
         <div className="brand footer-brand"><span className="brand-mark">文</span><span><b>文脉</b><small>PAPERTRAIL</small></span></div>
         <p>{lang === "zh" ? "公开、可解释、隐私优先的论文关系与引用发现工具。" : "Open, explainable, privacy-first paper relationships and citation discovery."}</p>
-        <nav><a href={dataUrl("/methodology")}>{t.methodology}</a><a href={dataUrl("/privacy")}>{t.privacy}</a><a href={dataUrl("/methodology#sources")}>{t.sources}</a></nav>
+        <nav><a href={dataUrl("/agents/")}>{lang === "zh" ? "智能体 API" : "Agent API"}</a><a href={dataUrl("/methodology")}>{t.methodology}</a><a href={dataUrl("/privacy")}>{t.privacy}</a><a href={dataUrl("/methodology#sources")}>{t.sources}</a></nav>
       </footer>
 
       {selectedPaper && (

@@ -68,7 +68,37 @@ See [SECURITY.md](SECURITY.md), [PRIVACY.md](PRIVACY.md), and [THIRD_PARTY_NOTIC
 
 ## Architecture
 
-PaperTrail is a vinext/React application deployed to Cloudflare Workers through OpenAI Sites. API routes normalize upstream scholarly metadata into a common `Paper` model. No database, account, or LLM key is required for the public experience.
+PaperTrail is a vinext/React application. GitHub Pages uses a static export at
+https://jimmywuhkust.github.io/papertrail/; the Workers build retains server
+routes. The Pages browser calls public scholarly providers directly for live
+search. No account or LLM key is required for the public experience.
+
+## Agent API and relationship database
+
+The [agent guide](https://jimmywuhkust.github.io/papertrail/agents/) provides
+versioned JSON resources, dependency-free Python/JavaScript SDKs, a verified
+SQLite download, and a local MCP stdio server with six query tools. Agents can
+search paper metadata, resolve identifiers, follow both citation directions,
+find related papers by coupling/co-citation/text, and traverse bounded graphs.
+The snapshot contains 86,426 papers across ten venues and 4,557,794 deduplicated
+recorded edges; only 160,219 edges connect two fully described corpus papers.
+External targets remain identifier-only nodes. Check the manifest for current
+snapshot counts and source dates.
+
+GitHub Pages serves static resources; SDK/MCP queries execute locally. See
+[the full API contract](public/agents/README.md),
+[llms.txt](https://jimmywuhkust.github.io/papertrail/llms.txt), and
+[the manifest](https://jimmywuhkust.github.io/papertrail/api/v1/manifest.json).
+
+```bash
+npm run agents:build  # Python 3.11+, SQLite FTS5; no pip packages
+npm run agents:test
+```
+
+Generate the API before typechecking/building (the agent page imports its
+manifest). CI and Pages workflows do this automatically. Generated artifacts
+are ignored by Git and rebuilt from the checked-in venue snapshot. Every
+Pages release tests the queries and checks the final site stays below 1 GB.
 
 ## License
 

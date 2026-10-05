@@ -18,6 +18,11 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: npm run agents:build
+      - run: npm run agents:test
       - run: npm run lint
       - run: npm run typecheck
       - run: npm test

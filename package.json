@@ -14,7 +14,9 @@
     "typecheck": "tsc --noEmit",
     "venue:build": "node scripts/build-venue-library.mjs",
     "venue:references": "node scripts/enrich-journal-references.mjs",
-    "venue:validate": "node scripts/validate-venue-library.mjs"
+    "venue:validate": "node scripts/validate-venue-library.mjs",
+    "agents:build": "python scripts/build-agent-api.py",
+    "agents:test": "python -m unittest discover -s tests -p test_agent_api.py && node --test tests/agent-sdk.test.mjs"
   },
   "dependencies": {
     "cross-env": "^10.1.0",

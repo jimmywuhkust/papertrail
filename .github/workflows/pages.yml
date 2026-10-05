@@ -23,6 +23,13 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Build agent database and static API
+        run: npm run agents:build
+      - name: Verify agent queries and tools
+        run: npm run agents:test
       - name: Static export build
         run: npm run build
         env:
@@ -36,6 +43,7 @@ jobs:
           mkdir -p dist/pages
           cp -r dist/client/papertrail/. dist/pages/
           cp dist/client/404.html dist/pages/404.html
+          python -c "from pathlib import Path; size=sum(p.stat().st_size for p in Path('dist/pages').rglob('*') if p.is_file()); print(f'Pages artifact: {size:,} bytes'); assert size < 1_000_000_000"
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
