@@ -19,7 +19,7 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import urljoin
 from urllib.request import Request, urlopen
 
-VERSION = "2.0.0"
+VERSION = "2.0.1"
 DEFAULT_BASE = "https://jimmywuhkust.github.io/papertrail/"
 DEFAULT_FIELDS = ["id","title","authors","year","venueId","venueName","doi","url","sourceUrl","metadataSources","counts","relationshipStatus"]
 CAPABILITIES={"searchFields":["title","topics","authors"],"matching":["all_tokens","any_tokens","exact_name","exact_phrase"],"authorSearch":True,"authorIdentityLookup":True,"batchLookup":True,"fieldProjection":True,"cursorPagination":True,"limits":{"search":100,"batchLookup":100,"relationships":1000,"graphDepth":3,"graphNodes":500,"graphEdges":5000},"ranking":"weighted_token_overlap","defaults":{"fields":["title","topics"],"match":"all_tokens","limit":20},"relatedMethods":["text","coupling","cocitation"],"graphTraversal":True,"startup":"manifest only; SQLite is lazy for coupling/cocitation/graph"}
@@ -194,9 +194,11 @@ class PaperTrail:
     def _select(self,item,fields=None):
         fields=DEFAULT_FIELDS if fields is None else fields
         always=["id","resolutionState","matchEvidence","relationship","input","normalizedIdentifier","canonicalIdentifier"]
-        allowed=set(DEFAULT_FIELDS+always+["topics","fieldProvenance","authorships","fieldConflicts","referenceIds","citationCount"])
+        allowed=set(DEFAULT_FIELDS+always+["topics","fieldProvenance","authorships","fieldConflicts"])
         if not isinstance(fields,list) or not fields or any(f not in allowed for f in fields):
             raise PaperTrailError("INVALID_FIELDS","Unknown paper projection fields")
+        if item.get("resolutionState")=="resolved" and "fieldConflicts" not in item:
+            item={**item,"fieldConflicts":None}
         return {f:item[f] for f in dict.fromkeys(fields+always) if f in item}
 
     def _records(self,venue=None):

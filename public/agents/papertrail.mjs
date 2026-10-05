@@ -1,5 +1,5 @@
 /** PaperTrail 2.0 identity-aware static HTTPS SDK. Node 22+/modern browsers. MIT. */
-export const VERSION = "2.0.0";
+export const VERSION = "2.0.1";
 export class PaperTrailError extends Error {
   constructor(code, message, retryable = false, details = {}) { super(message); this.name = "PaperTrailError"; this.error = { code, message, retryable, ...details }; }
 }
@@ -101,8 +101,9 @@ export class PaperTrail {
   async filters(venue, fromYear, toYear) { const manifest = await this.manifest(); if (venue !== null && !manifest.venues.some((v) => v.id === venue)) fail("UNKNOWN_VENUE", "Use a venue id from the manifest", { venue }); for (const year of [fromYear, toYear]) if (year !== null) bound(year, 2100, 1900); if (fromYear !== null && toYear !== null && fromYear > toYear) fail("INVALID_YEAR_RANGE", "fromYear must not exceed toYear"); }
   select(item, fields = null) {
     fields ??= DEFAULT_FIELDS;
-    const always = ["id", "resolutionState", "matchEvidence", "relationship", "input", "normalizedIdentifier", "canonicalIdentifier"], allowed = new Set([...DEFAULT_FIELDS, ...always, "topics", "fieldProvenance", "authorships", "fieldConflicts", "referenceIds", "citationCount"]);
+    const always = ["id", "resolutionState", "matchEvidence", "relationship", "input", "normalizedIdentifier", "canonicalIdentifier"], allowed = new Set([...DEFAULT_FIELDS, ...always, "topics", "fieldProvenance", "authorships", "fieldConflicts"]);
     if (!Array.isArray(fields) || !fields.length || fields.some((f) => !allowed.has(f))) fail("INVALID_FIELDS", "Unknown paper projection fields");
+    if (item.resolutionState === "resolved" && !("fieldConflicts" in item)) item = { ...item, fieldConflicts: null };
     return Object.fromEntries([...new Set([...fields, ...always])].filter((f) => f in item).map((f) => [f, item[f]]));
   }
   async records(venue = null) { const manifest = await this.manifest(), items = []; for (const v of manifest.venues.filter((v) => !venue || v.id === venue)) items.push(...(await this.resource(`search/${v.id}.json.gz`)).items); return items; }

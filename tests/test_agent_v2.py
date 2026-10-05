@@ -104,6 +104,9 @@ class AgentV2Tests(unittest.TestCase):
         cases["references"]=self.static.references(SEED,limit=3,expand=True)
         cases["cited_by"]=self.static.cited_by(SEED,limit=3,expand=True)
         cases["text"]=self.static.related(SEED,limit=3)
+        self.assertEqual(self.api.paper(SEED,fields=["id","fieldConflicts","authorships"]),self.static.paper(SEED,fields=["id","fieldConflicts","authorships"]))
+        for field in ("citationCount","referenceIds"):
+            with self.assertRaises(sdk.PaperTrailError):self.api.paper(SEED,fields=[field])
         for result in cases.values():self.schema(result)
         (ROOT/"work/agent-api/transport-fixtures.json").write_text(json.dumps(cases,ensure_ascii=False),encoding="utf-8")
 

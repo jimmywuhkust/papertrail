@@ -11,7 +11,7 @@ import shutil
 import runpy
 import unicodedata
 
-VERSION = "2.0.0"
+VERSION = "2.0.1"
 SHORT_FIELDS = ["id", "title", "authors", "year", "venueId", "venueName", "doi", "url", "sourceUrl", "metadataSources", "counts", "relationshipStatus", "fieldProvenance", "authorships"]
 
 

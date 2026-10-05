@@ -47,6 +47,8 @@ test("shared search semantics, rankings and projections across Python and JavaSc
 test("identifier states, citation expansion and text similarity match Python", async () => {
   const { client } = fixture();
   assert.deepEqual(await client.paper(seed), expected.paper);
+  assert.equal((await client.paper(seed, { fields: ["id", "fieldConflicts"] })).items[0].fieldConflicts, null);
+  await assert.rejects(client.paper(seed, { fields: ["citationCount"] }), (e) => e.error.code === "INVALID_FIELDS");
   assert.deepEqual(await client.references(seed, { limit: 3, expand: true }), expected.references);
   assert.deepEqual(await client.citedBy(seed, { limit: 3, expand: true }), expected.cited_by);
   assert.deepEqual(await client.related(seed, { limit: 3 }), expected.text);
