@@ -26,6 +26,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.13"
+      - run: python -m pip install -r requirements-dev.txt
       - name: Build agent database and static API
         run: npm run agents:build
       - name: Verify agent queries and tools

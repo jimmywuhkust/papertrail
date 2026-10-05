@@ -12,7 +12,7 @@ import unittest
 from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
-spec = importlib.util.spec_from_file_location("papertrail", ROOT / "public/agents/papertrail.py")
+spec = importlib.util.spec_from_file_location("papertrail", ROOT / "public/agents/papertrail-v1.py")
 sdk = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(sdk)
 
@@ -96,7 +96,7 @@ class AgentApiTests(unittest.TestCase):
         lookup = json.loads((ROOT / "public/api/v1/lookup.json").read_text(encoding="utf-8"))["identifiers"]
         canonical = lookup["doi:10.1038/ncomms9959"]
         bucket = hashlib.sha256(canonical.encode()).hexdigest()[:2]
-        entry = json.loads((ROOT / f"public/api/v1/graph/{bucket}.json").read_text(encoding="utf-8"))["papers"][canonical]
+        entry = json.loads(gzip.decompress((ROOT / f"public/api/v1/graph/{bucket}.json.gz").read_bytes()))["papers"][canonical]
         self.assertEqual({r["id"] for r in entry["references"]}, {r["id"] for r in self.api.references(canonical, limit=1000)["papers"]})
         self.assertEqual(len(entry["citedBy"]), self.api.cited_by(canonical)["total"])
 
@@ -109,7 +109,7 @@ class AgentApiTests(unittest.TestCase):
             {"jsonrpc": "2.0", "id": 4, "method": "tools/call", "params": {"name": "paper", "arguments": {"id": "unknown"}}},
             {"jsonrpc": "2.0", "id": 5, "method": "tools/call", "params": {"name": "close", "arguments": {}}},
         ]
-        completed = subprocess.run([sys.executable, str(ROOT / "public/agents/papertrail.py"), "mcp", "--db", str(ROOT / "work/agent-api/papertrail.sqlite")], input="\n".join(json.dumps(m) for m in messages) + "\n", text=True, encoding="utf-8", capture_output=True, check=True, timeout=30)
+        completed = subprocess.run([sys.executable, str(ROOT / "public/agents/papertrail-v1.py"), "mcp", "--db", str(ROOT / "work/agent-api/papertrail.sqlite")], input="\n".join(json.dumps(m) for m in messages) + "\n", text=True, encoding="utf-8", capture_output=True, check=True, timeout=30)
         responses = [json.loads(line) for line in completed.stdout.splitlines()]
         self.assertEqual(len(responses), 5)
         self.assertEqual(len(responses[1]["result"]["tools"]), 6)

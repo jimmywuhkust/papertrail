@@ -1,0 +1,2 @@
+# Build/test only; the downloadable SDK uses Python's standard library.
+jsonschema==4.26.0

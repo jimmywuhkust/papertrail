@@ -77,8 +77,9 @@ search. No account or LLM key is required for the public experience.
 
 The [agent guide](https://jimmywuhkust.github.io/papertrail/agents/) provides
 versioned JSON resources, dependency-free Python/JavaScript SDKs, a verified
-SQLite download, and a local MCP stdio server with six query tools. Agents can
-search paper metadata, resolve identifiers, follow both citation directions,
+lazy SQLite download, and a local MCP stdio server with eleven query tools. Agents can
+resolve researcher identities and evidenced publications, search explicit metadata
+fields with shared matching/ranking, resolve identifiers, follow both citation directions,
 find related papers by coupling/co-citation/text, and traverse bounded graphs.
 The snapshot contains 86,426 papers across ten venues and 4,557,794 deduplicated
 recorded edges; only 160,219 edges connect two fully described corpus papers.
@@ -88,10 +89,11 @@ snapshot counts and source dates.
 GitHub Pages serves static resources; SDK/MCP queries execute locally. See
 [the full API contract](public/agents/README.md),
 [llms.txt](https://jimmywuhkust.github.io/papertrail/llms.txt), and
-[the manifest](https://jimmywuhkust.github.io/papertrail/api/v1/manifest.json).
+[the manifest](https://jimmywuhkust.github.io/papertrail/api/v2/manifest.json).
 
 ```bash
-npm run agents:build  # Python 3.11+, SQLite FTS5; no pip packages
+python -m pip install -r requirements-dev.txt  # schema validation in tests only
+npm run agents:build  # downloadable SDK needs no pip packages
 npm run agents:test
 ```
 
@@ -99,6 +101,16 @@ Generate the API before typechecking/building (the agent page imports its
 manifest). CI and Pages workflows do this automatically. Generated artifacts
 are ignored by Git and rebuilt from the checked-in venue snapshot. Every
 Pages release tests the queries and checks the final site stays below 1 GB.
+
+V2 responses declare snapshot, scope, warnings and matching/edge evidence;
+identifier resolution distinguishes metadata records, known external nodes and
+absent identifiers. Cursors bind query/snapshot/projection; batch lookup and
+projection reduce output. Query schemas and the measured identity benchmark are
+published alongside the manifest. Affiliation evidence identifies people, not
+each paper's institution. Unresolved names remain labeled name-only groups.
+The DBLP identity overlay is checked in; ordinary deployment builds need no
+upstream requests. `npm run agents:identities -- --refresh` updates that evidence.
+Legacy calls are available through the versioned v1 SDKs and compressed resources.
 
 ## License
 

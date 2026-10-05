@@ -30,7 +30,7 @@ test("renders a readable agent guide and query explorer", async () => {
   assert.match(html, /Query the connections/);
   assert.match(html, /86,426/);
   assert.match(html, /local MCP server/);
-  assert.match(html, /api\/v1\/manifest.json/);
-  assert.match(html, /Research question/);
+  assert.match(html, /api\/v2\/manifest.json/);
+  assert.match(html, /Author name/);
 });
 

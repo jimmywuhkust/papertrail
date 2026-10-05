@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /papertrail/
 Allow: /papertrail/api/v1/
+Allow: /papertrail/api/v2/
 Sitemap: https://jimmywuhkust.github.io/papertrail/sitemap.xml

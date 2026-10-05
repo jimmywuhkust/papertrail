@@ -16,7 +16,8 @@
     "venue:references": "node scripts/enrich-journal-references.mjs",
     "venue:validate": "node scripts/validate-venue-library.mjs",
     "agents:build": "python scripts/build-agent-api.py",
-    "agents:test": "python -m unittest discover -s tests -p test_agent_api.py && node --test tests/agent-sdk.test.mjs"
+    "agents:test": "python -m unittest discover -s tests -p test_agent*.py && node --test tests/agent-sdk*.test.mjs",
+    "agents:identities": "python scripts/enrich-author-identities.py"
   },
   "dependencies": {
     "cross-env": "^10.1.0",

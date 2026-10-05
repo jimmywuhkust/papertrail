@@ -45,4 +45,5 @@ yarn-error.log*
 
 # Rebuilt from the checked-in dataset during CI and Pages deployment.
 /public/api/v1/
+/public/api/v2/
 __pycache__/

@@ -52,5 +52,11 @@
 .agent-results button { white-space: nowrap; background: transparent; color: #17322e; }
 .agent-explorer details { margin-top: 20px; font-size: 13px; }
 .agent-explorer details pre { max-height: 480px; }
+.agent-author { border: 1px solid #cbd1c5; background: #fcfaf5; border-radius: 5px; padding: 20px; margin-top: 20px; }
+.agent-author h3 { margin-top: 0; }
+.agent-author p, .agent-relations p { font-size: 13px; line-height: 1.7; }
+.agent-author button { margin-top: 14px; }
+.agent-row-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.agent-relations { border-top: 2px solid #17322e; margin-top: 28px; padding-top: 20px; }
 @media (max-width: 960px) { .agent-page { padding: 0 30px; } .agent-cards { grid-template-columns: repeat(2, 1fr); } .agent-cards p { min-height: auto; } .agent-header span { display: none; } }
 @media (max-width: 600px) { .agent-page { padding: 0 20px; } .agent-hero { padding: 48px 0 35px; } .agent-intro { font-size: 18px; } .agent-stats { grid-template-columns: repeat(2, 1fr); } .agent-stats b { font-size: 27px; } .agent-cards, .agent-code-grid, .agent-resource-links { grid-template-columns: 1fr; } .agent-section { padding: 35px 0; } .agent-explorer { padding: 18px; } .agent-explorer form { align-items: stretch; } .agent-results li { align-items: start; flex-direction: column; gap: 12px; } .agent-page pre { padding: 16px; font-size: 11px; } }

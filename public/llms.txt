@@ -1,20 +1,32 @@
-# PaperTrail Agent API
+# PaperTrail — agent research database, API v2
 
-> Public research-paper metadata and citation relationships, with a static HTTPS API, query SDKs, SQLite database and local MCP tools. No API key required.
+Read-only venue metadata, researcher candidates and citation relationships.
+GitHub Pages serves static resources; local SDK/MCP code runs queries. No key.
 
-- [Agent guide](https://jimmywuhkust.github.io/papertrail/agents/): human-readable instructions and working query examples.
-- [Complete plain-text guide](https://jimmywuhkust.github.io/papertrail/agents/README.md): transport, parameters, SQL schema, MCP configuration and evidence limitations.
-- [API manifest](https://jimmywuhkust.github.io/papertrail/api/v1/manifest.json): source snapshot, exact coverage, database download, checksums and search shard URLs.
-- [OpenAPI](https://jimmywuhkust.github.io/papertrail/api/v1/openapi.json): actual static HTTPS GET endpoints.
-- [MCP tool schemas](https://jimmywuhkust.github.io/papertrail/api/v1/tools.json): six query tools, run using the local Python MCP stdio server.
-- [Python SDK and MCP server](https://jimmywuhkust.github.io/papertrail/agents/papertrail.py): Python 3.11+, no dependencies; verified download and local cache; search, paper, references, cited_by, related, graph.
-- [JavaScript SDK](https://jimmywuhkust.github.io/papertrail/agents/papertrail.mjs): Node.js 22+ or browser; lightweight venue searches, paper lookup, references, citedBy and text similarity.
+- [Agent webpage](https://jimmywuhkust.github.io/papertrail/agents/): working identity, paper and citation explorer; copyable calls and capability matrix.
+- [Complete plain-text guide](https://jimmywuhkust.github.io/papertrail/agents/README.md): startup, exact semantics, result shapes, parameters, evidence, recipes and migration.
+- [Manifest](https://jimmywuhkust.github.io/papertrail/api/v2/manifest.json): snapshot, coverage, versions, capabilities, sizes and SHA-256 checksums.
+- [Python SDK / local MCP](https://jimmywuhkust.github.io/papertrail/agents/papertrail.py): dependency-free, lazy verified SQLite; eleven tools.
+- [JavaScript SDK](https://jimmywuhkust.github.io/papertrail/agents/papertrail.mjs): Node 22+ / browser; compressed resources on demand.
+- [Tool contracts](https://jimmywuhkust.github.io/papertrail/api/v2/tools.json): callable local queries, complete input/output schemas.
+- [Response/error schemas](https://jimmywuhkust.github.io/papertrail/api/v2/schemas.json): schemaVersion 2 envelopes, identities, papers, citation evidence and structured errors.
+- [Static OpenAPI](https://jimmywuhkust.github.io/papertrail/api/v2/openapi.json): actual HTTPS file endpoints; no hosted query-string search.
 
-## Agent workflow
+First task: authors("Mo Li", affiliation="HKUST"), inspect candidates, then
+author_papers / authorPapers using the chosen stable author ID.
+Identity evidence is distinct from publication-time affiliation.
+Name-only groups are explicitly unresolved; equal names do not establish identity.
 
-1. Read the manifest and record the snapshot timestamp. Metadata covers 2016–2025 in ten venues, not the worldwide live literature.
-2. Use Python search(q, venue=..., limit=...) or JavaScript search(q, {venue: ...}). Get a stable id or resolve a DOI/OpenAlex id with paper().
-3. Get references()/cited_by() for recorded citation edges; related(method="coupling"|"cocitation"|"text") for inferred similarity; graph() for bounded citation neighborhoods.
-4. Cite the original paper/sourceUrl. Distinguish snapshot incoming edges from upstream global citationCount. External identifier nodes lack metadata; empty references can mean missing data.
+Search defaults to title/topics, all_tokens; explicitly request authors for names.
+Names match within one author entry; both SDKs share tokens, scores and ordering.
+Results use items, coverage, warnings and snapshot/query-bound pagination cursors.
+Resolve states: resolved, external_reference, not_in_snapshot; malformed input errors.
+Distinguish upstreamCitationCount, incomingCorpusCitationCount, recordedReferenceCount.
+Empty unknown references do not prove zero references. Preserve source evidence.
 
-GitHub Pages serves static resources. Appending ?q=... does not execute a query, and there is no hosted POST or HTTP MCP endpoint. Execute queries with the downloaded SDK, local SQLite or local MCP stdio tools. First Python query downloads a ~157 MB compressed database and caches a ~479 MB verified SQLite file. For lighter requests use the JavaScript SDK with a venue filter.
+Coverage: 86,426 records, 10 venues, 2016–2025; corpus incoming citations only.
+No abstracts/full text. Related work is inferred metadata/neighbor similarity.
+Python/MCP add coupling/co-citation/bounded graphs; JavaScript declares these
+unsupported. status checks readiness; warm_cache prepares SQLite explicitly.
+Pin snapshot resources and archive SDK/data for reproducibility; Pages retains
+the current snapshot only. Cached historical snapshots are not silently mixed.

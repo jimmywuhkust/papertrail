@@ -311,11 +311,12 @@ SELECT ?publ ?title ?year ?doi ?page ?venue ?type ?pagination WHERE {
 function dblpAuthorsQuery(publUris) {
   const values = publUris.map((u) => `<${u}>`).join(" ");
   return `PREFIX dblp: <${DBLP_PREFIX}>
-SELECT ?publ ?ord ?name WHERE {
+SELECT ?publ ?ord ?name ?person ?orcid WHERE {
   VALUES ?publ { ${values} }
   ?publ dblp:hasSignature ?sig .
   ?sig dblp:signatureDblpName ?name .
   OPTIONAL { ?sig dblp:signatureOrdinal ?ord }
+  OPTIONAL { ?sig dblp:signatureCreator ?person . OPTIONAL { ?person dblp:orcid ?orcid } }
 }`;
 }
 
@@ -357,18 +358,20 @@ async function attachDblpAuthors(pubs) {
     for (const row of rows) {
       const uri = row.publ.value;
       if (!byPubl.has(uri)) byPubl.set(uri, []);
-      byPubl.get(uri).push({ ord: row.ord ? Number(row.ord.value) : 9999, name: row.name.value });
+      byPubl.get(uri).push({ ord: row.ord ? Number(row.ord.value) : 9999, name: row.name.value, person: row.person?.value, orcid: row.orcid?.value });
     }
   }
   for (const pub of pubs) {
     const list = (byPubl.get(pub.uri) || []).sort((a, b) => a.ord - b.ord);
     const seen = new Set();
     pub.authors = [];
+    pub.authorships = [];
     for (const entry of list) {
       const clean = entry.name.replace(/\s+\d{4}$/, "").trim();
       if (clean && !seen.has(clean)) {
         seen.add(clean);
         pub.authors.push(clean);
+        if (entry.person) pub.authorships.push({ authorId: `dblp-person:${entry.person.replace('https://dblp.org/pid/', '')}`, name: clean, position: pub.authors.length, status: "upstream_identifier", source: "DBLP", sourceUrl: pub.uri, checkedAt: new Date().toISOString(), identifiers: { dblp: entry.person, ...(entry.orcid ? { orcid: entry.orcid } : {}) }, affiliations: [] });
       }
     }
   }
@@ -462,6 +465,7 @@ async function harvestDblpVenue(venue) {
         id: `dblp:${key}`,
         title: pub.title,
         authors: pub.authors || [],
+        authorships: pub.authorships || [],
         year: pub.year,
         venueId: venue.id,
         venueName: venue.name,
@@ -567,9 +571,13 @@ async function harvestOpenAlexVenue(venue, sourceInfo) {
       }
       const doi = normalizeDoi(work.doi);
       const authors = [];
+      const authorships = [];
       for (const authorship of work.authorships || []) {
         const name = authorship && authorship.author ? authorship.author.display_name : null;
-        if (name) authors.push(String(name).trim());
+        if (name) {
+          authors.push(String(name).trim());
+          if (authorship.author.id) authorships.push({ authorId: `openalex-author:${authorship.author.id.split('/').pop()}`, name: String(name).trim(), position: authors.length, status: "upstream_identifier", source: "OpenAlex", sourceUrl: work.id, checkedAt: new Date().toISOString(), identifiers: { openalex: authorship.author.id, ...(authorship.author.orcid ? { orcid: authorship.author.orcid } : {}) }, affiliations: (authorship.institutions || []).map((institution) => ({ name: institution.display_name, sourceUrl: work.id, institutionId: institution.id, basis: "paper_authorship" })) });
+        }
       }
       const topics = [];
       for (const topic of work.topics || []) {
@@ -581,6 +589,7 @@ async function harvestOpenAlexVenue(venue, sourceInfo) {
         id: `oa:${openAlexId}`,
         title,
         authors,
+        authorships,
         year,
         venueId: venue.id,
         venueName: venue.name,

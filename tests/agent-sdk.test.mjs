@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { readFile } from "node:fs/promises";
-import { PaperTrail, normalize } from "../public/agents/papertrail.mjs";
+import { PaperTrail, normalize } from "../public/agents/papertrail-v1.mjs";
 
 const publicDir = new URL("../public/", import.meta.url);
 function fixtureClient() {

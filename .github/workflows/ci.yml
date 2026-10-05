@@ -21,6 +21,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.13"
+      - run: python -m pip install -r requirements-dev.txt
       - run: npm run agents:build
       - run: npm run agents:test
       - run: npm run lint

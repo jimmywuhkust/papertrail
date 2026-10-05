@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 import sqlite3
 import runpy
+from agent_api_v2 import augment, publish
 
 ROOT = Path(__file__).resolve().parents[1]
 LIBRARY = ROOT / "public/data/venue-library"
@@ -19,7 +20,8 @@ def read(path):
 
 def write(path, value):
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(value, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    data = json.dumps(value, ensure_ascii=False, separators=(",", ":")).encode()
+    path.write_bytes(gzip.compress(data, compresslevel=6, mtime=0) if path.suffix==".gz" else data)
 
 
 def digest(path):
@@ -126,6 +128,8 @@ def build():
     db.executemany("INSERT INTO metadata VALUES(?,?)", ((key, json.dumps(value)) for key, value in {
         "schemaVersion": 1, "snapshot": index["generatedAt"], "stats": stats}.items()))
     db.commit()
+    v2_data = augment(db, records, index, ROOT)
+    db.execute("VACUUM")
     assert db.execute("PRAGMA integrity_check").fetchone()[0] == "ok"
     assert not db.execute("PRAGMA foreign_key_check").fetchall()
 
@@ -146,43 +150,43 @@ def build():
             ("id", "title", "year", "venueId", "topics", "citationCount")})
     resources = []
     for number, bucket in enumerate(buckets):
-        path = OUT / "graph" / f"{number:02x}.json"
+        path = OUT / "graph" / f"{number:02x}.json.gz"
         write(path, {"schemaVersion": 1, "snapshot": index["generatedAt"], "papers": bucket})
+        path.with_suffix("").unlink(missing_ok=True)
     for venue, items in search.items():
-        path = OUT / "search" / f"{venue}.json"
+        path = OUT / "search" / f"{venue}.json.gz"
         write(path, {"schemaVersion": 1, "snapshot": index["generatedAt"], "papers": items})
-        resources.append({"venueId": venue, "url": f"search/{venue}.json", "records": len(items), "bytes": path.stat().st_size})
-    db.close()
-    archive = OUT / "papertrail.sqlite.gz"
-    with database.open("rb") as source, archive.open("wb") as target:
-        with gzip.GzipFile(filename="", mode="wb", fileobj=target, mtime=0, compresslevel=6) as zipped:
-            while chunk := source.read(1024 * 1024):
-                zipped.write(chunk)
+        path.with_suffix("").unlink(missing_ok=True)
+        resources.append({"venueId": venue, "url": f"search/{venue}.json.gz", "records": len(items), "bytes": path.stat().st_size})
+    del buckets, search
     manifest = {
         "schemaVersion": 1, "name": "PaperTrail Agent API", "baseUrl": BASE + "api/v1/",
         "snapshot": index["generatedAt"], "range": index["range"], "stats": stats,
         "transport": "static HTTPS GET resources plus local SDK queries; no hosted query server",
         "guide": BASE + "agents/", "agentInstructions": BASE + "llms.txt",
-        "pythonSdk": BASE + "agents/papertrail.py", "javascriptSdk": BASE + "agents/papertrail.mjs",
+        "pythonSdk": BASE + "agents/papertrail-v1.py", "javascriptSdk": BASE + "agents/papertrail-v1.mjs",
         "mcp": {"transport": "stdio", "command": "python papertrail.py mcp"},
-        "database": {"url": "papertrail.sqlite.gz", "compression": "gzip", "bytes": archive.stat().st_size,
-                     "sha256": digest(archive), "uncompressedBytes": database.stat().st_size, "uncompressedSha256": digest(database)},
-        "lookup": "lookup.json", "graph": {"urlTemplate": "graph/{bucket}.json", "bucket": "first two lowercase SHA-256 hex characters of canonical UTF-8 paper id"},
+        "lookup": "lookup.json", "graph": {"urlTemplate": "graph/{bucket}.json.gz", "bucket": "first two lowercase SHA-256 hex characters of canonical UTF-8 paper id"},
         "searchShards": resources, "venues": index["venues"],
         "provenance": {"1": "OpenAlex", "2": "Crossref", "3": "OpenAlex and Crossref"},
         "coverage": "Incoming citations count only sources in this corpus. External references are identifier-only nodes. Empty metadata is unknown; no abstracts or full text are provided. DOI and OpenAlex aliases are merged only when a corpus record establishes the identity.",
         "license": "SDK MIT; DBLP/OpenAlex metadata CC0; Crossref metadata subject to upstream terms",
     }
+    v2 = publish(db, ids, v2_data, manifest, ROOT, database, digest)
+    archive = ROOT / "public" / v2["snapshotPath"] / "papertrail.sqlite.gz"
+    manifest["database"] = {**v2["database"], "url": "../v2/snapshots/" + v2["snapshotId"] + "/papertrail.sqlite.gz"}
+    db.close()
+    # This superseded generated download is owned by the build, never source.
+    (OUT / "papertrail.sqlite.gz").unlink(missing_ok=True)
     write(OUT / "manifest.json", manifest)
-    tools = runpy.run_path(str(ROOT / "public/agents/papertrail.py"))["TOOLS"]
+    tools = runpy.run_path(str(ROOT / "public/agents/papertrail-v1.py"))["TOOLS"]
     write(OUT / "tools.json", {"schemaVersion": 1, "transport": "local MCP stdio", "tools": tools})
     paths = {}
     for resource, summary in (
         ("/manifest.json", "Snapshot, coverage, SDKs and verified database download"),
         ("/lookup.json", "Map normalized DOI/OpenAlex/source identifiers to canonical corpus ids"),
-        ("/search/{venue}.json", "Compact title/topic search records for one venue"),
-        ("/graph/{bucket}.json", "Paper metadata plus both citation directions for one SHA-256 bucket"),
-        ("/papertrail.sqlite.gz", "Complete indexed SQLite database compressed with gzip"),
+        ("/search/{venue}.json.gz", "Compressed title/topic search records for one venue"),
+        ("/graph/{bucket}.json.gz", "Compressed metadata and citation directions for one SHA-256 bucket"),
         ("/tools.json", "MCP tool definitions; execute with the downloaded Python stdio server"),
     ):
         parameters = []
