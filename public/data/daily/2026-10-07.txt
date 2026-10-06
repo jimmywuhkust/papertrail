@@ -1,11 +1,13 @@
-各位观众,今天给大家带来的是 ACM MobiSys 2021 的论文《ClusterFL: a similarity-aware federated learning system for human activity recognition》。
+各位观众,今天给大家带来的是 MobiCom 2021 的论文《Vi-Liquid》。一句话概括:只用手机自带的振动马达和加速度计,就能分辨杯子里装的是水、牛奶还是可乐——不用任何外接传感器。
 
-这篇论文由 Xiaomin Ouyang、Zhiyuan Xie 等作者完成,目前已经被引用 220 次,研究方向涉及Privacy-Preserving Technologies in Data、Traffic Prediction and Management Techniques、Vehicular Ad Hoc Networks (VANETs)。
+传统液体检测仪器又贵又要接触液体,普通人根本用不上。作者的关键观察是:在固定的机械振动下,液体的粘稠度会在容器壁上留下可测量的剪切负载和耗散模式——振动怎么衰减,泄露了液体的身份。
 
-用论文自己的话来说:Federated Learning (FL) has recently received significant interests thanks to its capability of protecting data privacy.
+原理漂亮,工程三座大山更难:手机 API 的采样率严重欠采样、马达到惯性传感器的直路自干扰、还有液体体积变化会改变共振特性。每一个都足以让模型崩掉。
 
-如果你想快速抓住重点,可以记住这几个关键词:Privacy-Preserving Technologies in Data、Traffic Prediction and Management Techniques、Vehicular Ad Hoc Networks (VANETs)。
+欠采样怎么救?作者用相移超采样重建:多次错位采样拼出高采样率波形,这张图对比了重建信号和真实高采样率信号,几乎重合。
 
-好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。
+系统全貌和工作流在这:稳态幅度加自由衰减双特征,先补偿体积效应,再估计粘度,最后分类。整个流程跑在普通智能手机上。
 
-感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。
+数字上:30 种日常液体的分类准确率百分之 95.47,粘度估计平均相对误差百分之 2.9,29 种液体误差都在百分之 5 以内——蜂蜜是唯一离群值。直路干扰消除和体积补偿缺一不可。
+
+应用展示也很接地气:水质污染检测、溶液浓度估计,最后还摸了一把粘度测量的上界。用手机给液体"验明正身",这就是普适传感的浪漫。感兴趣的话打开下方 DOI 读原文,我们明天见。

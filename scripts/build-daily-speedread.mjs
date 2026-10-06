@@ -28,7 +28,7 @@ const DAILY_DIR = "public/data/daily";
 const EPISODES_PATH = `${DAILY_DIR}/episodes.json`;
 const CONFERENCE_VENUES = ["mobicom", "mobisys", "sensys", "nsdi", "sigcomm", "infocom", "ubicomp"];
 // Papers that should never be picked (no usable PDF, off-topic, etc).
-const SKIP_IDS = new Set(["dblp:conf/infocom/HuangPZZLZG22"]);
+const SKIP_IDS = new Set(["dblp:conf/infocom/HuangPZZLZG22", "dblp:conf/mobisys/OuyangXZHX21"]);
 const MIN_YEAR = 2021;
 const USER_AGENT = "PaperTrail-daily-speedread (mailto:papertrail@localhost)";
 const MAX_PDF_BYTES = 60 * 1024 * 1024;
