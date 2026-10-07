@@ -1,30 +1,40 @@
 {
-  "pdfUrl": null,
-  "pageCount": 0,
+  "pdfUrl": "https://arxiv.org/pdf/2112.09852",
+  "pageCount": 13,
   "segments": [
     {
-      "text": "各位观众,今天给大家带来的是 IEEE INFOCOM 2021 的论文《Resource-Efficient Federated Learning with Hierarchical Aggregation in Edge Computing》。",
-      "page": null
+      "text": "各位观众,今天给大家带来的是 MobiCom 2021 的论文《LegoDNN》。一句话概括:把神经网络像乐高一样拆成积木块,手机上要多少算力就拼多大的模型,而且不用重新训练。",
+      "page": 1
     },
     {
-      "text": "这篇论文由 Zhiyuan Wang、Hongli Xu 等作者完成,目前已经被引用 216 次,研究方向涉及Privacy-Preserving Technologies in Data、Stochastic Gradient Optimization Techniques、Mobile Crowdsensing and Crowdsourcing。",
-      "page": null
+      "text": "移动视觉应用遍地都是,但手机的内存和算力千差万别。现有的模型缩放是按整个模型调宽度深度,一缩放就要重训,精度还掉得狠。这张图显示:粗粒度缩放,资源稍紧精度就崩。",
+      "page": 2,
+      "figure": "Figure 1"
     },
     {
-      "text": "用论文自己的话来说:Federated learning (FL) has emerged in edge computing to address limited bandwidth and privacy concerns of traditional cloud-based centralized training.",
-      "page": null
+      "text": "LegoDNN 的洞察是:现代 DNN 本来就是模块化的——残差块、卷积块堆起来。那为什么不以块为单位缩放?预训练一批不同容量的积木块,推理时按约束现场拼装。",
+      "page": 3,
+      "figure": "Figure 2"
     },
     {
-      "text": "如果你想快速抓住重点,可以记住这几个关键词:Privacy-Preserving Technologies in Data、Stochastic Gradient Optimization Techniques、Mobile Crowdsensing and Crowdsourcing。",
-      "page": null
+      "text": "架构在这张图:离线阶段建一个积木块动物园,每块都带轻量再训练;在线阶段按当前设备的内存和延迟预算,选块组合出合法模型。整个拼装过程零重训。",
+      "page": 4,
+      "figure": "Figure 3"
     },
     {
-      "text": "好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。",
-      "page": null
+      "text": "省了多少事?这张表是模型生成时间——传统缩放每出一个新模型要几小时重训,LegoDNN 的拼装是秒级。",
+      "page": 7,
+      "figure": "Table 1"
     },
     {
-      "text": "感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。",
-      "page": null
+      "text": "精度更夸张:内存小于 30MB 的极限场景下,LegoDNN 平均比 FLOP 缩放类方法高百分之 52.66,总体平均高百分之 31.74,内存利用率还提升了百分之 68.77——能塞进更大的模型,自然更准。",
+      "page": 8,
+      "figure": "Figure 5"
+    },
+    {
+      "text": "论文还验证了七类主流 DNN 的适用性,并且能和量化技术叠加使用。对做端侧部署的同学,这个积木动物园的思路,相当于把 NAS 的成本一次性预付了。感兴趣的话打开下方 DOI 读原文,我们明天见。",
+      "page": 11,
+      "figure": "Figure 13"
     }
   ]
 }

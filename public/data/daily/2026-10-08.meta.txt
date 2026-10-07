@@ -1,3 +1,3 @@
-Resource-Efficient Federated Learning with Hierarchical Aggregation in Edge Computing
-IEEE INFOCOM · 2021
+LegoDNN: Block-grained Scaling of Deep Neural Networks for Mobile Vision
+ACM MobiCom · 2021
 2026-10-08
