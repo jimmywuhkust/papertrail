@@ -1,0 +1,3 @@
+FAIR: Quality-Aware Federated Learning with Precise User Incentive and Model Aggregation
+IEEE INFOCOM · 2021
+2026-10-09
