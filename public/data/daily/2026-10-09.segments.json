@@ -1,30 +1,37 @@
 {
-  "pdfUrl": null,
-  "pageCount": 0,
+  "pdfUrl": "https://arxiv.org/pdf/2204.09839",
+  "pageCount": 10,
   "segments": [
     {
-      "text": "各位观众,今天给大家带来的是 IEEE INFOCOM 2021 的论文《FAIR: Quality-Aware Federated Learning with Precise User Incentive and Model Aggregation》。",
-      "page": null
+      "text": "各位观众,今天给大家带来的是 INFOCOM 2021 的论文《6GAN》。一句话概括:IPv6 地址空间大得根本扫不完,那就让 GAN 加强化学习学会\"猜\"——哪些地址段最可能有活的主机,把扫描效率拉高一个数量级。",
+      "page": 1
     },
     {
-      "text": "这篇论文由 Yongheng Deng、Feng Lyu 等作者完成,目前已经被引用 211 次,研究方向涉及Privacy-Preserving Technologies in Data、Mobile Crowdsensing and Crowdsourcing、Blockchain Technology Applications and Security。",
-      "page": null
+      "text": "全网扫描是互联网测量的基本功,但 IPv6 有 2 的 128 次方个地址,硬扫是天文数字。目标生成算法因此而生:先预测一小批候选集再扫。可 IPv6 的自定义编址模式五花八门,还有大量 IPv6 alias 地址,会把算法带进沟里。",
+      "page": 2
     },
     {
-      "text": "用论文自己的话来说:Federated learning enables distributed learning in a privacy-protected manner, but two challenging reasons can affect learning performance significantly.",
-      "page": null
+      "text": "6GAN 的架构很讲究:不是单个生成器,而是一群生成器,每个专攻一种编址模式;配一个多分类判别器分辨模式类型,再加一个 alias 检测器专门剔除别名区域——三股力量在对抗训练中互相拉扯。",
+      "page": 4,
+      "figure": "Fig. 1"
     },
     {
-      "text": "如果你想快速抓住重点,可以记住这几个关键词:Privacy-Preserving Technologies in Data、Mobile Crowdsensing and Crowdsourcing、Blockchain Technology Applications and Security。",
-      "page": null
+      "text": "地址是一个 nibble 一个 nibble 生成的,每一步的\"落子\"由强化学习决策:判别器和 alias 检测器的反馈就是奖励信号,逼着生成器既像真实地址,又不踩别名坑。",
+      "page": 3
     },
     {
-      "text": "好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。",
-      "page": null
+      "text": "模式发现的效果立竿见影:这张图是各模式候选地址的指标得分——有模式分类引导时,发现的目标数比瞎扫高 18 到 34 倍,其中熵聚类模式效果最好,生成率达到百分之 33.8。",
+      "page": 7,
+      "figure": "Fig. 2"
     },
     {
-      "text": "感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。",
-      "page": null
+      "text": "在真实的 IPv6 Hitlist 数据集上横向对比,6GAN 在发现地址数量和生成率上都压过已有目标生成方法——多模式分开学的优势体现得淋漓尽致。",
+      "page": 9,
+      "figure": "Fig. 3"
+    },
+    {
+      "text": "为什么值得读?它把对抗生成和强化学习这套组合,落到了网络安全测量这个硬核场景里,而且 alias 检测这个防自欺机制设计得很清醒。做网络测量的同学,这套多生成器分工的思路可以直接借用。感兴趣的话打开下方 DOI 读原文,我们明天见。",
+      "page": 1
     }
   ]
 }

@@ -1,3 +1,3 @@
-FAIR: Quality-Aware Federated Learning with Precise User Incentive and Model Aggregation
+6GAN: IPv6 Multi-Pattern Target Generation via Generative Adversarial Nets with Reinforcement Learning
 IEEE INFOCOM · 2021
 2026-10-09
