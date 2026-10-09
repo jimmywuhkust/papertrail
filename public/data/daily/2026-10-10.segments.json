@@ -1,30 +1,39 @@
 {
-  "pdfUrl": null,
-  "pageCount": 0,
+  "pdfUrl": "http://xyzhang.ucsd.edu/papers/Xuyang.Cao_INFOCOM23_SaTCP.pdf",
+  "pageCount": 10,
   "segments": [
     {
-      "text": "各位观众,今天给大家带来的是 ACM MobiSys 2021 的论文《mmMesh: towards 3D real-time dynamic human mesh construction using millimeter-wave》。",
-      "page": null
+      "text": "各位观众,今天给大家带来的是 INFOCOM 2023 的论文《SaTCP》。一句话概括:低轨卫星网络的链路每几十秒就要切换一次,TCP 每次都以为是拥塞而猛踩刹车——SaTCP 让 TCP 提前知道\"这不是拥塞,是换星\"。",
+      "page": 1
     },
     {
-      "text": "这篇论文由 Hongfei Xue、Yan Ju 等作者完成,目前已经被引用 202 次,研究方向涉及Human Pose and Action Recognition、3D Shape Modeling and Analysis、Video Surveillance and Tracking Methods。",
-      "page": null
+      "text": "低轨卫星互联网的诱惑太大了:全球覆盖、低延迟。但卫星绕地球高速飞行,星间链路切换频繁。这张图是真实 Starlink 下行链路的 TCP 吞吐——每次切换都砸出一个深坑,TCP 的拥塞控制被坑得体无完肤。",
+      "page": 2,
+      "figure": "Figure 1"
     },
     {
-      "text": "用论文自己的话来说:In this paper, we present mmMesh, the first real-time 3D human mesh estimation system using commercial portable millimeter-wave devices.",
-      "page": null
+      "text": "换个角度看,卫星运动是高度可预测的——轨道是死的。SaTCP 的想法很妙:既然换星的时间和影响可以算出来,就提前告诉 TCP,让它在切换窗口里别乱来。作者还先造了个高保真的 LEO 实时仿真器 LeoEM 来打底。",
+      "page": 4,
+      "figure": "Figure 2"
     },
     {
-      "text": "如果你想快速抓住重点,可以记住这几个关键词:Human Pose and Action Recognition、3D Shape Modeling and Analysis、Video Surveillance and Tracking Methods。",
-      "page": null
+      "text": "预测不可能分秒不差,SaTCP 用提前上报加容忍窗口来吸收预报误差——宁可让 TCP 多稳一会儿,也不让它误刹。",
+      "page": 5,
+      "figure": "Figure 5"
     },
     {
-      "text": "好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。",
-      "page": null
+      "text": "架构上是 CUBIC 的升级:链路层事件预报模块插在协议栈中间,改动面很小,这是它的架构图。",
+      "page": 6,
+      "figure": "Figure 6"
     },
     {
-      "text": "感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。",
-      "page": null
+      "text": "数字上:百分之 92 的误触性拥塞窗口回退被避免;在星间链路的瞬态阶段,SaTCP 的平均吞吐是 BBR 的 2.34 倍、CUBIC 的 1.22 倍。这张图的时间序列对比一目了然。",
+      "page": 8,
+      "figure": "Figure 8"
+    },
+    {
+      "text": "为什么值得读?它是\"跨层信息喂给传输层\"的一次干净利落的示范——卫星轨道的可预测性,就是免费的先知。做卫星网络或传输层的同学,这套思路可以直接搬。感兴趣的话打开下方 DOI 读原文,我们明天见。",
+      "page": 1
     }
   ]
 }
