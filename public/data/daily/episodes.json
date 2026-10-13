@@ -1,6 +1,68 @@
 {
-  "generatedAt": "2026-10-11T22:09:05.982Z",
+  "generatedAt": "2026-10-13T22:57:01.378Z",
   "episodes": [
+    {
+      "date": "2026-10-14",
+      "id": "dblp:conf/infocom/LiSHLPH21",
+      "title": "To Talk or to Work: Flexible Communication Compression for Energy Efficient Federated Learning over Heterogeneous Mobile Edge Devices",
+      "authors": [
+        "Liang Li",
+        "Dian Shi",
+        "Ronghui Hou",
+        "Hui Li",
+        "Miao Pan",
+        "Zhu Han"
+      ],
+      "venueId": "infocom",
+      "venueName": "IEEE INFOCOM",
+      "year": 2021,
+      "doi": "10.1109/infocom42981.2021.9488839",
+      "url": "https://doi.org/10.1109/INFOCOM42981.2021.9488839",
+      "citationCount": 196,
+      "topics": [
+        "Privacy-Preserving Technologies in Data",
+        "Stochastic Gradient Optimization Techniques",
+        "Cryptography and Data Security"
+      ],
+      "pdfUrl": "https://arxiv.org/pdf/2012.11804",
+      "pageCount": 0,
+      "scriptSource": "template",
+      "script": [
+        "各位观众,今天给大家带来的是 IEEE INFOCOM 2021 的论文《To Talk or to Work: Flexible Communication Compression for Energy Efficient Federated Learning over Heterogeneous Mobile Edge Devices》。",
+        "这篇论文由 Liang Li、Dian Shi 等作者完成,目前已经被引用 196 次,研究方向涉及Privacy-Preserving Technologies in Data、Stochastic Gradient Optimization Techniques、Cryptography and Data Security。",
+        "用论文自己的话来说:Recent advances in machine learning, wireless communication, and mobile hardware technologies promisingly enable federated learning (FL) over massive mobile edge devices, which opens new horizons for numerous intelligent mobile applications.",
+        "如果你想快速抓住重点,可以记住这几个关键词:Privacy-Preserving Technologies in Data、Stochastic Gradient Optimization Techniques、Cryptography and Data Security。",
+        "好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。",
+        "感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。"
+      ],
+      "segments": [
+        {
+          "text": "各位观众,今天给大家带来的是 IEEE INFOCOM 2021 的论文《To Talk or to Work: Flexible Communication Compression for Energy Efficient Federated Learning over Heterogeneous Mobile Edge Devices》。",
+          "page": null
+        },
+        {
+          "text": "这篇论文由 Liang Li、Dian Shi 等作者完成,目前已经被引用 196 次,研究方向涉及Privacy-Preserving Technologies in Data、Stochastic Gradient Optimization Techniques、Cryptography and Data Security。",
+          "page": null
+        },
+        {
+          "text": "用论文自己的话来说:Recent advances in machine learning, wireless communication, and mobile hardware technologies promisingly enable federated learning (FL) over massive mobile edge devices, which opens new horizons for numerous intelligent mobile applications.",
+          "page": null
+        },
+        {
+          "text": "如果你想快速抓住重点,可以记住这几个关键词:Privacy-Preserving Technologies in Data、Stochastic Gradient Optimization Techniques、Cryptography and Data Security。",
+          "page": null
+        },
+        {
+          "text": "好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。",
+          "page": null
+        },
+        {
+          "text": "感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。",
+          "page": null
+        }
+      ],
+      "video": "daily/2026-10-14.mp4"
+    },
     {
       "date": "2026-10-12",
       "id": "dblp:conf/infocom/MaCZCML23",

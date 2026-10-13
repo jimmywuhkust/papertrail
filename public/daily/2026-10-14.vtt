@@ -1,0 +1,33 @@
+WEBVTT
+
+1
+00:00:00.100 --> 00:00:12.075
+各位观众,今天给大家带来的是 IEEE INFOCOM 2021 的论文《To Talk or to Work: Flexible Communication Compression for Energy Efficient Federated Learning over Heterogeneous Mobile Edge Devices》。
+
+2
+00:00:12.196 --> 00:00:26.096
+这篇论文由 Liang Li、Dian Shi 等作者完成,目前已经被引用 196 次,研究方向涉及Privacy-Preserving Technologies in Data、Stochastic Gradient Optimization Techniques、Cryptography and Data Security。
+
+3
+00:00:26.212 --> 00:00:41.012
+用论文自己的话来说:Recent advances in machine learning, wireless communication, and mobile hardware technologies promisingly enable federated learning (FL) over massive mobile edge devices, which opens new horizons for numerous intelligent mobile applications.
+
+4
+00:00:41.164 --> 00:00:52.126
+如果你想快速抓住重点,可以记住这几个关键词:Privacy-Preserving Technologies in Data、Stochastic Gradient Optimization Techniques、Cryptography and Data Security。
+
+5
+00:00:52.228 --> 00:00:55.215
+好了,今天的速读就到这里。
+
+6
+00:00:55.165 --> 00:01:05.915
+本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。
+
+7
+00:01:06.076 --> 00:01:11.363
+感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。
+
+8
+00:01:11.313 --> 00:01:13.213
+我们明天见。

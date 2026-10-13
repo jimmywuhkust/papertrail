@@ -1,0 +1,3 @@
+To Talk or to Work: Flexible Communication Compression for Energy Efficient Federated Learning over Heterogeneous Mobile Edge Devices
+IEEE INFOCOM · 2021
+2026-10-14
