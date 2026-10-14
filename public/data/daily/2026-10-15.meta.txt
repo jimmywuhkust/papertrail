@@ -1,0 +1,3 @@
+Radio Frequency Fingerprint Identification for LoRa Using Spectrogram and CNN
+IEEE INFOCOM · 2021
+2026-10-15

@@ -1,6 +1,67 @@
 {
-  "generatedAt": "2026-10-13T22:57:01.378Z",
+  "generatedAt": "2026-10-14T21:49:47.730Z",
   "episodes": [
+    {
+      "date": "2026-10-15",
+      "id": "dblp:conf/infocom/ShenZ0P021",
+      "title": "Radio Frequency Fingerprint Identification for LoRa Using Spectrogram and CNN",
+      "authors": [
+        "Guanxiong Shen",
+        "Junqing Zhang",
+        "Alan Marshall",
+        "Linning Peng",
+        "Xianbin Wang"
+      ],
+      "venueId": "infocom",
+      "venueName": "IEEE INFOCOM",
+      "year": 2021,
+      "doi": "10.1109/infocom42981.2021.9488793",
+      "url": "https://doi.org/10.1109/INFOCOM42981.2021.9488793",
+      "citationCount": 151,
+      "topics": [
+        "Wireless Signal Modulation Classification",
+        "Radar Systems and Signal Processing",
+        "Wireless Communication Security Techniques"
+      ],
+      "pdfUrl": "https://arxiv.org/pdf/2101.01668",
+      "pageCount": 0,
+      "scriptSource": "template",
+      "script": [
+        "各位观众,今天给大家带来的是 IEEE INFOCOM 2021 的论文《Radio Frequency Fingerprint Identification for LoRa Using Spectrogram and CNN》。",
+        "这篇论文由 Guanxiong Shen、Junqing Zhang 等作者完成,目前已经被引用 151 次,研究方向涉及Wireless Signal Modulation Classification、Radar Systems and Signal Processing、Wireless Communication Security Techniques。",
+        "用论文自己的话来说:Radio frequency fingerprint identification (RFFI) is an emerging device authentication technique that relies on intrin-sic hardware characteristics of wireless devices.",
+        "如果你想快速抓住重点,可以记住这几个关键词:Wireless Signal Modulation Classification、Radar Systems and Signal Processing、Wireless Communication Security Techniques。",
+        "好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。",
+        "感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。"
+      ],
+      "segments": [
+        {
+          "text": "各位观众,今天给大家带来的是 IEEE INFOCOM 2021 的论文《Radio Frequency Fingerprint Identification for LoRa Using Spectrogram and CNN》。",
+          "page": null
+        },
+        {
+          "text": "这篇论文由 Guanxiong Shen、Junqing Zhang 等作者完成,目前已经被引用 151 次,研究方向涉及Wireless Signal Modulation Classification、Radar Systems and Signal Processing、Wireless Communication Security Techniques。",
+          "page": null
+        },
+        {
+          "text": "用论文自己的话来说:Radio frequency fingerprint identification (RFFI) is an emerging device authentication technique that relies on intrin-sic hardware characteristics of wireless devices.",
+          "page": null
+        },
+        {
+          "text": "如果你想快速抓住重点,可以记住这几个关键词:Wireless Signal Modulation Classification、Radar Systems and Signal Processing、Wireless Communication Security Techniques。",
+          "page": null
+        },
+        {
+          "text": "好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。",
+          "page": null
+        },
+        {
+          "text": "感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。",
+          "page": null
+        }
+      ],
+      "video": "daily/2026-10-15.mp4"
+    },
     {
       "date": "2026-10-14",
       "id": "dblp:conf/infocom/LiSHLPH21",
