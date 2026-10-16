@@ -1,30 +1,36 @@
 {
   "pdfUrl": "https://arxiv.org/pdf/2012.11804",
-  "pageCount": 0,
+  "pageCount": 12,
   "segments": [
     {
-      "text": "各位观众,今天给大家带来的是 IEEE INFOCOM 2021 的论文《To Talk or to Work: Flexible Communication Compression for Energy Efficient Federated Learning over Heterogeneous Mobile Edge Devices》。",
-      "page": null
+      "text": "各位观众,今天给大家带来的是 INFOCOM 2021 的论文《To Talk or to Work》。一句话概括:联邦学习的每个参与设备,应该在\"多说话\"和\"多干活\"之间灵活分配——这篇论文把这个权衡做成了可优化的设计。",
+      "page": 1
     },
     {
-      "text": "这篇论文由 Liang Li、Dian Shi 等作者完成,目前已经被引用 196 次,研究方向涉及Privacy-Preserving Technologies in Data、Stochastic Gradient Optimization Techniques、Cryptography and Data Security。",
-      "page": null
+      "text": "背景账很好算:传一个 ResNet-50 的百兆参数,1Gbps 链路下要耗 0.16 焦耳,和本地训练一步的能耗已经可比。移动设备电量金贵,通信和计算这两笔账必须一起算。",
+      "page": 1
     },
     {
-      "text": "用论文自己的话来说:Recent advances in machine learning, wireless communication, and mobile hardware technologies promisingly enable federated learning (FL) over massive mobile edge devices, which opens new horizons for numerous intelligent mobile applications.",
-      "page": null
+      "text": "\"少说话\"有两条路:梯度稀疏化,每次只传重要的参数;时间稀疏化,几轮本地训练才同步一次。作者的关键发现是:这两条路的压缩力度存在权衡,而且最优组合随设备和数据分布而变。",
+      "page": 2
     },
     {
-      "text": "如果你想快速抓住重点,可以记住这几个关键词:Privacy-Preserving Technologies in Data、Stochastic Gradient Optimization Techniques、Cryptography and Data Security。",
-      "page": null
+      "text": "于是有了 FlexibleSpar:不做全局统一的压缩率,而是让每个参与者按自己的信道质量和电量,灵活决定说多少、练多少——异构设备各取所需。",
+      "page": 4
     },
     {
-      "text": "好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。",
-      "page": null
+      "text": "实验把各种系统参数扫了一遍:参与者数量、异构程度、压缩配比。这张图展示了系统规模变化对平均能耗的影响,FlexibleSpar 在各种配置下都压着基线。",
+      "page": 8,
+      "figure": "Fig. 1"
     },
     {
-      "text": "感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。",
-      "page": null
+      "text": "精度-能耗的帕累托前沿更直观:同样能耗下 FlexibleSpar 的测试误差更低,同样精度下能耗更省——灵活分配的回报是实打实的。",
+      "page": 8,
+      "figure": "Fig. 2"
+    },
+    {
+      "text": "为什么值得读?\"talk or work\"这个提法本身就很有记忆点,而且结论实用:别再全局一刀切压缩率了,让设备自己选。做 FL 系统的同学值得一看。感兴趣的话打开下方 DOI 读原文,我们明天见。",
+      "page": 1
     }
   ]
 }

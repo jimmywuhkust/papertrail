@@ -1,3 +1,3 @@
-Network Characteristics of LEO Satellite Constellations: A Starlink-Based Measurement from End Users
-IEEE INFOCOM · 2023
+MARISA: A Self-Configuring Metasurfaces Absorption and Reflection Solution
+IEEE INFOCOM · 2022
 2026-10-12

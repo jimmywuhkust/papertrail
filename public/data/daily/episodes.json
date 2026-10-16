@@ -1,126 +1,209 @@
 {
-  "generatedAt": "2026-10-15T21:33:15.541Z",
+  "generatedAt": "2026-10-16T09:54:35.750Z",
   "episodes": [
     {
-      "date": "2026-10-16",
-      "id": "dblp:conf/infocom/DOroBPM22",
-      "title": "OrchestRAN: Network Automation through Orchestrated Intelligence in the Open RAN",
+      "date": "2026-10-11",
+      "id": "dblp:journals/imwut/TrivediZBBCS21",
+      "title": "WiFiTrace: Network-based Contact Tracing for Infectious Diseases Using Passive WiFi Sensing",
       "authors": [
-        "Salvatore D'Oro",
-        "Leonardo Bonati",
-        "Michele Polese",
-        "Tommaso Melodia"
+        "Amee Trivedi",
+        "Camellia Zakaria",
+        "Rajesh Balan",
+        "Yitcha Crispin",
+        "Lek Hsiang Hsu",
+        "Petri Nurmi"
+      ],
+      "venueId": "ubicomp",
+      "venueName": "ACM UbiComp / IMWUT",
+      "year": 2021,
+      "doi": "10.1145/3448084",
+      "url": "https://doi.org/10.1145/3448084",
+      "citationCount": 60,
+      "topics": [
+        "Contact Tracing",
+        "WiFi Sensing",
+        "Public Health"
+      ],
+      "pdfUrl": "https://arxiv.org/pdf/2005.12045",
+      "pageCount": 26,
+      "scriptSource": "llm",
+      "segments": [
+        {
+          "text": "各位观众,今天给大家带来的是 UbiComp 2021 的论文《WiFiTrace》。一句话概括:不用装任何 App,直接用现成的 WiFi 基础设施做传染病接触追踪——你的手机和 AP 的关联记录,就是行踪的证据。",
+          "page": 2
+        },
+        {
+          "text": "疫情期间的接触追踪,主流方案是蓝牙 App,但安装率、隐私顾虑、蓝牙本身的测距误差都是坑。作者的思路是网络中心化的:WiFi 网络本来就知道哪台设备连了哪个 AP、什么时候连的——这张对比表把两种路线的优劣列得很清楚。",
+          "page": 5,
+          "figure": "Table 1"
+        },
+        {
+          "text": "系统架构是分层的:底层采集 AP 关联日志,中间层把设备和 AP 建成二部图,上层用图查询生成接触报告。这张图就是一份真实的接触追踪报告样例。",
+          "page": 8,
+          "figure": "Fig. 3"
+        },
+        {
+          "text": "核心数据结构是这张二部图:设备到 AP 的关联带时间戳,两台设备在同一 AP 下的时间重叠,就是一次潜在接触。图查询 API 把\"谁和谁接触过\"变成一次图遍历。",
+          "page": 9,
+          "figure": "Fig. 4"
+        },
+        {
+          "text": "准不准?实验里,WiFi 会话短于一分钟的间歇使用场景,位置推断准确率也能保持在百分之 80 以上——对于流行病学意义上的\"密切接触\"判定,这个精度已经够用。",
+          "page": 13,
+          "figure": "Fig. 6"
+        },
+        {
+          "text": "为什么值得读?室内传播风险是室外的 20 倍,而室内恰恰没有 GPS。WiFiTrace 证明了:与其逼所有人装 App,不如把已有的网络设施变成公共卫生的基础设施。感兴趣的话打开下方 DOI 读原文,我们明天见。",
+          "page": 13
+        }
+      ],
+      "script": [
+        "各位观众,今天给大家带来的是 UbiComp 2021 的论文《WiFiTrace》。一句话概括:不用装任何 App,直接用现成的 WiFi 基础设施做传染病接触追踪——你的手机和 AP 的关联记录,就是行踪的证据。",
+        "疫情期间的接触追踪,主流方案是蓝牙 App,但安装率、隐私顾虑、蓝牙本身的测距误差都是坑。作者的思路是网络中心化的:WiFi 网络本来就知道哪台设备连了哪个 AP、什么时候连的——这张对比表把两种路线的优劣列得很清楚。",
+        "系统架构是分层的:底层采集 AP 关联日志,中间层把设备和 AP 建成二部图,上层用图查询生成接触报告。这张图就是一份真实的接触追踪报告样例。",
+        "核心数据结构是这张二部图:设备到 AP 的关联带时间戳,两台设备在同一 AP 下的时间重叠,就是一次潜在接触。图查询 API 把\"谁和谁接触过\"变成一次图遍历。",
+        "准不准?实验里,WiFi 会话短于一分钟的间歇使用场景,位置推断准确率也能保持在百分之 80 以上——对于流行病学意义上的\"密切接触\"判定,这个精度已经够用。",
+        "为什么值得读?室内传播风险是室外的 20 倍,而室内恰恰没有 GPS。WiFiTrace 证明了:与其逼所有人装 App,不如把已有的网络设施变成公共卫生的基础设施。感兴趣的话打开下方 DOI 读原文,我们明天见。"
+      ],
+      "video": "daily/2026-10-11.mp4"
+    },
+    {
+      "date": "2026-10-12",
+      "id": "dblp:conf/infocom/AlbaneseDSRC22",
+      "title": "MARISA: A Self-Configuring Metasurfaces Absorption and Reflection Solution",
+      "authors": [
+        "Antonio Albanese",
+        "Francesco Devoti",
+        "Vincenzo Sciancalepore",
+        "Xavier Costa-Perez"
       ],
       "venueId": "infocom",
       "venueName": "IEEE INFOCOM",
       "year": 2022,
-      "doi": "10.1109/infocom48880.2022.9796744",
-      "url": "https://doi.org/10.1109/INFOCOM48880.2022.9796744",
-      "citationCount": 115,
+      "doi": "10.1109/infocom48880.2022.9796976",
+      "url": "https://doi.org/10.1109/infocom48880.2022.9796976",
+      "citationCount": 57,
       "topics": [
-        "Software-Defined Networks and 5G",
-        "Energy Efficient Wireless Sensor Networks",
-        "IoT and Edge/Fog Computing"
+        "Reconfigurable Intelligent Surfaces",
+        "6G",
+        "Self-configuration"
       ],
-      "pdfUrl": "https://arxiv.org/pdf/2201.05632",
-      "pageCount": 0,
-      "scriptSource": "template",
-      "script": [
-        "各位观众,今天给大家带来的是 IEEE INFOCOM 2022 的论文《OrchestRAN: Network Automation through Orchestrated Intelligence in the Open RAN》。",
-        "这篇论文由 Salvatore D'Oro、Leonardo Bonati 等作者完成,目前已经被引用 115 次,研究方向涉及Software-Defined Networks and 5G、Energy Efficient Wireless Sensor Networks、IoT and Edge/Fog Computing。",
-        "用论文自己的话来说:The next generation of cellular networks will be characterized by softwarized, open, and disaggregated architectures exposing analytics and control knobs to enable network intelligence via innovative data-driven algorithms.",
-        "如果你想快速抓住重点,可以记住这几个关键词:Software-Defined Networks and 5G、Energy Efficient Wireless Sensor Networks、IoT and Edge/Fog Computing。",
-        "好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。",
-        "感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。"
-      ],
+      "pdfUrl": "https://arxiv.org/pdf/2112.01949",
+      "pageCount": 10,
+      "scriptSource": "llm",
       "segments": [
         {
-          "text": "各位观众,今天给大家带来的是 IEEE INFOCOM 2022 的论文《OrchestRAN: Network Automation through Orchestrated Intelligence in the Open RAN》。",
-          "page": null
+          "text": "各位观众,今天给大家带来的是 INFOCOM 2022 的论文《MARISA》。一句话概括:智能超表面 RIS 被认为是 6G 的关键技术,但它需要一条快速控制信道不停调整配置——MARISA 问了一个大胆的问题:能不能把控制信道彻底删掉?",
+          "page": 1
         },
         {
-          "text": "这篇论文由 Salvatore D'Oro、Leonardo Bonati 等作者完成,目前已经被引用 115 次,研究方向涉及Software-Defined Networks and 5G、Energy Efficient Wireless Sensor Networks、IoT and Edge/Fog Computing。",
-          "page": null
+          "text": "RIS 的美好愿景是即插即用:贴在墙上就能改善覆盖。但现实是,它要持续感知信道、实时调整相位,控制信道本身成了部署的最大障碍。这个\"物联网表面\"的场景图,就是作者想要实现的即插即用形态。",
+          "page": 1,
+          "figure": "Fig. 1"
         },
         {
-          "text": "用论文自己的话来说:The next generation of cellular networks will be characterized by softwarized, open, and disaggregated architectures exposing analytics and control knobs to enable network intelligence via innovative data-driven algorithms.",
-          "page": null
+          "text": "MARISA 的硬件设计是混合型 RIS:一部分单元负责反射信号,另一部分负责吸收一小部分能量做信道感知——自己感知、自己配置,不需要基站告诉它该怎么做。",
+          "page": 2,
+          "figure": "Fig. 2"
         },
         {
-          "text": "如果你想快速抓住重点,可以记住这几个关键词:Software-Defined Networks and 5G、Energy Efficient Wireless Sensor Networks、IoT and Edge/Fog Computing。",
-          "page": null
+          "text": "怎么感知?吸收单元测量功率谱,从功率剖面里估计出用户方向的峰值。这张图展示了功率剖面和峰值估计的对应关系——看似简单,但要区分多用户和噪声,需要精心设计的码本。",
+          "page": 6,
+          "figure": "Fig. 5"
         },
         {
-          "text": "好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。",
-          "page": null
+          "text": "码本设计是个优化问题:每个码字对应一组相位配置,要在角度区间内最坏情况都表现好。这是优化出来的 RIS 辐射方向图,方位角上的覆盖肉眼可见地均匀。",
+          "page": 8,
+          "figure": "Fig. 6"
         },
         {
-          "text": "感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。",
-          "page": null
+          "text": "多用户场景下,自配置版本的平均和速率逼近了有完美信道知识的上限;这张 CDF 图显示,绝大多数时刻 MARISA 和集中式最优配置的差距都很小。",
+          "page": 9,
+          "figure": "Fig. 9"
+        },
+        {
+          "text": "为什么值得读?它把 RIS 从\"需要基站桩伺候的娇贵设备\"变成\"贴墙即用的傻瓜设备\",这是 RIS 走向真实部署绕不过去的一步。感兴趣的话打开下方 DOI 读原文,我们明天见。",
+          "page": 1
         }
       ],
-      "video": "daily/2026-10-16.mp4"
+      "script": [
+        "各位观众,今天给大家带来的是 INFOCOM 2022 的论文《MARISA》。一句话概括:智能超表面 RIS 被认为是 6G 的关键技术,但它需要一条快速控制信道不停调整配置——MARISA 问了一个大胆的问题:能不能把控制信道彻底删掉?",
+        "RIS 的美好愿景是即插即用:贴在墙上就能改善覆盖。但现实是,它要持续感知信道、实时调整相位,控制信道本身成了部署的最大障碍。这个\"物联网表面\"的场景图,就是作者想要实现的即插即用形态。",
+        "MARISA 的硬件设计是混合型 RIS:一部分单元负责反射信号,另一部分负责吸收一小部分能量做信道感知——自己感知、自己配置,不需要基站告诉它该怎么做。",
+        "怎么感知?吸收单元测量功率谱,从功率剖面里估计出用户方向的峰值。这张图展示了功率剖面和峰值估计的对应关系——看似简单,但要区分多用户和噪声,需要精心设计的码本。",
+        "码本设计是个优化问题:每个码字对应一组相位配置,要在角度区间内最坏情况都表现好。这是优化出来的 RIS 辐射方向图,方位角上的覆盖肉眼可见地均匀。",
+        "多用户场景下,自配置版本的平均和速率逼近了有完美信道知识的上限;这张 CDF 图显示,绝大多数时刻 MARISA 和集中式最优配置的差距都很小。",
+        "为什么值得读?它把 RIS 从\"需要基站桩伺候的娇贵设备\"变成\"贴墙即用的傻瓜设备\",这是 RIS 走向真实部署绕不过去的一步。感兴趣的话打开下方 DOI 读原文,我们明天见。"
+      ],
+      "video": "daily/2026-10-12.mp4"
     },
     {
-      "date": "2026-10-15",
-      "id": "dblp:conf/infocom/ShenZ0P021",
-      "title": "Radio Frequency Fingerprint Identification for LoRa Using Spectrogram and CNN",
+      "date": "2026-10-13",
+      "id": "dblp:conf/infocom/TuliCJ22",
+      "title": "PreGAN: Preemptive Migration Prediction Network for Proactive Fault-Tolerant Edge Computing",
       "authors": [
-        "Guanxiong Shen",
-        "Junqing Zhang",
-        "Alan Marshall",
-        "Linning Peng",
-        "Xianbin Wang"
+        "Shreshth Tuli",
+        "Giuliano Casale",
+        "Nicholas R. Jennings"
       ],
       "venueId": "infocom",
       "venueName": "IEEE INFOCOM",
-      "year": 2021,
-      "doi": "10.1109/infocom42981.2021.9488793",
-      "url": "https://doi.org/10.1109/INFOCOM42981.2021.9488793",
-      "citationCount": 151,
+      "year": 2022,
+      "doi": "10.1109/infocom48880.2022.9796778",
+      "url": "https://doi.org/10.1109/infocom48880.2022.9796778",
+      "citationCount": 59,
       "topics": [
-        "Wireless Signal Modulation Classification",
-        "Radar Systems and Signal Processing",
-        "Wireless Communication Security Techniques"
+        "Edge Computing",
+        "Fault Tolerance",
+        "Task Migration"
       ],
-      "pdfUrl": "https://arxiv.org/pdf/2101.01668",
-      "pageCount": 0,
-      "scriptSource": "template",
-      "script": [
-        "各位观众,今天给大家带来的是 IEEE INFOCOM 2021 的论文《Radio Frequency Fingerprint Identification for LoRa Using Spectrogram and CNN》。",
-        "这篇论文由 Guanxiong Shen、Junqing Zhang 等作者完成,目前已经被引用 151 次,研究方向涉及Wireless Signal Modulation Classification、Radar Systems and Signal Processing、Wireless Communication Security Techniques。",
-        "用论文自己的话来说:Radio frequency fingerprint identification (RFFI) is an emerging device authentication technique that relies on intrin-sic hardware characteristics of wireless devices.",
-        "如果你想快速抓住重点,可以记住这几个关键词:Wireless Signal Modulation Classification、Radar Systems and Signal Processing、Wireless Communication Security Techniques。",
-        "好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。",
-        "感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。"
-      ],
+      "pdfUrl": "https://arxiv.org/pdf/2112.02292",
+      "pageCount": 11,
+      "scriptSource": "llm",
       "segments": [
         {
-          "text": "各位观众,今天给大家带来的是 IEEE INFOCOM 2021 的论文《Radio Frequency Fingerprint Identification for LoRa Using Spectrogram and CNN》。",
-          "page": null
+          "text": "各位观众,今天给大家带来的是 INFOCOM 2022 的论文《PreGAN》。一句话概括:边缘计算节点不可靠、任务有死线,PreGAN 用 AI 提前预测故障,在节点挂掉之前就把任务迁走。",
+          "page": 1
         },
         {
-          "text": "这篇论文由 Guanxiong Shen、Junqing Zhang 等作者完成,目前已经被引用 151 次,研究方向涉及Wireless Signal Modulation Classification、Radar Systems and Signal Processing、Wireless Communication Security Techniques。",
-          "page": null
+          "text": "边缘系统的老大难:节点动不动就过载或宕机,等故障发生了再迁移,任务早就超时了。但乱迁移也不行——不必要的迁移会压垮网络。所以需要一个既准确又克制的故障预测机制。",
+          "page": 1
         },
         {
-          "text": "用论文自己的话来说:Radio frequency fingerprint identification (RFFI) is an emerging device authentication technique that relies on intrin-sic hardware characteristics of wireless devices.",
-          "page": null
+          "text": "PreGAN 的模型是个组合体:先用注意力机制分析资源使用的时间序列,预测故障;再用 GAN 风格的故障原型编码器做故障分类。这张图是它的整体结构。",
+          "page": 3,
+          "figure": "Figure 2"
         },
         {
-          "text": "如果你想快速抓住重点,可以记住这几个关键词:Wireless Signal Modulation Classification、Radar Systems and Signal Processing、Wireless Communication Security Techniques。",
-          "page": null
+          "text": "注意力权重的可视化很有意思:模型自己会盯着故障前的异常模式看——这不是黑箱瞎猜,是在学习故障前兆。",
+          "page": 5,
+          "figure": "Figure 3"
         },
         {
-          "text": "好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。",
-          "page": null
+          "text": "故障原型编码器把各类故障压成嵌入空间里的原型点,迁移决策就变成\"当前状态离哪个故障原型最近\"。这是训练过程的可视化。",
+          "page": 7,
+          "figure": "Figure 5"
         },
         {
-          "text": "感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。",
-          "page": null
+          "text": "数字上:比最强基线故障检测准确率高百分之 5.1,任务迁移减少百分之 10.7,开销降低百分之 23.8,SLA 违约最多降百分之 12——又准又省。",
+          "page": 8,
+          "figure": "Figure 9"
+        },
+        {
+          "text": "为什么值得读?边缘计算的容错大多是\"事后补救\",PreGAN 证明了\"事前预测\"在真实负载下是可行的。做边缘系统的同学,这套预测加克制的组合值得参考。感兴趣的话打开下方 DOI 读原文,我们明天见。",
+          "page": 1
         }
       ],
-      "video": "daily/2026-10-15.mp4"
+      "script": [
+        "各位观众,今天给大家带来的是 INFOCOM 2022 的论文《PreGAN》。一句话概括:边缘计算节点不可靠、任务有死线,PreGAN 用 AI 提前预测故障,在节点挂掉之前就把任务迁走。",
+        "边缘系统的老大难:节点动不动就过载或宕机,等故障发生了再迁移,任务早就超时了。但乱迁移也不行——不必要的迁移会压垮网络。所以需要一个既准确又克制的故障预测机制。",
+        "PreGAN 的模型是个组合体:先用注意力机制分析资源使用的时间序列,预测故障;再用 GAN 风格的故障原型编码器做故障分类。这张图是它的整体结构。",
+        "注意力权重的可视化很有意思:模型自己会盯着故障前的异常模式看——这不是黑箱瞎猜,是在学习故障前兆。",
+        "故障原型编码器把各类故障压成嵌入空间里的原型点,迁移决策就变成\"当前状态离哪个故障原型最近\"。这是训练过程的可视化。",
+        "数字上:比最强基线故障检测准确率高百分之 5.1,任务迁移减少百分之 10.7,开销降低百分之 23.8,SLA 违约最多降百分之 12——又准又省。",
+        "为什么值得读?边缘计算的容错大多是\"事后补救\",PreGAN 证明了\"事前预测\"在真实负载下是可行的。做边缘系统的同学,这套预测加克制的组合值得参考。感兴趣的话打开下方 DOI 读原文,我们明天见。"
+      ],
+      "video": "daily/2026-10-13.mp4"
     },
     {
       "date": "2026-10-14",
@@ -138,176 +221,201 @@
       "venueName": "IEEE INFOCOM",
       "year": 2021,
       "doi": "10.1109/infocom42981.2021.9488839",
-      "url": "https://doi.org/10.1109/INFOCOM42981.2021.9488839",
+      "url": "https://doi.org/10.1109/infocom42981.2021.9488839",
       "citationCount": 196,
       "topics": [
-        "Privacy-Preserving Technologies in Data",
-        "Stochastic Gradient Optimization Techniques",
-        "Cryptography and Data Security"
+        "Federated Learning",
+        "Communication Compression",
+        "Energy Efficiency"
       ],
       "pdfUrl": "https://arxiv.org/pdf/2012.11804",
-      "pageCount": 0,
-      "scriptSource": "template",
-      "script": [
-        "各位观众,今天给大家带来的是 IEEE INFOCOM 2021 的论文《To Talk or to Work: Flexible Communication Compression for Energy Efficient Federated Learning over Heterogeneous Mobile Edge Devices》。",
-        "这篇论文由 Liang Li、Dian Shi 等作者完成,目前已经被引用 196 次,研究方向涉及Privacy-Preserving Technologies in Data、Stochastic Gradient Optimization Techniques、Cryptography and Data Security。",
-        "用论文自己的话来说:Recent advances in machine learning, wireless communication, and mobile hardware technologies promisingly enable federated learning (FL) over massive mobile edge devices, which opens new horizons for numerous intelligent mobile applications.",
-        "如果你想快速抓住重点,可以记住这几个关键词:Privacy-Preserving Technologies in Data、Stochastic Gradient Optimization Techniques、Cryptography and Data Security。",
-        "好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。",
-        "感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。"
-      ],
+      "pageCount": 12,
+      "scriptSource": "llm",
       "segments": [
         {
-          "text": "各位观众,今天给大家带来的是 IEEE INFOCOM 2021 的论文《To Talk or to Work: Flexible Communication Compression for Energy Efficient Federated Learning over Heterogeneous Mobile Edge Devices》。",
-          "page": null
+          "text": "各位观众,今天给大家带来的是 INFOCOM 2021 的论文《To Talk or to Work》。一句话概括:联邦学习的每个参与设备,应该在\"多说话\"和\"多干活\"之间灵活分配——这篇论文把这个权衡做成了可优化的设计。",
+          "page": 1
         },
         {
-          "text": "这篇论文由 Liang Li、Dian Shi 等作者完成,目前已经被引用 196 次,研究方向涉及Privacy-Preserving Technologies in Data、Stochastic Gradient Optimization Techniques、Cryptography and Data Security。",
-          "page": null
+          "text": "背景账很好算:传一个 ResNet-50 的百兆参数,1Gbps 链路下要耗 0.16 焦耳,和本地训练一步的能耗已经可比。移动设备电量金贵,通信和计算这两笔账必须一起算。",
+          "page": 1
         },
         {
-          "text": "用论文自己的话来说:Recent advances in machine learning, wireless communication, and mobile hardware technologies promisingly enable federated learning (FL) over massive mobile edge devices, which opens new horizons for numerous intelligent mobile applications.",
-          "page": null
+          "text": "\"少说话\"有两条路:梯度稀疏化,每次只传重要的参数;时间稀疏化,几轮本地训练才同步一次。作者的关键发现是:这两条路的压缩力度存在权衡,而且最优组合随设备和数据分布而变。",
+          "page": 2
         },
         {
-          "text": "如果你想快速抓住重点,可以记住这几个关键词:Privacy-Preserving Technologies in Data、Stochastic Gradient Optimization Techniques、Cryptography and Data Security。",
-          "page": null
+          "text": "于是有了 FlexibleSpar:不做全局统一的压缩率,而是让每个参与者按自己的信道质量和电量,灵活决定说多少、练多少——异构设备各取所需。",
+          "page": 4
         },
         {
-          "text": "好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。",
-          "page": null
+          "text": "实验把各种系统参数扫了一遍:参与者数量、异构程度、压缩配比。这张图展示了系统规模变化对平均能耗的影响,FlexibleSpar 在各种配置下都压着基线。",
+          "page": 8,
+          "figure": "Fig. 1"
         },
         {
-          "text": "感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。",
-          "page": null
+          "text": "精度-能耗的帕累托前沿更直观:同样能耗下 FlexibleSpar 的测试误差更低,同样精度下能耗更省——灵活分配的回报是实打实的。",
+          "page": 8,
+          "figure": "Fig. 2"
+        },
+        {
+          "text": "为什么值得读?\"talk or work\"这个提法本身就很有记忆点,而且结论实用:别再全局一刀切压缩率了,让设备自己选。做 FL 系统的同学值得一看。感兴趣的话打开下方 DOI 读原文,我们明天见。",
+          "page": 1
         }
+      ],
+      "script": [
+        "各位观众,今天给大家带来的是 INFOCOM 2021 的论文《To Talk or to Work》。一句话概括:联邦学习的每个参与设备,应该在\"多说话\"和\"多干活\"之间灵活分配——这篇论文把这个权衡做成了可优化的设计。",
+        "背景账很好算:传一个 ResNet-50 的百兆参数,1Gbps 链路下要耗 0.16 焦耳,和本地训练一步的能耗已经可比。移动设备电量金贵,通信和计算这两笔账必须一起算。",
+        "\"少说话\"有两条路:梯度稀疏化,每次只传重要的参数;时间稀疏化,几轮本地训练才同步一次。作者的关键发现是:这两条路的压缩力度存在权衡,而且最优组合随设备和数据分布而变。",
+        "于是有了 FlexibleSpar:不做全局统一的压缩率,而是让每个参与者按自己的信道质量和电量,灵活决定说多少、练多少——异构设备各取所需。",
+        "实验把各种系统参数扫了一遍:参与者数量、异构程度、压缩配比。这张图展示了系统规模变化对平均能耗的影响,FlexibleSpar 在各种配置下都压着基线。",
+        "精度-能耗的帕累托前沿更直观:同样能耗下 FlexibleSpar 的测试误差更低,同样精度下能耗更省——灵活分配的回报是实打实的。",
+        "为什么值得读?\"talk or work\"这个提法本身就很有记忆点,而且结论实用:别再全局一刀切压缩率了,让设备自己选。做 FL 系统的同学值得一看。感兴趣的话打开下方 DOI 读原文,我们明天见。"
       ],
       "video": "daily/2026-10-14.mp4"
     },
     {
-      "date": "2026-10-12",
-      "id": "dblp:conf/infocom/MaCZCML23",
-      "title": "Network Characteristics of LEO Satellite Constellations: A Starlink-Based Measurement from End Users",
+      "date": "2026-10-15",
+      "id": "dblp:conf/infocom/ShenZ0P021",
+      "title": "Radio Frequency Fingerprint Identification for LoRa Using Spectrogram and CNN",
       "authors": [
-        "Sami Ma",
-        "Yi Ching Chou",
-        "Haoyuan Zhao",
-        "Long Chen",
-        "Xiaoqiang Ma",
-        "Jiangchuan Liu"
+        "Guanxiong Shen",
+        "Junqing Zhang",
+        "Alan Marshall",
+        "Limei Peng",
+        "Xianbin Wang"
       ],
       "venueId": "infocom",
       "venueName": "IEEE INFOCOM",
-      "year": 2023,
-      "doi": "10.1109/infocom53939.2023.10228912",
-      "url": "https://doi.org/10.1109/INFOCOM53939.2023.10228912",
-      "citationCount": 210,
+      "year": 2021,
+      "doi": "10.1109/infocom42981.2021.9488793",
+      "url": "https://doi.org/10.1109/infocom42981.2021.9488793",
+      "citationCount": 151,
       "topics": [
-        "Satellite Communication Systems",
-        "Spacecraft Design and Technology",
-        "Distributed systems and fault tolerance"
+        "RF Fingerprinting",
+        "LoRa Security",
+        "Device Authentication"
       ],
-      "pdfUrl": null,
-      "pageCount": 0,
-      "scriptSource": "template",
-      "script": [
-        "各位观众,今天给大家带来的是 IEEE INFOCOM 2023 的论文《Network Characteristics of LEO Satellite Constellations: A Starlink-Based Measurement from End Users》。",
-        "这篇论文由 Sami Ma、Yi Ching Chou 等作者完成,目前已经被引用 210 次,研究方向涉及Satellite Communication Systems、Spacecraft Design and Technology、Distributed systems and fault tolerance。",
-        "这项工作针对的是该方向上一个长期存在的工程难题。",
-        "如果你想快速抓住重点,可以记住这几个关键词:Satellite Communication Systems、Spacecraft Design and Technology、Distributed systems and fault tolerance。",
-        "好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。",
-        "感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。"
-      ],
+      "pdfUrl": "https://arxiv.org/pdf/2101.01668",
+      "pageCount": 10,
+      "scriptSource": "llm",
       "segments": [
         {
-          "text": "各位观众,今天给大家带来的是 IEEE INFOCOM 2023 的论文《Network Characteristics of LEO Satellite Constellations: A Starlink-Based Measurement from End Users》。",
-          "page": null
+          "text": "各位观众,今天给大家带来的是 INFOCOM 2021 的论文,讲的是用射频指纹给 LoRa 设备\"验明正身\"。一句话概括:每台无线设备的硬件都有微小瑕疵,这些瑕疵就是它无法伪造的身份证。",
+          "page": 1
         },
         {
-          "text": "这篇论文由 Sami Ma、Yi Ching Chou 等作者完成,目前已经被引用 210 次,研究方向涉及Satellite Communication Systems、Spacecraft Design and Technology、Distributed systems and fault tolerance。",
-          "page": null
+          "text": "LoRa 用在智慧农业、智慧城市这些无人值守场景,设备被克隆冒名是大麻烦。密码学方案要算力要密钥管理,而射频指纹识别是零成本旁路:听信号就知道是谁。作者选了 LoRa 前导码作为指纹采集点——这张是前导码的结构图。",
+          "page": 3,
+          "figure": "Fig. 1"
         },
         {
-          "text": "这项工作针对的是该方向上一个长期存在的工程难题。",
-          "page": null
+          "text": "系统方案:把 LoRa 信号转成频谱图,喂给 CNN 分类。频谱图保留了细粒度的时频特征,比原始 IQ 或 FFT 表示更适合 CNN 学习。这是整体方案。",
+          "page": 4,
+          "figure": "Fig. 2"
         },
         {
-          "text": "如果你想快速抓住重点,可以记住这几个关键词:Satellite Communication Systems、Spacecraft Design and Technology、Distributed systems and fault tolerance。",
-          "page": null
+          "text": "但作者发现了一个隐蔽杀手:载波频偏 CFO 会随时间漂移——四天里同一台设备的 CFO 都在慢慢变。不处理的话,今天训的模型明天就失灵。这张图记录了 CFO 漂移的实测轨迹。",
+          "page": 7,
+          "figure": "Fig. 6"
         },
         {
-          "text": "好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。",
-          "page": null
+          "text": "修复方法很工程:做 CFO 补偿,把漂移对齐。补偿前后的对比图差距惊人——不补偿,分类器很快被漂移带崩;补偿后,模型稳如老狗。",
+          "page": 8,
+          "figure": "Fig. 9"
         },
         {
-          "text": "感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。",
-          "page": null
+          "text": "数字上:频谱图方案拿到百分之 96.44 的识别准确率,而 IQ 样本和 FFT 方案分别只有 83 和 87——表示选择真的很重要。作者还设计了混合分类器来处理未知设备的拒识。",
+          "page": 8,
+          "figure": "Fig. 9"
+        },
+        {
+          "text": "为什么值得读?射频指纹是个老概念,但这篇把\"漂移\"这个实战杀手揪出来并解决掉,是从论文到部署的关键一步。做物联网安全的同学,这套频谱图加 CFO 补偿的配方可以直接用。感兴趣的话打开下方 DOI 读原文,我们明天见。",
+          "page": 9
         }
       ],
-      "video": "daily/2026-10-12.mp4"
+      "script": [
+        "各位观众,今天给大家带来的是 INFOCOM 2021 的论文,讲的是用射频指纹给 LoRa 设备\"验明正身\"。一句话概括:每台无线设备的硬件都有微小瑕疵,这些瑕疵就是它无法伪造的身份证。",
+        "LoRa 用在智慧农业、智慧城市这些无人值守场景,设备被克隆冒名是大麻烦。密码学方案要算力要密钥管理,而射频指纹识别是零成本旁路:听信号就知道是谁。作者选了 LoRa 前导码作为指纹采集点——这张是前导码的结构图。",
+        "系统方案:把 LoRa 信号转成频谱图,喂给 CNN 分类。频谱图保留了细粒度的时频特征,比原始 IQ 或 FFT 表示更适合 CNN 学习。这是整体方案。",
+        "但作者发现了一个隐蔽杀手:载波频偏 CFO 会随时间漂移——四天里同一台设备的 CFO 都在慢慢变。不处理的话,今天训的模型明天就失灵。这张图记录了 CFO 漂移的实测轨迹。",
+        "修复方法很工程:做 CFO 补偿,把漂移对齐。补偿前后的对比图差距惊人——不补偿,分类器很快被漂移带崩;补偿后,模型稳如老狗。",
+        "数字上:频谱图方案拿到百分之 96.44 的识别准确率,而 IQ 样本和 FFT 方案分别只有 83 和 87——表示选择真的很重要。作者还设计了混合分类器来处理未知设备的拒识。",
+        "为什么值得读?射频指纹是个老概念,但这篇把\"漂移\"这个实战杀手揪出来并解决掉,是从论文到部署的关键一步。做物联网安全的同学,这套频谱图加 CFO 补偿的配方可以直接用。感兴趣的话打开下方 DOI 读原文,我们明天见。"
+      ],
+      "video": "daily/2026-10-15.mp4"
     },
     {
-      "date": "2026-10-11",
-      "id": "dblp:conf/mobisys/XueJMWWZS21",
-      "title": "mmMesh: towards 3D real-time dynamic human mesh construction using millimeter-wave",
+      "date": "2026-10-16",
+      "id": "dblp:conf/infocom/DOroBPM22",
+      "title": "OrchestRAN: Network Automation through Orchestrated Intelligence in the Open RAN",
       "authors": [
-        "Hongfei Xue",
-        "Yan Ju",
-        "Chenglin Miao",
-        "Yijiang Wang",
-        "Shiyang Wang",
-        "Aidong Zhang",
-        "Lu Su"
+        "Salvatore D'Oro",
+        "Michele Polese",
+        "Leonardo Bonati",
+        "H Bin Cheng",
+        "Tommaso Melodia"
       ],
-      "venueId": "mobisys",
-      "venueName": "ACM MobiSys",
-      "year": 2021,
-      "doi": "10.1145/3458864.3467679",
-      "url": "https://doi.org/10.1145/3458864.3467679",
-      "citationCount": 202,
+      "venueId": "infocom",
+      "venueName": "IEEE INFOCOM",
+      "year": 2022,
+      "doi": "10.1109/infocom48880.2022.9796744",
+      "url": "https://doi.org/10.1109/infocom48880.2022.9796744",
+      "citationCount": 0,
       "topics": [
-        "Human Pose and Action Recognition",
-        "3D Shape Modeling and Analysis",
-        "Video Surveillance and Tracking Methods"
+        "Open RAN",
+        "Network Automation",
+        "Orchestration"
       ],
-      "pdfUrl": null,
-      "pageCount": 0,
-      "scriptSource": "template",
-      "script": [
-        "各位观众,今天给大家带来的是 ACM MobiSys 2021 的论文《mmMesh: towards 3D real-time dynamic human mesh construction using millimeter-wave》。",
-        "这篇论文由 Hongfei Xue、Yan Ju 等作者完成,目前已经被引用 202 次,研究方向涉及Human Pose and Action Recognition、3D Shape Modeling and Analysis、Video Surveillance and Tracking Methods。",
-        "用论文自己的话来说:In this paper, we present mmMesh, the first real-time 3D human mesh estimation system using commercial portable millimeter-wave devices.",
-        "如果你想快速抓住重点,可以记住这几个关键词:Human Pose and Action Recognition、3D Shape Modeling and Analysis、Video Surveillance and Tracking Methods。",
-        "好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。",
-        "感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。"
-      ],
+      "pdfUrl": "https://arxiv.org/pdf/2201.05632",
+      "pageCount": 10,
+      "scriptSource": "llm",
       "segments": [
         {
-          "text": "各位观众,今天给大家带来的是 ACM MobiSys 2021 的论文《mmMesh: towards 3D real-time dynamic human mesh construction using millimeter-wave》。",
-          "page": null
+          "text": "各位观众,今天给大家带来的是 INFOCOM 2022 的论文《OrchestRAN》。一句话概括:开放式 RAN 让网络智能应用百花齐放,但谁来决定哪个 AI 模型部署在哪、控制什么参数?OrchestRAN 就是这个\"总调度\"。",
+          "page": 1
         },
         {
-          "text": "这篇论文由 Hongfei Xue、Yan Ju 等作者完成,目前已经被引用 202 次,研究方向涉及Human Pose and Action Recognition、3D Shape Modeling and Analysis、Video Surveillance and Tracking Methods。",
-          "page": null
+          "text": "下一代蜂窝网络走向软件化、开放化:O-RAN 架构把分析和控制接口都暴露出来,欢迎各种数据驱动的智能应用接入。左边这张是 O-RAN 的参考架构和接口图。但问题来了——目标定了,模型选型、部署位置、参数配置全靠手工,根本不可持续。",
+          "page": 1,
+          "figure": "Figure 1"
         },
         {
-          "text": "用论文自己的话来说:In this paper, we present mmMesh, the first real-time 3D human mesh estimation system using commercial portable millimeter-wave devices.",
-          "page": null
+          "text": "OrchestRAN 把这件事自动化:运营商只要声明高层意图,框架自己算出每个 AI 应用放哪、控什么、喂什么数据。这是它的系统设计和主要流程。",
+          "page": 3,
+          "figure": "Figure 2"
         },
         {
-          "text": "如果你想快速抓住重点,可以记住这几个关键词:Human Pose and Action Recognition、3D Shape Modeling and Analysis、Video Surveillance and Tracking Methods。",
-          "page": null
+          "text": "这张图演示了一个 xApp 在近实时 RIC 上被创建和调度的过程——从意图到落地,全程无需人工干预。",
+          "page": 4,
+          "figure": "Figure 3"
         },
         {
-          "text": "好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。",
-          "page": null
+          "text": "最妙的是模型共享:多个应用往往需要相同的特征提取,OrchestRAN 识别出来让它们共用模型,资源占用直接减半。",
+          "page": 5,
+          "figure": "Figure 4"
         },
         {
-          "text": "感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。",
-          "page": null
+          "text": "性能数字:两千节点规模的调度实例也能在 0.1 秒内解出来;控制开销比 O-RAN 的 E2 接口方案降低最多 2.6 倍;模型共享后再省一半资源。",
+          "page": 7,
+          "figure": "Figure 5"
+        },
+        {
+          "text": "为什么值得读?开放 RAN 的智能化喊了很多年,这是把\"意图到部署\"真正打通的框架级工作。做网络自动化的同学,这个调度问题的建模方式值得细看。感兴趣的话打开下方 DOI 读原文,我们明天见。",
+          "page": 9,
+          "figure": "Figure 12"
         }
       ],
-      "video": "daily/2026-10-11.mp4"
+      "script": [
+        "各位观众,今天给大家带来的是 INFOCOM 2022 的论文《OrchestRAN》。一句话概括:开放式 RAN 让网络智能应用百花齐放,但谁来决定哪个 AI 模型部署在哪、控制什么参数?OrchestRAN 就是这个\"总调度\"。",
+        "下一代蜂窝网络走向软件化、开放化:O-RAN 架构把分析和控制接口都暴露出来,欢迎各种数据驱动的智能应用接入。左边这张是 O-RAN 的参考架构和接口图。但问题来了——目标定了,模型选型、部署位置、参数配置全靠手工,根本不可持续。",
+        "OrchestRAN 把这件事自动化:运营商只要声明高层意图,框架自己算出每个 AI 应用放哪、控什么、喂什么数据。这是它的系统设计和主要流程。",
+        "这张图演示了一个 xApp 在近实时 RIC 上被创建和调度的过程——从意图到落地,全程无需人工干预。",
+        "最妙的是模型共享:多个应用往往需要相同的特征提取,OrchestRAN 识别出来让它们共用模型,资源占用直接减半。",
+        "性能数字:两千节点规模的调度实例也能在 0.1 秒内解出来;控制开销比 O-RAN 的 E2 接口方案降低最多 2.6 倍;模型共享后再省一半资源。",
+        "为什么值得读?开放 RAN 的智能化喊了很多年,这是把\"意图到部署\"真正打通的框架级工作。做网络自动化的同学,这个调度问题的建模方式值得细看。感兴趣的话打开下方 DOI 读原文,我们明天见。"
+      ],
+      "video": "daily/2026-10-16.mp4"
     },
     {
       "date": "2026-10-10",
