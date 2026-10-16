@@ -1,0 +1,30 @@
+{
+  "pdfUrl": "https://arxiv.org/pdf/2101.06582",
+  "pageCount": 0,
+  "segments": [
+    {
+      "text": "各位观众,今天给大家带来的是 IEEE INFOCOM 2021 的论文《Tailored Learning-Based Scheduling for Kubernetes-Oriented Edge-Cloud System》。",
+      "page": null
+    },
+    {
+      "text": "这篇论文由 Yiwen Han、Shihao Shen 等作者完成,目前已经被引用 92 次,研究方向涉及IoT and Edge/Fog Computing、Cloud Computing and Resource Management、Blockchain Technology Applications and Security。",
+      "page": null
+    },
+    {
+      "text": "用论文自己的话来说:Kubernetes (k8s) has the potential to merge the distributed edge and the cloud but lacks a scheduling framework specifically for edge-cloud systems.",
+      "page": null
+    },
+    {
+      "text": "如果你想快速抓住重点,可以记住这几个关键词:IoT and Edge/Fog Computing、Cloud Computing and Resource Management、Blockchain Technology Applications and Security。",
+      "page": null
+    },
+    {
+      "text": "好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。",
+      "page": null
+    },
+    {
+      "text": "感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。",
+      "page": null
+    }
+  ]
+}
