@@ -1,77 +1,72 @@
 {
-  "generatedAt": "2026-10-18T16:22:49.892Z",
+  "generatedAt": "2026-10-18T16:45:00.277Z",
   "episodes": [
     {
-      "date": "2026-10-17",
-      "id": "dblp:conf/infocom/HanS0WL21",
-      "title": "KaiS: Tailored Learning-Based Scheduling for Kubernetes-Oriented Edge-Cloud Systems",
+      "date": "2026-10-19",
+      "id": "dblp:conf/infocom/WangYL22",
+      "title": "Decentralized Task Offloading in Edge Computing: A Multi-User Multi-Armed Bandit Approach",
       "authors": [
-        "Yiwen Han",
-        "Shihao Shen",
-        "Xiaofei Wang",
-        "Shi Wang",
-        "Victor C. M. Leung"
+        "Xiong Wang",
+        "Jiancheng Ye",
+        "John C. S. Lui"
       ],
       "venueId": "infocom",
       "venueName": "IEEE INFOCOM",
-      "year": 2021,
-      "doi": "10.1109/infocom42981.2021.9488701",
-      "url": "https://doi.org/10.1109/infocom42981.2021.9488701",
-      "citationCount": 92,
+      "year": 2022,
+      "doi": "10.1109/infocom48880.2022.9796961",
+      "url": "https://doi.org/10.1109/infocom48880.2022.9796961",
+      "citationCount": 89,
       "topics": [
-        "Edge-Cloud Scheduling",
-        "Kubernetes",
-        "Multi-Agent RL"
+        "Edge Computing",
+        "Task Offloading",
+        "Multi-Armed Bandits"
       ],
-      "pdfUrl": "https://arxiv.org/pdf/2101.06582",
-      "pageCount": 10,
+      "pdfUrl": "https://arxiv.org/pdf/2112.11818",
+      "pageCount": 14,
       "scriptSource": "llm",
       "segments": [
         {
-          "text": "各位观众,今天给大家带来的是 INFOCOM 2021 的论文《KaiS》。一句话概括:给 Kubernetes 装上一个为边缘云量身定做的学习型调度器,长期吞吐率明显提高。",
+          "text": "各位观众,今天给大家带来的是 INFOCOM 2022 的论文《D-DEBO》。一句话概括:边缘计算里一堆用户抢服务器、谁也不知道服务器状态,这篇用多用户多臂老虎机,让每个人自己学着选对服务器。",
           "page": 1
         },
         {
-          "text": "Kubernetes 想一统云和边缘,但它的默认调度器不懂边缘:资源层次异构、请求和资源之间依赖复杂、节点还动不动就掉线。这张图是边缘云系统的调度现场——层次多、约束杂。",
-          "page": 2,
+          "text": "任务卸载的经典假设是:系统信息已知,或者有中央调度。但现实边缘环境里,服务器的处理速度、信道状况都在变,而且没有中心告诉你该去哪。这张图是典型的多用户多服务区场景。",
+          "page": 1,
+          "figure": "Fig. 1"
+        },
+        {
+          "text": "作者把问题建成多用户多臂老虎机:每个用户是独立玩家,选服务器就是拉臂,撞车了大家都受损。难点在于去中心化环境下,既要探索未知收益,又要避免和其他用户撞车。",
+          "page": 2
+        },
+        {
+          "text": "D-DEBO 的设计让用户在没有通信的情况下也能学出近似正交的分配——各自探索、错开选择,长期下来自动分工。",
+          "page": 4
+        },
+        {
+          "text": "看结果:这是卸载奖励随时间的曲线,D-DEBO 一路爬升并稳定在高位,而单用户 UCB、EXP3 的直接多用户扩展版本明显不行。",
+          "page": 8,
           "figure": "Fig. 2"
         },
         {
-          "text": "KaiS 的第一招是协调式多智能体 actor-critic:每个边缘集群一个 actor 做本地决策,一个中央 critic 统筹全局,既去中心化又不各自为战。",
-          "page": 4,
+          "text": "理论上,它的后悔值是次线性的——和最优分配的比值随时间收敛到 1 附近。这张图是奖励比的收敛过程,基线则明显掉队。",
+          "page": 9,
           "figure": "Fig. 3"
         },
         {
-          "text": "第二招是用图神经网络给系统状态编码:节点、服务、依赖关系天然是张图,GNN 把这张图的拓扑信息压成调度器能用的表示。",
-          "page": 5,
-          "figure": "Fig. 4"
-        },
-        {
-          "text": "作者还做了真机原型:k3s 边缘节点加 k8s 主节点,用真实工作负载轨迹驱动请求生成器——不是纯仿真。",
-          "page": 7,
-          "figure": "Fig. 6"
-        },
-        {
-          "text": "实验覆盖了四种请求到达模式:周期波动、高频波动、随机突发。KaiS 在各种模式下的长期吞吐都压着基线,而且学会的模式切换很稳。这张图是不同到达模式下的学习曲线。",
-          "page": 8,
-          "figure": "Fig. 8"
-        },
-        {
-          "text": "为什么值得读?边缘云的调度问题,从\"写规则\"走向\"学策略\",这篇是早期把多智能体 RL 加 GNN 编码落到 k8s 真机的工作。做边缘系统的同学值得参考。感兴趣的话打开下方 DOI 读原文,我们明天见。",
-          "page": 9,
-          "figure": "Fig. 12"
+          "text": "为什么值得读?它把 bandit 理论干净地落到边缘计算的去中心化卸载上,而且证明了分布式也能接近最优。做边缘卸载或在线学习的同学值得一看。感兴趣的话打开下方 DOI 读原文,我们明天见。",
+          "page": 9
         }
       ],
       "script": [
-        "各位观众,今天给大家带来的是 INFOCOM 2021 的论文《KaiS》。一句话概括:给 Kubernetes 装上一个为边缘云量身定做的学习型调度器,长期吞吐率明显提高。",
-        "Kubernetes 想一统云和边缘,但它的默认调度器不懂边缘:资源层次异构、请求和资源之间依赖复杂、节点还动不动就掉线。这张图是边缘云系统的调度现场——层次多、约束杂。",
-        "KaiS 的第一招是协调式多智能体 actor-critic:每个边缘集群一个 actor 做本地决策,一个中央 critic 统筹全局,既去中心化又不各自为战。",
-        "第二招是用图神经网络给系统状态编码:节点、服务、依赖关系天然是张图,GNN 把这张图的拓扑信息压成调度器能用的表示。",
-        "作者还做了真机原型:k3s 边缘节点加 k8s 主节点,用真实工作负载轨迹驱动请求生成器——不是纯仿真。",
-        "实验覆盖了四种请求到达模式:周期波动、高频波动、随机突发。KaiS 在各种模式下的长期吞吐都压着基线,而且学会的模式切换很稳。这张图是不同到达模式下的学习曲线。",
-        "为什么值得读?边缘云的调度问题,从\"写规则\"走向\"学策略\",这篇是早期把多智能体 RL 加 GNN 编码落到 k8s 真机的工作。做边缘系统的同学值得参考。感兴趣的话打开下方 DOI 读原文,我们明天见。"
+        "各位观众,今天给大家带来的是 INFOCOM 2022 的论文《D-DEBO》。一句话概括:边缘计算里一堆用户抢服务器、谁也不知道服务器状态,这篇用多用户多臂老虎机,让每个人自己学着选对服务器。",
+        "任务卸载的经典假设是:系统信息已知,或者有中央调度。但现实边缘环境里,服务器的处理速度、信道状况都在变,而且没有中心告诉你该去哪。这张图是典型的多用户多服务区场景。",
+        "作者把问题建成多用户多臂老虎机:每个用户是独立玩家,选服务器就是拉臂,撞车了大家都受损。难点在于去中心化环境下,既要探索未知收益,又要避免和其他用户撞车。",
+        "D-DEBO 的设计让用户在没有通信的情况下也能学出近似正交的分配——各自探索、错开选择,长期下来自动分工。",
+        "看结果:这是卸载奖励随时间的曲线,D-DEBO 一路爬升并稳定在高位,而单用户 UCB、EXP3 的直接多用户扩展版本明显不行。",
+        "理论上,它的后悔值是次线性的——和最优分配的比值随时间收敛到 1 附近。这张图是奖励比的收敛过程,基线则明显掉队。",
+        "为什么值得读?它把 bandit 理论干净地落到边缘计算的去中心化卸载上,而且证明了分布式也能接近最优。做边缘卸载或在线学习的同学值得一看。感兴趣的话打开下方 DOI 读原文,我们明天见。"
       ],
-      "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-10-17.mp4"
+      "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-10-19.mp4"
     },
     {
       "date": "2026-10-18",
@@ -147,344 +142,148 @@
       "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-10-18.mp4"
     },
     {
-      "date": "2026-10-19",
-      "id": "dblp:conf/infocom/WangYL22",
-      "title": "Decentralized Task Offloading in Edge Computing: A Multi-User Multi-Armed Bandit Approach",
+      "date": "2026-10-17",
+      "id": "dblp:conf/infocom/HanS0WL21",
+      "title": "KaiS: Tailored Learning-Based Scheduling for Kubernetes-Oriented Edge-Cloud Systems",
       "authors": [
-        "Xiong Wang",
-        "Jiancheng Ye",
-        "John C. S. Lui"
+        "Yiwen Han",
+        "Shihao Shen",
+        "Xiaofei Wang",
+        "Shi Wang",
+        "Victor C. M. Leung"
       ],
       "venueId": "infocom",
       "venueName": "IEEE INFOCOM",
-      "year": 2022,
-      "doi": "10.1109/infocom48880.2022.9796961",
-      "url": "https://doi.org/10.1109/infocom48880.2022.9796961",
-      "citationCount": 89,
-      "topics": [
-        "Edge Computing",
-        "Task Offloading",
-        "Multi-Armed Bandits"
-      ],
-      "pdfUrl": "https://arxiv.org/pdf/2112.11818",
-      "pageCount": 14,
-      "scriptSource": "llm",
-      "segments": [
-        {
-          "text": "各位观众,今天给大家带来的是 INFOCOM 2022 的论文《D-DEBO》。一句话概括:边缘计算里一堆用户抢服务器、谁也不知道服务器状态,这篇用多用户多臂老虎机,让每个人自己学着选对服务器。",
-          "page": 1
-        },
-        {
-          "text": "任务卸载的经典假设是:系统信息已知,或者有中央调度。但现实边缘环境里,服务器的处理速度、信道状况都在变,而且没有中心告诉你该去哪。这张图是典型的多用户多服务区场景。",
-          "page": 1,
-          "figure": "Fig. 1"
-        },
-        {
-          "text": "作者把问题建成多用户多臂老虎机:每个用户是独立玩家,选服务器就是拉臂,撞车了大家都受损。难点在于去中心化环境下,既要探索未知收益,又要避免和其他用户撞车。",
-          "page": 2
-        },
-        {
-          "text": "D-DEBO 的设计让用户在没有通信的情况下也能学出近似正交的分配——各自探索、错开选择,长期下来自动分工。",
-          "page": 4
-        },
-        {
-          "text": "看结果:这是卸载奖励随时间的曲线,D-DEBO 一路爬升并稳定在高位,而单用户 UCB、EXP3 的直接多用户扩展版本明显不行。",
-          "page": 8,
-          "figure": "Fig. 2"
-        },
-        {
-          "text": "理论上,它的后悔值是次线性的——和最优分配的比值随时间收敛到 1 附近。这张图是奖励比的收敛过程,基线则明显掉队。",
-          "page": 9,
-          "figure": "Fig. 3"
-        },
-        {
-          "text": "为什么值得读?它把 bandit 理论干净地落到边缘计算的去中心化卸载上,而且证明了分布式也能接近最优。做边缘卸载或在线学习的同学值得一看。感兴趣的话打开下方 DOI 读原文,我们明天见。",
-          "page": 9
-        }
-      ],
-      "script": [
-        "各位观众,今天给大家带来的是 INFOCOM 2022 的论文《D-DEBO》。一句话概括:边缘计算里一堆用户抢服务器、谁也不知道服务器状态,这篇用多用户多臂老虎机,让每个人自己学着选对服务器。",
-        "任务卸载的经典假设是:系统信息已知,或者有中央调度。但现实边缘环境里,服务器的处理速度、信道状况都在变,而且没有中心告诉你该去哪。这张图是典型的多用户多服务区场景。",
-        "作者把问题建成多用户多臂老虎机:每个用户是独立玩家,选服务器就是拉臂,撞车了大家都受损。难点在于去中心化环境下,既要探索未知收益,又要避免和其他用户撞车。",
-        "D-DEBO 的设计让用户在没有通信的情况下也能学出近似正交的分配——各自探索、错开选择,长期下来自动分工。",
-        "看结果:这是卸载奖励随时间的曲线,D-DEBO 一路爬升并稳定在高位,而单用户 UCB、EXP3 的直接多用户扩展版本明显不行。",
-        "理论上,它的后悔值是次线性的——和最优分配的比值随时间收敛到 1 附近。这张图是奖励比的收敛过程,基线则明显掉队。",
-        "为什么值得读?它把 bandit 理论干净地落到边缘计算的去中心化卸载上,而且证明了分布式也能接近最优。做边缘卸载或在线学习的同学值得一看。感兴趣的话打开下方 DOI 读原文,我们明天见。"
-      ],
-      "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-10-19.mp4"
-    },
-    {
-      "date": "2026-10-11",
-      "id": "dblp:journals/imwut/TrivediZBBCS21",
-      "title": "WiFiTrace: Network-based Contact Tracing for Infectious Diseases Using Passive WiFi Sensing",
-      "authors": [
-        "Amee Trivedi",
-        "Camellia Zakaria",
-        "Rajesh Balan",
-        "Yitcha Crispin",
-        "Lek Hsiang Hsu",
-        "Petri Nurmi"
-      ],
-      "venueId": "ubicomp",
-      "venueName": "ACM UbiComp / IMWUT",
       "year": 2021,
-      "doi": "10.1145/3448084",
-      "url": "https://doi.org/10.1145/3448084",
-      "citationCount": 60,
+      "doi": "10.1109/infocom42981.2021.9488701",
+      "url": "https://doi.org/10.1109/infocom42981.2021.9488701",
+      "citationCount": 92,
       "topics": [
-        "Contact Tracing",
-        "WiFi Sensing",
-        "Public Health"
+        "Edge-Cloud Scheduling",
+        "Kubernetes",
+        "Multi-Agent RL"
       ],
-      "pdfUrl": "https://arxiv.org/pdf/2005.12045",
-      "pageCount": 26,
-      "scriptSource": "llm",
-      "segments": [
-        {
-          "text": "各位观众,今天给大家带来的是 UbiComp 2021 的论文《WiFiTrace》。一句话概括:不用装任何 App,直接用现成的 WiFi 基础设施做传染病接触追踪——你的手机和 AP 的关联记录,就是行踪的证据。",
-          "page": 2
-        },
-        {
-          "text": "疫情期间的接触追踪,主流方案是蓝牙 App,但安装率、隐私顾虑、蓝牙本身的测距误差都是坑。作者的思路是网络中心化的:WiFi 网络本来就知道哪台设备连了哪个 AP、什么时候连的——这张对比表把两种路线的优劣列得很清楚。",
-          "page": 5,
-          "figure": "Table 1"
-        },
-        {
-          "text": "系统架构是分层的:底层采集 AP 关联日志,中间层把设备和 AP 建成二部图,上层用图查询生成接触报告。这张图就是一份真实的接触追踪报告样例。",
-          "page": 8,
-          "figure": "Fig. 3"
-        },
-        {
-          "text": "核心数据结构是这张二部图:设备到 AP 的关联带时间戳,两台设备在同一 AP 下的时间重叠,就是一次潜在接触。图查询 API 把\"谁和谁接触过\"变成一次图遍历。",
-          "page": 9,
-          "figure": "Fig. 4"
-        },
-        {
-          "text": "准不准?实验里,WiFi 会话短于一分钟的间歇使用场景,位置推断准确率也能保持在百分之 80 以上——对于流行病学意义上的\"密切接触\"判定,这个精度已经够用。",
-          "page": 13,
-          "figure": "Fig. 6"
-        },
-        {
-          "text": "为什么值得读?室内传播风险是室外的 20 倍,而室内恰恰没有 GPS。WiFiTrace 证明了:与其逼所有人装 App,不如把已有的网络设施变成公共卫生的基础设施。感兴趣的话打开下方 DOI 读原文,我们明天见。",
-          "page": 13
-        }
-      ],
-      "script": [
-        "各位观众,今天给大家带来的是 UbiComp 2021 的论文《WiFiTrace》。一句话概括:不用装任何 App,直接用现成的 WiFi 基础设施做传染病接触追踪——你的手机和 AP 的关联记录,就是行踪的证据。",
-        "疫情期间的接触追踪,主流方案是蓝牙 App,但安装率、隐私顾虑、蓝牙本身的测距误差都是坑。作者的思路是网络中心化的:WiFi 网络本来就知道哪台设备连了哪个 AP、什么时候连的——这张对比表把两种路线的优劣列得很清楚。",
-        "系统架构是分层的:底层采集 AP 关联日志,中间层把设备和 AP 建成二部图,上层用图查询生成接触报告。这张图就是一份真实的接触追踪报告样例。",
-        "核心数据结构是这张二部图:设备到 AP 的关联带时间戳,两台设备在同一 AP 下的时间重叠,就是一次潜在接触。图查询 API 把\"谁和谁接触过\"变成一次图遍历。",
-        "准不准?实验里,WiFi 会话短于一分钟的间歇使用场景,位置推断准确率也能保持在百分之 80 以上——对于流行病学意义上的\"密切接触\"判定,这个精度已经够用。",
-        "为什么值得读?室内传播风险是室外的 20 倍,而室内恰恰没有 GPS。WiFiTrace 证明了:与其逼所有人装 App,不如把已有的网络设施变成公共卫生的基础设施。感兴趣的话打开下方 DOI 读原文,我们明天见。"
-      ],
-      "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-10-11.mp4"
-    },
-    {
-      "date": "2026-10-12",
-      "id": "dblp:conf/infocom/AlbaneseDSRC22",
-      "title": "MARISA: A Self-Configuring Metasurfaces Absorption and Reflection Solution",
-      "authors": [
-        "Antonio Albanese",
-        "Francesco Devoti",
-        "Vincenzo Sciancalepore",
-        "Xavier Costa-Perez"
-      ],
-      "venueId": "infocom",
-      "venueName": "IEEE INFOCOM",
-      "year": 2022,
-      "doi": "10.1109/infocom48880.2022.9796976",
-      "url": "https://doi.org/10.1109/infocom48880.2022.9796976",
-      "citationCount": 57,
-      "topics": [
-        "Reconfigurable Intelligent Surfaces",
-        "6G",
-        "Self-configuration"
-      ],
-      "pdfUrl": "https://arxiv.org/pdf/2112.01949",
+      "pdfUrl": "https://arxiv.org/pdf/2101.06582",
       "pageCount": 10,
       "scriptSource": "llm",
       "segments": [
         {
-          "text": "各位观众,今天给大家带来的是 INFOCOM 2022 的论文《MARISA》。一句话概括:智能超表面 RIS 被认为是 6G 的关键技术,但它需要一条快速控制信道不停调整配置——MARISA 问了一个大胆的问题:能不能把控制信道彻底删掉?",
+          "text": "各位观众,今天给大家带来的是 INFOCOM 2021 的论文《KaiS》。一句话概括:给 Kubernetes 装上一个为边缘云量身定做的学习型调度器,长期吞吐率明显提高。",
           "page": 1
         },
         {
-          "text": "RIS 的美好愿景是即插即用:贴在墙上就能改善覆盖。但现实是,它要持续感知信道、实时调整相位,控制信道本身成了部署的最大障碍。这个\"物联网表面\"的场景图,就是作者想要实现的即插即用形态。",
-          "page": 1,
-          "figure": "Fig. 1"
-        },
-        {
-          "text": "MARISA 的硬件设计是混合型 RIS:一部分单元负责反射信号,另一部分负责吸收一小部分能量做信道感知——自己感知、自己配置,不需要基站告诉它该怎么做。",
+          "text": "Kubernetes 想一统云和边缘,但它的默认调度器不懂边缘:资源层次异构、请求和资源之间依赖复杂、节点还动不动就掉线。这张图是边缘云系统的调度现场——层次多、约束杂。",
           "page": 2,
           "figure": "Fig. 2"
         },
         {
-          "text": "怎么感知?吸收单元测量功率谱,从功率剖面里估计出用户方向的峰值。这张图展示了功率剖面和峰值估计的对应关系——看似简单,但要区分多用户和噪声,需要精心设计的码本。",
-          "page": 6,
-          "figure": "Fig. 5"
+          "text": "KaiS 的第一招是协调式多智能体 actor-critic:每个边缘集群一个 actor 做本地决策,一个中央 critic 统筹全局,既去中心化又不各自为战。",
+          "page": 4,
+          "figure": "Fig. 3"
         },
         {
-          "text": "码本设计是个优化问题:每个码字对应一组相位配置,要在角度区间内最坏情况都表现好。这是优化出来的 RIS 辐射方向图,方位角上的覆盖肉眼可见地均匀。",
-          "page": 8,
+          "text": "第二招是用图神经网络给系统状态编码:节点、服务、依赖关系天然是张图,GNN 把这张图的拓扑信息压成调度器能用的表示。",
+          "page": 5,
+          "figure": "Fig. 4"
+        },
+        {
+          "text": "作者还做了真机原型:k3s 边缘节点加 k8s 主节点,用真实工作负载轨迹驱动请求生成器——不是纯仿真。",
+          "page": 7,
           "figure": "Fig. 6"
         },
         {
-          "text": "多用户场景下,自配置版本的平均和速率逼近了有完美信道知识的上限;这张 CDF 图显示,绝大多数时刻 MARISA 和集中式最优配置的差距都很小。",
-          "page": 9,
-          "figure": "Fig. 9"
+          "text": "实验覆盖了四种请求到达模式:周期波动、高频波动、随机突发。KaiS 在各种模式下的长期吞吐都压着基线,而且学会的模式切换很稳。这张图是不同到达模式下的学习曲线。",
+          "page": 8,
+          "figure": "Fig. 8"
         },
         {
-          "text": "为什么值得读?它把 RIS 从\"需要基站桩伺候的娇贵设备\"变成\"贴墙即用的傻瓜设备\",这是 RIS 走向真实部署绕不过去的一步。感兴趣的话打开下方 DOI 读原文,我们明天见。",
-          "page": 1
+          "text": "为什么值得读?边缘云的调度问题,从\"写规则\"走向\"学策略\",这篇是早期把多智能体 RL 加 GNN 编码落到 k8s 真机的工作。做边缘系统的同学值得参考。感兴趣的话打开下方 DOI 读原文,我们明天见。",
+          "page": 9,
+          "figure": "Fig. 12"
         }
       ],
       "script": [
-        "各位观众,今天给大家带来的是 INFOCOM 2022 的论文《MARISA》。一句话概括:智能超表面 RIS 被认为是 6G 的关键技术,但它需要一条快速控制信道不停调整配置——MARISA 问了一个大胆的问题:能不能把控制信道彻底删掉?",
-        "RIS 的美好愿景是即插即用:贴在墙上就能改善覆盖。但现实是,它要持续感知信道、实时调整相位,控制信道本身成了部署的最大障碍。这个\"物联网表面\"的场景图,就是作者想要实现的即插即用形态。",
-        "MARISA 的硬件设计是混合型 RIS:一部分单元负责反射信号,另一部分负责吸收一小部分能量做信道感知——自己感知、自己配置,不需要基站告诉它该怎么做。",
-        "怎么感知?吸收单元测量功率谱,从功率剖面里估计出用户方向的峰值。这张图展示了功率剖面和峰值估计的对应关系——看似简单,但要区分多用户和噪声,需要精心设计的码本。",
-        "码本设计是个优化问题:每个码字对应一组相位配置,要在角度区间内最坏情况都表现好。这是优化出来的 RIS 辐射方向图,方位角上的覆盖肉眼可见地均匀。",
-        "多用户场景下,自配置版本的平均和速率逼近了有完美信道知识的上限;这张 CDF 图显示,绝大多数时刻 MARISA 和集中式最优配置的差距都很小。",
-        "为什么值得读?它把 RIS 从\"需要基站桩伺候的娇贵设备\"变成\"贴墙即用的傻瓜设备\",这是 RIS 走向真实部署绕不过去的一步。感兴趣的话打开下方 DOI 读原文,我们明天见。"
+        "各位观众,今天给大家带来的是 INFOCOM 2021 的论文《KaiS》。一句话概括:给 Kubernetes 装上一个为边缘云量身定做的学习型调度器,长期吞吐率明显提高。",
+        "Kubernetes 想一统云和边缘,但它的默认调度器不懂边缘:资源层次异构、请求和资源之间依赖复杂、节点还动不动就掉线。这张图是边缘云系统的调度现场——层次多、约束杂。",
+        "KaiS 的第一招是协调式多智能体 actor-critic:每个边缘集群一个 actor 做本地决策,一个中央 critic 统筹全局,既去中心化又不各自为战。",
+        "第二招是用图神经网络给系统状态编码:节点、服务、依赖关系天然是张图,GNN 把这张图的拓扑信息压成调度器能用的表示。",
+        "作者还做了真机原型:k3s 边缘节点加 k8s 主节点,用真实工作负载轨迹驱动请求生成器——不是纯仿真。",
+        "实验覆盖了四种请求到达模式:周期波动、高频波动、随机突发。KaiS 在各种模式下的长期吞吐都压着基线,而且学会的模式切换很稳。这张图是不同到达模式下的学习曲线。",
+        "为什么值得读?边缘云的调度问题,从\"写规则\"走向\"学策略\",这篇是早期把多智能体 RL 加 GNN 编码落到 k8s 真机的工作。做边缘系统的同学值得参考。感兴趣的话打开下方 DOI 读原文,我们明天见。"
       ],
-      "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-10-12.mp4"
+      "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-10-17.mp4"
     },
     {
-      "date": "2026-10-13",
-      "id": "dblp:conf/infocom/TuliCJ22",
-      "title": "PreGAN: Preemptive Migration Prediction Network for Proactive Fault-Tolerant Edge Computing",
+      "date": "2026-10-16",
+      "id": "dblp:conf/infocom/DOroBPM22",
+      "title": "OrchestRAN: Network Automation through Orchestrated Intelligence in the Open RAN",
       "authors": [
-        "Shreshth Tuli",
-        "Giuliano Casale",
-        "Nicholas R. Jennings"
+        "Salvatore D'Oro",
+        "Michele Polese",
+        "Leonardo Bonati",
+        "H Bin Cheng",
+        "Tommaso Melodia"
       ],
       "venueId": "infocom",
       "venueName": "IEEE INFOCOM",
       "year": 2022,
-      "doi": "10.1109/infocom48880.2022.9796778",
-      "url": "https://doi.org/10.1109/infocom48880.2022.9796778",
-      "citationCount": 59,
+      "doi": "10.1109/infocom48880.2022.9796744",
+      "url": "https://doi.org/10.1109/infocom48880.2022.9796744",
+      "citationCount": 0,
       "topics": [
-        "Edge Computing",
-        "Fault Tolerance",
-        "Task Migration"
+        "Open RAN",
+        "Network Automation",
+        "Orchestration"
       ],
-      "pdfUrl": "https://arxiv.org/pdf/2112.02292",
-      "pageCount": 11,
+      "pdfUrl": "https://arxiv.org/pdf/2201.05632",
+      "pageCount": 10,
       "scriptSource": "llm",
       "segments": [
         {
-          "text": "各位观众,今天给大家带来的是 INFOCOM 2022 的论文《PreGAN》。一句话概括:边缘计算节点不可靠、任务有死线,PreGAN 用 AI 提前预测故障,在节点挂掉之前就把任务迁走。",
+          "text": "各位观众,今天给大家带来的是 INFOCOM 2022 的论文《OrchestRAN》。一句话概括:开放式 RAN 让网络智能应用百花齐放,但谁来决定哪个 AI 模型部署在哪、控制什么参数?OrchestRAN 就是这个\"总调度\"。",
           "page": 1
         },
         {
-          "text": "边缘系统的老大难:节点动不动就过载或宕机,等故障发生了再迁移,任务早就超时了。但乱迁移也不行——不必要的迁移会压垮网络。所以需要一个既准确又克制的故障预测机制。",
-          "page": 1
+          "text": "下一代蜂窝网络走向软件化、开放化:O-RAN 架构把分析和控制接口都暴露出来,欢迎各种数据驱动的智能应用接入。左边这张是 O-RAN 的参考架构和接口图。但问题来了——目标定了,模型选型、部署位置、参数配置全靠手工,根本不可持续。",
+          "page": 1,
+          "figure": "Figure 1"
         },
         {
-          "text": "PreGAN 的模型是个组合体:先用注意力机制分析资源使用的时间序列,预测故障;再用 GAN 风格的故障原型编码器做故障分类。这张图是它的整体结构。",
+          "text": "OrchestRAN 把这件事自动化:运营商只要声明高层意图,框架自己算出每个 AI 应用放哪、控什么、喂什么数据。这是它的系统设计和主要流程。",
           "page": 3,
           "figure": "Figure 2"
         },
         {
-          "text": "注意力权重的可视化很有意思:模型自己会盯着故障前的异常模式看——这不是黑箱瞎猜,是在学习故障前兆。",
-          "page": 5,
+          "text": "这张图演示了一个 xApp 在近实时 RIC 上被创建和调度的过程——从意图到落地,全程无需人工干预。",
+          "page": 4,
           "figure": "Figure 3"
         },
         {
-          "text": "故障原型编码器把各类故障压成嵌入空间里的原型点,迁移决策就变成\"当前状态离哪个故障原型最近\"。这是训练过程的可视化。",
+          "text": "最妙的是模型共享:多个应用往往需要相同的特征提取,OrchestRAN 识别出来让它们共用模型,资源占用直接减半。",
+          "page": 5,
+          "figure": "Figure 4"
+        },
+        {
+          "text": "性能数字:两千节点规模的调度实例也能在 0.1 秒内解出来;控制开销比 O-RAN 的 E2 接口方案降低最多 2.6 倍;模型共享后再省一半资源。",
           "page": 7,
           "figure": "Figure 5"
         },
         {
-          "text": "数字上:比最强基线故障检测准确率高百分之 5.1,任务迁移减少百分之 10.7,开销降低百分之 23.8,SLA 违约最多降百分之 12——又准又省。",
-          "page": 8,
-          "figure": "Figure 9"
-        },
-        {
-          "text": "为什么值得读?边缘计算的容错大多是\"事后补救\",PreGAN 证明了\"事前预测\"在真实负载下是可行的。做边缘系统的同学,这套预测加克制的组合值得参考。感兴趣的话打开下方 DOI 读原文,我们明天见。",
-          "page": 1
+          "text": "为什么值得读?开放 RAN 的智能化喊了很多年,这是把\"意图到部署\"真正打通的框架级工作。做网络自动化的同学,这个调度问题的建模方式值得细看。感兴趣的话打开下方 DOI 读原文,我们明天见。",
+          "page": 9,
+          "figure": "Figure 12"
         }
       ],
       "script": [
-        "各位观众,今天给大家带来的是 INFOCOM 2022 的论文《PreGAN》。一句话概括:边缘计算节点不可靠、任务有死线,PreGAN 用 AI 提前预测故障,在节点挂掉之前就把任务迁走。",
-        "边缘系统的老大难:节点动不动就过载或宕机,等故障发生了再迁移,任务早就超时了。但乱迁移也不行——不必要的迁移会压垮网络。所以需要一个既准确又克制的故障预测机制。",
-        "PreGAN 的模型是个组合体:先用注意力机制分析资源使用的时间序列,预测故障;再用 GAN 风格的故障原型编码器做故障分类。这张图是它的整体结构。",
-        "注意力权重的可视化很有意思:模型自己会盯着故障前的异常模式看——这不是黑箱瞎猜,是在学习故障前兆。",
-        "故障原型编码器把各类故障压成嵌入空间里的原型点,迁移决策就变成\"当前状态离哪个故障原型最近\"。这是训练过程的可视化。",
-        "数字上:比最强基线故障检测准确率高百分之 5.1,任务迁移减少百分之 10.7,开销降低百分之 23.8,SLA 违约最多降百分之 12——又准又省。",
-        "为什么值得读?边缘计算的容错大多是\"事后补救\",PreGAN 证明了\"事前预测\"在真实负载下是可行的。做边缘系统的同学,这套预测加克制的组合值得参考。感兴趣的话打开下方 DOI 读原文,我们明天见。"
+        "各位观众,今天给大家带来的是 INFOCOM 2022 的论文《OrchestRAN》。一句话概括:开放式 RAN 让网络智能应用百花齐放,但谁来决定哪个 AI 模型部署在哪、控制什么参数?OrchestRAN 就是这个\"总调度\"。",
+        "下一代蜂窝网络走向软件化、开放化:O-RAN 架构把分析和控制接口都暴露出来,欢迎各种数据驱动的智能应用接入。左边这张是 O-RAN 的参考架构和接口图。但问题来了——目标定了,模型选型、部署位置、参数配置全靠手工,根本不可持续。",
+        "OrchestRAN 把这件事自动化:运营商只要声明高层意图,框架自己算出每个 AI 应用放哪、控什么、喂什么数据。这是它的系统设计和主要流程。",
+        "这张图演示了一个 xApp 在近实时 RIC 上被创建和调度的过程——从意图到落地,全程无需人工干预。",
+        "最妙的是模型共享:多个应用往往需要相同的特征提取,OrchestRAN 识别出来让它们共用模型,资源占用直接减半。",
+        "性能数字:两千节点规模的调度实例也能在 0.1 秒内解出来;控制开销比 O-RAN 的 E2 接口方案降低最多 2.6 倍;模型共享后再省一半资源。",
+        "为什么值得读?开放 RAN 的智能化喊了很多年,这是把\"意图到部署\"真正打通的框架级工作。做网络自动化的同学,这个调度问题的建模方式值得细看。感兴趣的话打开下方 DOI 读原文,我们明天见。"
       ],
-      "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-10-13.mp4"
-    },
-    {
-      "date": "2026-10-14",
-      "id": "dblp:conf/infocom/LiSHLPH21",
-      "title": "To Talk or to Work: Flexible Communication Compression for Energy Efficient Federated Learning over Heterogeneous Mobile Edge Devices",
-      "authors": [
-        "Liang Li",
-        "Dian Shi",
-        "Ronghui Hou",
-        "Hui Li",
-        "Miao Pan",
-        "Zhu Han"
-      ],
-      "venueId": "infocom",
-      "venueName": "IEEE INFOCOM",
-      "year": 2021,
-      "doi": "10.1109/infocom42981.2021.9488839",
-      "url": "https://doi.org/10.1109/infocom42981.2021.9488839",
-      "citationCount": 196,
-      "topics": [
-        "Federated Learning",
-        "Communication Compression",
-        "Energy Efficiency"
-      ],
-      "pdfUrl": "https://arxiv.org/pdf/2012.11804",
-      "pageCount": 12,
-      "scriptSource": "llm",
-      "segments": [
-        {
-          "text": "各位观众,今天给大家带来的是 INFOCOM 2021 的论文《To Talk or to Work》。一句话概括:联邦学习的每个参与设备,应该在\"多说话\"和\"多干活\"之间灵活分配——这篇论文把这个权衡做成了可优化的设计。",
-          "page": 1
-        },
-        {
-          "text": "背景账很好算:传一个 ResNet-50 的百兆参数,1Gbps 链路下要耗 0.16 焦耳,和本地训练一步的能耗已经可比。移动设备电量金贵,通信和计算这两笔账必须一起算。",
-          "page": 1
-        },
-        {
-          "text": "\"少说话\"有两条路:梯度稀疏化,每次只传重要的参数;时间稀疏化,几轮本地训练才同步一次。作者的关键发现是:这两条路的压缩力度存在权衡,而且最优组合随设备和数据分布而变。",
-          "page": 2
-        },
-        {
-          "text": "于是有了 FlexibleSpar:不做全局统一的压缩率,而是让每个参与者按自己的信道质量和电量,灵活决定说多少、练多少——异构设备各取所需。",
-          "page": 4
-        },
-        {
-          "text": "实验把各种系统参数扫了一遍:参与者数量、异构程度、压缩配比。这张图展示了系统规模变化对平均能耗的影响,FlexibleSpar 在各种配置下都压着基线。",
-          "page": 8,
-          "figure": "Fig. 1"
-        },
-        {
-          "text": "精度-能耗的帕累托前沿更直观:同样能耗下 FlexibleSpar 的测试误差更低,同样精度下能耗更省——灵活分配的回报是实打实的。",
-          "page": 8,
-          "figure": "Fig. 2"
-        },
-        {
-          "text": "为什么值得读?\"talk or work\"这个提法本身就很有记忆点,而且结论实用:别再全局一刀切压缩率了,让设备自己选。做 FL 系统的同学值得一看。感兴趣的话打开下方 DOI 读原文,我们明天见。",
-          "page": 1
-        }
-      ],
-      "script": [
-        "各位观众,今天给大家带来的是 INFOCOM 2021 的论文《To Talk or to Work》。一句话概括:联邦学习的每个参与设备,应该在\"多说话\"和\"多干活\"之间灵活分配——这篇论文把这个权衡做成了可优化的设计。",
-        "背景账很好算:传一个 ResNet-50 的百兆参数,1Gbps 链路下要耗 0.16 焦耳,和本地训练一步的能耗已经可比。移动设备电量金贵,通信和计算这两笔账必须一起算。",
-        "\"少说话\"有两条路:梯度稀疏化,每次只传重要的参数;时间稀疏化,几轮本地训练才同步一次。作者的关键发现是:这两条路的压缩力度存在权衡,而且最优组合随设备和数据分布而变。",
-        "于是有了 FlexibleSpar:不做全局统一的压缩率,而是让每个参与者按自己的信道质量和电量,灵活决定说多少、练多少——异构设备各取所需。",
-        "实验把各种系统参数扫了一遍:参与者数量、异构程度、压缩配比。这张图展示了系统规模变化对平均能耗的影响,FlexibleSpar 在各种配置下都压着基线。",
-        "精度-能耗的帕累托前沿更直观:同样能耗下 FlexibleSpar 的测试误差更低,同样精度下能耗更省——灵活分配的回报是实打实的。",
-        "为什么值得读?\"talk or work\"这个提法本身就很有记忆点,而且结论实用:别再全局一刀切压缩率了,让设备自己选。做 FL 系统的同学值得一看。感兴趣的话打开下方 DOI 读原文,我们明天见。"
-      ],
-      "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-10-14.mp4"
+      "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-10-16.mp4"
     },
     {
       "date": "2026-10-15",
@@ -558,76 +357,277 @@
       "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-10-15.mp4"
     },
     {
-      "date": "2026-10-16",
-      "id": "dblp:conf/infocom/DOroBPM22",
-      "title": "OrchestRAN: Network Automation through Orchestrated Intelligence in the Open RAN",
+      "date": "2026-10-14",
+      "id": "dblp:conf/infocom/LiSHLPH21",
+      "title": "To Talk or to Work: Flexible Communication Compression for Energy Efficient Federated Learning over Heterogeneous Mobile Edge Devices",
       "authors": [
-        "Salvatore D'Oro",
-        "Michele Polese",
-        "Leonardo Bonati",
-        "H Bin Cheng",
-        "Tommaso Melodia"
+        "Liang Li",
+        "Dian Shi",
+        "Ronghui Hou",
+        "Hui Li",
+        "Miao Pan",
+        "Zhu Han"
+      ],
+      "venueId": "infocom",
+      "venueName": "IEEE INFOCOM",
+      "year": 2021,
+      "doi": "10.1109/infocom42981.2021.9488839",
+      "url": "https://doi.org/10.1109/infocom42981.2021.9488839",
+      "citationCount": 196,
+      "topics": [
+        "Federated Learning",
+        "Communication Compression",
+        "Energy Efficiency"
+      ],
+      "pdfUrl": "https://arxiv.org/pdf/2012.11804",
+      "pageCount": 12,
+      "scriptSource": "llm",
+      "segments": [
+        {
+          "text": "各位观众,今天给大家带来的是 INFOCOM 2021 的论文《To Talk or to Work》。一句话概括:联邦学习的每个参与设备,应该在\"多说话\"和\"多干活\"之间灵活分配——这篇论文把这个权衡做成了可优化的设计。",
+          "page": 1
+        },
+        {
+          "text": "背景账很好算:传一个 ResNet-50 的百兆参数,1Gbps 链路下要耗 0.16 焦耳,和本地训练一步的能耗已经可比。移动设备电量金贵,通信和计算这两笔账必须一起算。",
+          "page": 1
+        },
+        {
+          "text": "\"少说话\"有两条路:梯度稀疏化,每次只传重要的参数;时间稀疏化,几轮本地训练才同步一次。作者的关键发现是:这两条路的压缩力度存在权衡,而且最优组合随设备和数据分布而变。",
+          "page": 2
+        },
+        {
+          "text": "于是有了 FlexibleSpar:不做全局统一的压缩率,而是让每个参与者按自己的信道质量和电量,灵活决定说多少、练多少——异构设备各取所需。",
+          "page": 4
+        },
+        {
+          "text": "实验把各种系统参数扫了一遍:参与者数量、异构程度、压缩配比。这张图展示了系统规模变化对平均能耗的影响,FlexibleSpar 在各种配置下都压着基线。",
+          "page": 8,
+          "figure": "Fig. 1"
+        },
+        {
+          "text": "精度-能耗的帕累托前沿更直观:同样能耗下 FlexibleSpar 的测试误差更低,同样精度下能耗更省——灵活分配的回报是实打实的。",
+          "page": 8,
+          "figure": "Fig. 2"
+        },
+        {
+          "text": "为什么值得读?\"talk or work\"这个提法本身就很有记忆点,而且结论实用:别再全局一刀切压缩率了,让设备自己选。做 FL 系统的同学值得一看。感兴趣的话打开下方 DOI 读原文,我们明天见。",
+          "page": 1
+        }
+      ],
+      "script": [
+        "各位观众,今天给大家带来的是 INFOCOM 2021 的论文《To Talk or to Work》。一句话概括:联邦学习的每个参与设备,应该在\"多说话\"和\"多干活\"之间灵活分配——这篇论文把这个权衡做成了可优化的设计。",
+        "背景账很好算:传一个 ResNet-50 的百兆参数,1Gbps 链路下要耗 0.16 焦耳,和本地训练一步的能耗已经可比。移动设备电量金贵,通信和计算这两笔账必须一起算。",
+        "\"少说话\"有两条路:梯度稀疏化,每次只传重要的参数;时间稀疏化,几轮本地训练才同步一次。作者的关键发现是:这两条路的压缩力度存在权衡,而且最优组合随设备和数据分布而变。",
+        "于是有了 FlexibleSpar:不做全局统一的压缩率,而是让每个参与者按自己的信道质量和电量,灵活决定说多少、练多少——异构设备各取所需。",
+        "实验把各种系统参数扫了一遍:参与者数量、异构程度、压缩配比。这张图展示了系统规模变化对平均能耗的影响,FlexibleSpar 在各种配置下都压着基线。",
+        "精度-能耗的帕累托前沿更直观:同样能耗下 FlexibleSpar 的测试误差更低,同样精度下能耗更省——灵活分配的回报是实打实的。",
+        "为什么值得读?\"talk or work\"这个提法本身就很有记忆点,而且结论实用:别再全局一刀切压缩率了,让设备自己选。做 FL 系统的同学值得一看。感兴趣的话打开下方 DOI 读原文,我们明天见。"
+      ],
+      "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-10-14.mp4"
+    },
+    {
+      "date": "2026-10-13",
+      "id": "dblp:conf/infocom/TuliCJ22",
+      "title": "PreGAN: Preemptive Migration Prediction Network for Proactive Fault-Tolerant Edge Computing",
+      "authors": [
+        "Shreshth Tuli",
+        "Giuliano Casale",
+        "Nicholas R. Jennings"
       ],
       "venueId": "infocom",
       "venueName": "IEEE INFOCOM",
       "year": 2022,
-      "doi": "10.1109/infocom48880.2022.9796744",
-      "url": "https://doi.org/10.1109/infocom48880.2022.9796744",
-      "citationCount": 0,
+      "doi": "10.1109/infocom48880.2022.9796778",
+      "url": "https://doi.org/10.1109/infocom48880.2022.9796778",
+      "citationCount": 59,
       "topics": [
-        "Open RAN",
-        "Network Automation",
-        "Orchestration"
+        "Edge Computing",
+        "Fault Tolerance",
+        "Task Migration"
       ],
-      "pdfUrl": "https://arxiv.org/pdf/2201.05632",
-      "pageCount": 10,
+      "pdfUrl": "https://arxiv.org/pdf/2112.02292",
+      "pageCount": 11,
       "scriptSource": "llm",
       "segments": [
         {
-          "text": "各位观众,今天给大家带来的是 INFOCOM 2022 的论文《OrchestRAN》。一句话概括:开放式 RAN 让网络智能应用百花齐放,但谁来决定哪个 AI 模型部署在哪、控制什么参数?OrchestRAN 就是这个\"总调度\"。",
+          "text": "各位观众,今天给大家带来的是 INFOCOM 2022 的论文《PreGAN》。一句话概括:边缘计算节点不可靠、任务有死线,PreGAN 用 AI 提前预测故障,在节点挂掉之前就把任务迁走。",
           "page": 1
         },
         {
-          "text": "下一代蜂窝网络走向软件化、开放化:O-RAN 架构把分析和控制接口都暴露出来,欢迎各种数据驱动的智能应用接入。左边这张是 O-RAN 的参考架构和接口图。但问题来了——目标定了,模型选型、部署位置、参数配置全靠手工,根本不可持续。",
-          "page": 1,
-          "figure": "Figure 1"
+          "text": "边缘系统的老大难:节点动不动就过载或宕机,等故障发生了再迁移,任务早就超时了。但乱迁移也不行——不必要的迁移会压垮网络。所以需要一个既准确又克制的故障预测机制。",
+          "page": 1
         },
         {
-          "text": "OrchestRAN 把这件事自动化:运营商只要声明高层意图,框架自己算出每个 AI 应用放哪、控什么、喂什么数据。这是它的系统设计和主要流程。",
+          "text": "PreGAN 的模型是个组合体:先用注意力机制分析资源使用的时间序列,预测故障;再用 GAN 风格的故障原型编码器做故障分类。这张图是它的整体结构。",
           "page": 3,
           "figure": "Figure 2"
         },
         {
-          "text": "这张图演示了一个 xApp 在近实时 RIC 上被创建和调度的过程——从意图到落地,全程无需人工干预。",
-          "page": 4,
+          "text": "注意力权重的可视化很有意思:模型自己会盯着故障前的异常模式看——这不是黑箱瞎猜,是在学习故障前兆。",
+          "page": 5,
           "figure": "Figure 3"
         },
         {
-          "text": "最妙的是模型共享:多个应用往往需要相同的特征提取,OrchestRAN 识别出来让它们共用模型,资源占用直接减半。",
-          "page": 5,
-          "figure": "Figure 4"
-        },
-        {
-          "text": "性能数字:两千节点规模的调度实例也能在 0.1 秒内解出来;控制开销比 O-RAN 的 E2 接口方案降低最多 2.6 倍;模型共享后再省一半资源。",
+          "text": "故障原型编码器把各类故障压成嵌入空间里的原型点,迁移决策就变成\"当前状态离哪个故障原型最近\"。这是训练过程的可视化。",
           "page": 7,
           "figure": "Figure 5"
         },
         {
-          "text": "为什么值得读?开放 RAN 的智能化喊了很多年,这是把\"意图到部署\"真正打通的框架级工作。做网络自动化的同学,这个调度问题的建模方式值得细看。感兴趣的话打开下方 DOI 读原文,我们明天见。",
-          "page": 9,
-          "figure": "Figure 12"
+          "text": "数字上:比最强基线故障检测准确率高百分之 5.1,任务迁移减少百分之 10.7,开销降低百分之 23.8,SLA 违约最多降百分之 12——又准又省。",
+          "page": 8,
+          "figure": "Figure 9"
+        },
+        {
+          "text": "为什么值得读?边缘计算的容错大多是\"事后补救\",PreGAN 证明了\"事前预测\"在真实负载下是可行的。做边缘系统的同学,这套预测加克制的组合值得参考。感兴趣的话打开下方 DOI 读原文,我们明天见。",
+          "page": 1
         }
       ],
       "script": [
-        "各位观众,今天给大家带来的是 INFOCOM 2022 的论文《OrchestRAN》。一句话概括:开放式 RAN 让网络智能应用百花齐放,但谁来决定哪个 AI 模型部署在哪、控制什么参数?OrchestRAN 就是这个\"总调度\"。",
-        "下一代蜂窝网络走向软件化、开放化:O-RAN 架构把分析和控制接口都暴露出来,欢迎各种数据驱动的智能应用接入。左边这张是 O-RAN 的参考架构和接口图。但问题来了——目标定了,模型选型、部署位置、参数配置全靠手工,根本不可持续。",
-        "OrchestRAN 把这件事自动化:运营商只要声明高层意图,框架自己算出每个 AI 应用放哪、控什么、喂什么数据。这是它的系统设计和主要流程。",
-        "这张图演示了一个 xApp 在近实时 RIC 上被创建和调度的过程——从意图到落地,全程无需人工干预。",
-        "最妙的是模型共享:多个应用往往需要相同的特征提取,OrchestRAN 识别出来让它们共用模型,资源占用直接减半。",
-        "性能数字:两千节点规模的调度实例也能在 0.1 秒内解出来;控制开销比 O-RAN 的 E2 接口方案降低最多 2.6 倍;模型共享后再省一半资源。",
-        "为什么值得读?开放 RAN 的智能化喊了很多年,这是把\"意图到部署\"真正打通的框架级工作。做网络自动化的同学,这个调度问题的建模方式值得细看。感兴趣的话打开下方 DOI 读原文,我们明天见。"
+        "各位观众,今天给大家带来的是 INFOCOM 2022 的论文《PreGAN》。一句话概括:边缘计算节点不可靠、任务有死线,PreGAN 用 AI 提前预测故障,在节点挂掉之前就把任务迁走。",
+        "边缘系统的老大难:节点动不动就过载或宕机,等故障发生了再迁移,任务早就超时了。但乱迁移也不行——不必要的迁移会压垮网络。所以需要一个既准确又克制的故障预测机制。",
+        "PreGAN 的模型是个组合体:先用注意力机制分析资源使用的时间序列,预测故障;再用 GAN 风格的故障原型编码器做故障分类。这张图是它的整体结构。",
+        "注意力权重的可视化很有意思:模型自己会盯着故障前的异常模式看——这不是黑箱瞎猜,是在学习故障前兆。",
+        "故障原型编码器把各类故障压成嵌入空间里的原型点,迁移决策就变成\"当前状态离哪个故障原型最近\"。这是训练过程的可视化。",
+        "数字上:比最强基线故障检测准确率高百分之 5.1,任务迁移减少百分之 10.7,开销降低百分之 23.8,SLA 违约最多降百分之 12——又准又省。",
+        "为什么值得读?边缘计算的容错大多是\"事后补救\",PreGAN 证明了\"事前预测\"在真实负载下是可行的。做边缘系统的同学,这套预测加克制的组合值得参考。感兴趣的话打开下方 DOI 读原文,我们明天见。"
       ],
-      "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-10-16.mp4"
+      "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-10-13.mp4"
+    },
+    {
+      "date": "2026-10-12",
+      "id": "dblp:conf/infocom/AlbaneseDSRC22",
+      "title": "MARISA: A Self-Configuring Metasurfaces Absorption and Reflection Solution",
+      "authors": [
+        "Antonio Albanese",
+        "Francesco Devoti",
+        "Vincenzo Sciancalepore",
+        "Xavier Costa-Perez"
+      ],
+      "venueId": "infocom",
+      "venueName": "IEEE INFOCOM",
+      "year": 2022,
+      "doi": "10.1109/infocom48880.2022.9796976",
+      "url": "https://doi.org/10.1109/infocom48880.2022.9796976",
+      "citationCount": 57,
+      "topics": [
+        "Reconfigurable Intelligent Surfaces",
+        "6G",
+        "Self-configuration"
+      ],
+      "pdfUrl": "https://arxiv.org/pdf/2112.01949",
+      "pageCount": 10,
+      "scriptSource": "llm",
+      "segments": [
+        {
+          "text": "各位观众,今天给大家带来的是 INFOCOM 2022 的论文《MARISA》。一句话概括:智能超表面 RIS 被认为是 6G 的关键技术,但它需要一条快速控制信道不停调整配置——MARISA 问了一个大胆的问题:能不能把控制信道彻底删掉?",
+          "page": 1
+        },
+        {
+          "text": "RIS 的美好愿景是即插即用:贴在墙上就能改善覆盖。但现实是,它要持续感知信道、实时调整相位,控制信道本身成了部署的最大障碍。这个\"物联网表面\"的场景图,就是作者想要实现的即插即用形态。",
+          "page": 1,
+          "figure": "Fig. 1"
+        },
+        {
+          "text": "MARISA 的硬件设计是混合型 RIS:一部分单元负责反射信号,另一部分负责吸收一小部分能量做信道感知——自己感知、自己配置,不需要基站告诉它该怎么做。",
+          "page": 2,
+          "figure": "Fig. 2"
+        },
+        {
+          "text": "怎么感知?吸收单元测量功率谱,从功率剖面里估计出用户方向的峰值。这张图展示了功率剖面和峰值估计的对应关系——看似简单,但要区分多用户和噪声,需要精心设计的码本。",
+          "page": 6,
+          "figure": "Fig. 5"
+        },
+        {
+          "text": "码本设计是个优化问题:每个码字对应一组相位配置,要在角度区间内最坏情况都表现好。这是优化出来的 RIS 辐射方向图,方位角上的覆盖肉眼可见地均匀。",
+          "page": 8,
+          "figure": "Fig. 6"
+        },
+        {
+          "text": "多用户场景下,自配置版本的平均和速率逼近了有完美信道知识的上限;这张 CDF 图显示,绝大多数时刻 MARISA 和集中式最优配置的差距都很小。",
+          "page": 9,
+          "figure": "Fig. 9"
+        },
+        {
+          "text": "为什么值得读?它把 RIS 从\"需要基站桩伺候的娇贵设备\"变成\"贴墙即用的傻瓜设备\",这是 RIS 走向真实部署绕不过去的一步。感兴趣的话打开下方 DOI 读原文,我们明天见。",
+          "page": 1
+        }
+      ],
+      "script": [
+        "各位观众,今天给大家带来的是 INFOCOM 2022 的论文《MARISA》。一句话概括:智能超表面 RIS 被认为是 6G 的关键技术,但它需要一条快速控制信道不停调整配置——MARISA 问了一个大胆的问题:能不能把控制信道彻底删掉?",
+        "RIS 的美好愿景是即插即用:贴在墙上就能改善覆盖。但现实是,它要持续感知信道、实时调整相位,控制信道本身成了部署的最大障碍。这个\"物联网表面\"的场景图,就是作者想要实现的即插即用形态。",
+        "MARISA 的硬件设计是混合型 RIS:一部分单元负责反射信号,另一部分负责吸收一小部分能量做信道感知——自己感知、自己配置,不需要基站告诉它该怎么做。",
+        "怎么感知?吸收单元测量功率谱,从功率剖面里估计出用户方向的峰值。这张图展示了功率剖面和峰值估计的对应关系——看似简单,但要区分多用户和噪声,需要精心设计的码本。",
+        "码本设计是个优化问题:每个码字对应一组相位配置,要在角度区间内最坏情况都表现好。这是优化出来的 RIS 辐射方向图,方位角上的覆盖肉眼可见地均匀。",
+        "多用户场景下,自配置版本的平均和速率逼近了有完美信道知识的上限;这张 CDF 图显示,绝大多数时刻 MARISA 和集中式最优配置的差距都很小。",
+        "为什么值得读?它把 RIS 从\"需要基站桩伺候的娇贵设备\"变成\"贴墙即用的傻瓜设备\",这是 RIS 走向真实部署绕不过去的一步。感兴趣的话打开下方 DOI 读原文,我们明天见。"
+      ],
+      "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-10-12.mp4"
+    },
+    {
+      "date": "2026-10-11",
+      "id": "dblp:journals/imwut/TrivediZBBCS21",
+      "title": "WiFiTrace: Network-based Contact Tracing for Infectious Diseases Using Passive WiFi Sensing",
+      "authors": [
+        "Amee Trivedi",
+        "Camellia Zakaria",
+        "Rajesh Balan",
+        "Yitcha Crispin",
+        "Lek Hsiang Hsu",
+        "Petri Nurmi"
+      ],
+      "venueId": "ubicomp",
+      "venueName": "ACM UbiComp / IMWUT",
+      "year": 2021,
+      "doi": "10.1145/3448084",
+      "url": "https://doi.org/10.1145/3448084",
+      "citationCount": 60,
+      "topics": [
+        "Contact Tracing",
+        "WiFi Sensing",
+        "Public Health"
+      ],
+      "pdfUrl": "https://arxiv.org/pdf/2005.12045",
+      "pageCount": 26,
+      "scriptSource": "llm",
+      "segments": [
+        {
+          "text": "各位观众,今天给大家带来的是 UbiComp 2021 的论文《WiFiTrace》。一句话概括:不用装任何 App,直接用现成的 WiFi 基础设施做传染病接触追踪——你的手机和 AP 的关联记录,就是行踪的证据。",
+          "page": 2
+        },
+        {
+          "text": "疫情期间的接触追踪,主流方案是蓝牙 App,但安装率、隐私顾虑、蓝牙本身的测距误差都是坑。作者的思路是网络中心化的:WiFi 网络本来就知道哪台设备连了哪个 AP、什么时候连的——这张对比表把两种路线的优劣列得很清楚。",
+          "page": 5,
+          "figure": "Table 1"
+        },
+        {
+          "text": "系统架构是分层的:底层采集 AP 关联日志,中间层把设备和 AP 建成二部图,上层用图查询生成接触报告。这张图就是一份真实的接触追踪报告样例。",
+          "page": 8,
+          "figure": "Fig. 3"
+        },
+        {
+          "text": "核心数据结构是这张二部图:设备到 AP 的关联带时间戳,两台设备在同一 AP 下的时间重叠,就是一次潜在接触。图查询 API 把\"谁和谁接触过\"变成一次图遍历。",
+          "page": 9,
+          "figure": "Fig. 4"
+        },
+        {
+          "text": "准不准?实验里,WiFi 会话短于一分钟的间歇使用场景,位置推断准确率也能保持在百分之 80 以上——对于流行病学意义上的\"密切接触\"判定,这个精度已经够用。",
+          "page": 13,
+          "figure": "Fig. 6"
+        },
+        {
+          "text": "为什么值得读?室内传播风险是室外的 20 倍,而室内恰恰没有 GPS。WiFiTrace 证明了:与其逼所有人装 App,不如把已有的网络设施变成公共卫生的基础设施。感兴趣的话打开下方 DOI 读原文,我们明天见。",
+          "page": 13
+        }
+      ],
+      "script": [
+        "各位观众,今天给大家带来的是 UbiComp 2021 的论文《WiFiTrace》。一句话概括:不用装任何 App,直接用现成的 WiFi 基础设施做传染病接触追踪——你的手机和 AP 的关联记录,就是行踪的证据。",
+        "疫情期间的接触追踪,主流方案是蓝牙 App,但安装率、隐私顾虑、蓝牙本身的测距误差都是坑。作者的思路是网络中心化的:WiFi 网络本来就知道哪台设备连了哪个 AP、什么时候连的——这张对比表把两种路线的优劣列得很清楚。",
+        "系统架构是分层的:底层采集 AP 关联日志,中间层把设备和 AP 建成二部图,上层用图查询生成接触报告。这张图就是一份真实的接触追踪报告样例。",
+        "核心数据结构是这张二部图:设备到 AP 的关联带时间戳,两台设备在同一 AP 下的时间重叠,就是一次潜在接触。图查询 API 把\"谁和谁接触过\"变成一次图遍历。",
+        "准不准?实验里,WiFi 会话短于一分钟的间歇使用场景,位置推断准确率也能保持在百分之 80 以上——对于流行病学意义上的\"密切接触\"判定,这个精度已经够用。",
+        "为什么值得读?室内传播风险是室外的 20 倍,而室内恰恰没有 GPS。WiFiTrace 证明了:与其逼所有人装 App,不如把已有的网络设施变成公共卫生的基础设施。感兴趣的话打开下方 DOI 读原文,我们明天见。"
+      ],
+      "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-10-11.mp4"
     },
     {
       "date": "2026-10-10",
