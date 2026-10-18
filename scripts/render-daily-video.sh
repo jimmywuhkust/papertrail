@@ -8,6 +8,7 @@
 set -euo pipefail
 
 FONT=.cache/fonts/NotoSansCJKsc-Regular.otf
+RELEASE_TAG=daily-videos
 mkdir -p public/daily
 
 for txt in public/data/daily/*.txt; do
@@ -15,8 +16,10 @@ for txt in public/data/daily/*.txt; do
     *.meta.txt) continue ;;
   esac
   date=$(basename "$txt" .txt)
-  mp4="public/daily/${date}.mp4"
-  if [ -f "$mp4" ]; then
+  # Videos live on the GitHub release (they would blow the Pages size budget);
+  # only the VTT captions ship in the repo/site.
+  release_url="https://github.com/jimmywuhkust/papertrail/releases/download/${RELEASE_TAG}/${date}.mp4"
+  if [ -f "public/daily/${date}.mp4" ] || curl -sfIL --max-time 20 "$release_url" > /dev/null 2>&1; then
     echo "skip ${date} (video exists)"
     continue
   fi
@@ -84,7 +87,12 @@ for txt in public/data/daily/*.txt; do
   ffmpeg -y -loglevel error -f concat -safe 0 -i "$work/videos.txt" -c:v copy "$work/video.mp4"
   ffmpeg -y -loglevel error -f concat -safe 0 -i "$work/audio.txt" -c:a aac -b:a 128k "$work/audio.m4a"
   ffmpeg -y -loglevel error -i "$work/video.mp4" -i "$work/audio.m4a" \
-    -c:v copy -c:a copy -movflags +faststart -shortest "$mp4"
+    -c:v copy -c:a copy -movflags +faststart -shortest "$work/episode.mp4"
+  if command -v gh > /dev/null 2>&1; then
+    gh release upload "$RELEASE_TAG" "$work/episode.mp4" --clobber
+  else
+    cp "$work/episode.mp4" "public/daily/${date}.mp4"
+  fi
   rm -rf "$work"
-  echo "rendered ${mp4}"
+  echo "rendered ${date}"
 done

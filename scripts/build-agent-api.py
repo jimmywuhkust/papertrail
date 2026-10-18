@@ -21,7 +21,7 @@ def read(path):
 def write(path, value):
     path.parent.mkdir(parents=True, exist_ok=True)
     data = json.dumps(value, ensure_ascii=False, separators=(",", ":")).encode()
-    path.write_bytes(gzip.compress(data, compresslevel=6, mtime=0) if path.suffix==".gz" else data)
+    path.write_bytes(gzip.compress(data, compresslevel=9, mtime=0) if path.suffix==".gz" else data)
 
 
 def digest(path):

@@ -67,6 +67,8 @@ jobs:
 
       - name: Render missing episode videos
         run: bash scripts/render-daily-video.sh
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Commit new episodes
         id: commit

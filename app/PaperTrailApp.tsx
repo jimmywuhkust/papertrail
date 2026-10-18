@@ -741,7 +741,7 @@ export default function PaperTrailApp() {
                   <h2>{dailyEpisodes[dailyFocus].title}</h2>
                   <p className="episode-meta">{dailyEpisodes[dailyFocus].venueName} {dailyEpisodes[dailyFocus].year} · {dailyEpisodes[dailyFocus].authors.slice(0, 3).join(", ")}{dailyEpisodes[dailyFocus].authors.length > 3 ? " et al." : ""} · {dailyEpisodes[dailyFocus].date}</p>
                   {!brokenVideos[dailyEpisodes[dailyFocus].date] ? (
-                    <video key={dailyEpisodes[dailyFocus].date} className="episode-video" controls preload="metadata" src={dataUrl(`/${dailyEpisodes[dailyFocus].video}`)} onError={() => setBrokenVideos((previous) => ({ ...previous, [dailyEpisodes[dailyFocus].date]: true }))}>
+                    <video key={dailyEpisodes[dailyFocus].date} className="episode-video" controls preload="metadata" src={dailyEpisodes[dailyFocus].video.startsWith("http") ? dailyEpisodes[dailyFocus].video : dataUrl(`/${dailyEpisodes[dailyFocus].video}`)} onError={() => setBrokenVideos((previous) => ({ ...previous, [dailyEpisodes[dailyFocus].date]: true }))}>
                       <track kind="captions" src={dataUrl(`/daily/${dailyEpisodes[dailyFocus].date}.vtt`)} srcLang="zh" label="中文字幕" default />
                     </video>
                   ) : (

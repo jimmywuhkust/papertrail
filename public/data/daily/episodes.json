@@ -71,7 +71,7 @@
         "实验覆盖了四种请求到达模式:周期波动、高频波动、随机突发。KaiS 在各种模式下的长期吞吐都压着基线,而且学会的模式切换很稳。这张图是不同到达模式下的学习曲线。",
         "为什么值得读?边缘云的调度问题,从\"写规则\"走向\"学策略\",这篇是早期把多智能体 RL 加 GNN 编码落到 k8s 真机的工作。做边缘系统的同学值得参考。感兴趣的话打开下方 DOI 读原文,我们明天见。"
       ],
-      "video": "daily/2026-10-17.mp4"
+      "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-10-17.mp4"
     },
     {
       "date": "2026-10-18",
@@ -144,7 +144,7 @@
         "这张图展示恢复的触发器和原始触发器的对比——肉眼几乎分不出来,说明反推质量很高,遗忘才能精准。",
         "为什么值得读?机器学习安全里,后门防御一直缺少干净有效的手段,\"机器遗忘\"是个优雅的切口。做模型安全的同学,这篇值得细读。感兴趣的话打开下方 DOI 读原文,我们明天见。"
       ],
-      "video": "daily/2026-10-18.mp4"
+      "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-10-18.mp4"
     },
     {
       "date": "2026-10-19",
@@ -211,7 +211,7 @@
         "理论上,它的后悔值是次线性的——和最优分配的比值随时间收敛到 1 附近。这张图是奖励比的收敛过程,基线则明显掉队。",
         "为什么值得读?它把 bandit 理论干净地落到边缘计算的去中心化卸载上,而且证明了分布式也能接近最优。做边缘卸载或在线学习的同学值得一看。感兴趣的话打开下方 DOI 读原文,我们明天见。"
       ],
-      "video": "daily/2026-10-19.mp4"
+      "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-10-19.mp4"
     },
     {
       "date": "2026-10-11",
@@ -277,7 +277,7 @@
         "准不准?实验里,WiFi 会话短于一分钟的间歇使用场景,位置推断准确率也能保持在百分之 80 以上——对于流行病学意义上的\"密切接触\"判定,这个精度已经够用。",
         "为什么值得读?室内传播风险是室外的 20 倍,而室内恰恰没有 GPS。WiFiTrace 证明了:与其逼所有人装 App,不如把已有的网络设施变成公共卫生的基础设施。感兴趣的话打开下方 DOI 读原文,我们明天见。"
       ],
-      "video": "daily/2026-10-11.mp4"
+      "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-10-11.mp4"
     },
     {
       "date": "2026-10-12",
@@ -347,7 +347,7 @@
         "多用户场景下,自配置版本的平均和速率逼近了有完美信道知识的上限;这张 CDF 图显示,绝大多数时刻 MARISA 和集中式最优配置的差距都很小。",
         "为什么值得读?它把 RIS 从\"需要基站桩伺候的娇贵设备\"变成\"贴墙即用的傻瓜设备\",这是 RIS 走向真实部署绕不过去的一步。感兴趣的话打开下方 DOI 读原文,我们明天见。"
       ],
-      "video": "daily/2026-10-12.mp4"
+      "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-10-12.mp4"
     },
     {
       "date": "2026-10-13",
@@ -415,7 +415,7 @@
         "数字上:比最强基线故障检测准确率高百分之 5.1,任务迁移减少百分之 10.7,开销降低百分之 23.8,SLA 违约最多降百分之 12——又准又省。",
         "为什么值得读?边缘计算的容错大多是\"事后补救\",PreGAN 证明了\"事前预测\"在真实负载下是可行的。做边缘系统的同学,这套预测加克制的组合值得参考。感兴趣的话打开下方 DOI 读原文,我们明天见。"
       ],
-      "video": "daily/2026-10-13.mp4"
+      "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-10-13.mp4"
     },
     {
       "date": "2026-10-14",
@@ -484,7 +484,7 @@
         "精度-能耗的帕累托前沿更直观:同样能耗下 FlexibleSpar 的测试误差更低,同样精度下能耗更省——灵活分配的回报是实打实的。",
         "为什么值得读?\"talk or work\"这个提法本身就很有记忆点,而且结论实用:别再全局一刀切压缩率了,让设备自己选。做 FL 系统的同学值得一看。感兴趣的话打开下方 DOI 读原文,我们明天见。"
       ],
-      "video": "daily/2026-10-14.mp4"
+      "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-10-14.mp4"
     },
     {
       "date": "2026-10-15",
@@ -555,7 +555,7 @@
         "数字上:频谱图方案拿到百分之 96.44 的识别准确率,而 IQ 样本和 FFT 方案分别只有 83 和 87——表示选择真的很重要。作者还设计了混合分类器来处理未知设备的拒识。",
         "为什么值得读?射频指纹是个老概念,但这篇把\"漂移\"这个实战杀手揪出来并解决掉,是从论文到部署的关键一步。做物联网安全的同学,这套频谱图加 CFO 补偿的配方可以直接用。感兴趣的话打开下方 DOI 读原文,我们明天见。"
       ],
-      "video": "daily/2026-10-15.mp4"
+      "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-10-15.mp4"
     },
     {
       "date": "2026-10-16",
@@ -627,7 +627,7 @@
         "性能数字:两千节点规模的调度实例也能在 0.1 秒内解出来;控制开销比 O-RAN 的 E2 接口方案降低最多 2.6 倍;模型共享后再省一半资源。",
         "为什么值得读?开放 RAN 的智能化喊了很多年,这是把\"意图到部署\"真正打通的框架级工作。做网络自动化的同学,这个调度问题的建模方式值得细看。感兴趣的话打开下方 DOI 读原文,我们明天见。"
       ],
-      "video": "daily/2026-10-16.mp4"
+      "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-10-16.mp4"
     },
     {
       "date": "2026-10-10",
@@ -695,7 +695,7 @@
           "page": 1
         }
       ],
-      "video": "daily/2026-10-10.mp4"
+      "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-10-10.mp4"
     },
     {
       "date": "2026-10-09",
@@ -765,7 +765,7 @@
           "page": 1
         }
       ],
-      "video": "daily/2026-10-09.mp4"
+      "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-10-09.mp4"
     },
     {
       "date": "2026-10-08",
@@ -838,7 +838,7 @@
           "figure": "Figure 13"
         }
       ],
-      "video": "daily/2026-10-08.mp4"
+      "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-10-08.mp4"
     },
     {
       "date": "2026-10-07",
@@ -910,7 +910,7 @@
           "figure": "Figure 25"
         }
       ],
-      "video": "daily/2026-10-07.mp4"
+      "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-10-07.mp4"
     },
     {
       "date": "2026-10-06",
@@ -980,7 +980,7 @@
           "page": 1
         }
       ],
-      "video": "daily/2026-10-06.mp4"
+      "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-10-06.mp4"
     },
     {
       "date": "2026-10-05",
@@ -1049,7 +1049,7 @@
           "figure": "Figure 19"
         }
       ],
-      "video": "daily/2026-10-05.mp4"
+      "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-10-05.mp4"
     },
     {
       "date": "2026-10-04",
@@ -1119,7 +1119,7 @@
           "page": 1
         }
       ],
-      "video": "daily/2026-10-04.mp4"
+      "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-10-04.mp4"
     },
     {
       "date": "2026-10-03",
@@ -1208,7 +1208,7 @@
           "page": 1
         }
       ],
-      "video": "daily/2026-10-03.mp4"
+      "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-10-03.mp4"
     },
     {
       "date": "2026-10-02",
@@ -1283,7 +1283,7 @@
           "figure": "Fig. 4"
         }
       ],
-      "video": "daily/2026-10-02.mp4"
+      "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-10-02.mp4"
     },
     {
       "date": "2026-10-01",
@@ -1347,7 +1347,7 @@
           "figure": "Figure 26"
         }
       ],
-      "video": "daily/2026-10-01.mp4",
+      "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-10-01.mp4",
       "script": [
         "各位观众,今天给大家带来的是 MobiCom 2021 的论文《SiWa》。一句话概括:拿一个 UWB 雷达探头在墙上扫几下,不用砸墙,就能看清墙里面的钢筋、水管和裂缝。",
         "建筑老化之后,墙体内部会悄悄出问题:钢筋锈蚀、水管渗漏、结构开裂。最理想的检修方式是开一扇\"虚拟窗户\"看进去——X 光和传统探地雷达要么危险、要么又贵又难用。SiWa 的思路,是用几百块钱量级的超宽带雷达,收集墙面反射回来的射频信号。",
@@ -1418,7 +1418,7 @@
           "figure": "Fig. 3"
         }
       ],
-      "video": "daily/2026-09-30.mp4",
+      "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-09-30.mp4",
       "script": [
         "各位观众,今天给大家带来的是 UbiComp 2022 的论文《COCOA》。一句话概括:让可穿戴设备上的各种传感器互相\"对照学习\",不用人工标注,也能训练出很好的活动识别模型。",
         "做人体活动识别、健康监测,最大的瓶颈是标注数据太贵——要专家一条条标,有些医疗场景还涉及隐私。自监督学习号称不需要标注,但以往方法大多只在单一模态内部找规律。COCOA 换了个角度:同一段活动,加速度计、陀螺仪、心率这些不同传感器看到的是同一件事的多个侧面,侧面之间天然存在对应关系,这就是免费的监督信号。",
@@ -1493,7 +1493,7 @@
           "page": 13
         }
       ],
-      "video": "daily/2026-09-29b.mp4",
+      "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-09-29b.mp4",
       "script": [
         "各位观众,今天加更一期,给大家带来的是 CCS 2026 的论文《Snatcher》。一句话概括:苹果的 Find My 网络能帮你找回丢失的设备,但这篇论文证明——它也可能让陌生人先一步找到并拿走你的东西。",
         "Find My 网络连接着将近十亿台苹果设备,通过 BLE 广播帮失主定位。但作者发现,这条链路里有三个漏洞:BLE 广播内容没有加密、触发设备发声不需要任何认证、MAC 地址随机化的速度太慢。这张总览图展示了完整的攻击面。",
@@ -1573,7 +1573,7 @@
           "page": 2
         }
       ],
-      "video": "daily/2026-09-29.mp4"
+      "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-09-29.mp4"
     },
     {
       "date": "2026-09-28",
@@ -1634,7 +1634,7 @@
           "figure": "Fig. 5"
         }
       ],
-      "video": "daily/2026-09-28.mp4",
+      "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-09-28.mp4",
       "script": [
         "各位观众,今天给大家带来的是 INFOCOM 2021 的论文《Dual Attention-Based Federated Learning for Wireless Traffic Prediction》,简称 FedDA。一句话概括:让基站们在不上传原始数据的前提下,协作训练出一个高质量的无线流量预测模型。",
         "无线流量预测是智能网络运维的基础——负载均衡、资源预分配都靠它。但传统做法是集中式训练:海量流量数据要传到中心节点,延迟大不说,隐私也成问题。联邦学习让数据留在本地,可流量数据在不同基站之间分布差异巨大,模型很难收敛好。",
@@ -1707,7 +1707,7 @@
           "figure": "Figure 13"
         }
       ],
-      "video": "daily/2026-09-27.mp4",
+      "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-09-27.mp4",
       "script": [
         "各位观众,今天给大家带来的是 SIGCOMM 2024 的论文《NetLLM》。一句话概括:把大语言模型改造成网络领域的通用底座,一个模型通吃预测、优化各种网络任务。",
         "现在做网络算法,几乎每个任务都要手工设计一个专用神经网络:预测带宽的、调视频码率的、调度任务的,各搞一套,工程量大不说,换个环境就掉点。作者问了一个问题:能不能像 NLP 那样,用一个预训练大模型当底座,全部任务共享?",
@@ -1778,7 +1778,7 @@
           "figure": "Fig. 16"
         }
       ],
-      "video": "daily/2026-09-26.mp4",
+      "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-09-26.mp4",
       "script": [
         "各位观众,今天给大家带来的是 MobiCom 2023 的论文《NeRF2》,把计算机视觉里大火的神经辐射场,搬到了射频信号上。一句话:学出一个射频辐射场之后,只要知道发射机在哪,就能预测空间任意一点会收到什么信号。",
         "问题有多老?麦克斯韦 160 年前就写下了电磁波的物理定律,自由空间里我们有 Friis 公式。但一到真实环境,信号和障碍物之间的反射、衍射、散射搅在一起,精确建模至今是个老大难。",
@@ -1855,7 +1855,7 @@
           "figure": "Figure 27"
         }
       ],
-      "video": "daily/2026-09-25.mp4",
+      "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-09-25.mp4",
       "script": [
         "各位观众,今天给大家带来的是 SenSys 2021 的论文《MoRe-Fi》。一句话概括:用 UWB 雷达,在你随便乱动的时候,也能非接触地把你的呼吸波形测准。",
         "呼吸监测对医疗很重要,但现有方案要么要戴传感器,要么要求你一动不动。大家看这张图:人一动,之前的射频方法测出来的波形就全乱了——这是这个行业最大的痛点。",
@@ -1937,7 +1937,7 @@
           "page": 13
         }
       ],
-      "video": "daily/2026-09-24.mp4"
+      "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-09-24.mp4"
     }
   ]
 }

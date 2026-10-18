@@ -377,7 +377,7 @@ async function main() {
     scriptSource,
     script: segments.map((segment) => segment.text),
     segments,
-    video: `daily/${date}.mp4`,
+    video: `https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/${date}.mp4`,
   };
   episodes.unshift(episode);
   await writeFile(EPISODES_PATH, `${JSON.stringify({ generatedAt: new Date().toISOString(), episodes }, null, 2)}\n`);

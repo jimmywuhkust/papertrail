@@ -43,6 +43,9 @@ jobs:
         run: |
           mkdir -p dist/pages
           cp -r dist/client/papertrail/. dist/pages/
+          # Episode videos are hosted on the daily-videos GitHub Release;
+          # shipping them on Pages would blow the artifact size budget.
+          rm -f dist/pages/daily/*.mp4
           cp dist/client/404.html dist/pages/404.html
           python -c "from pathlib import Path; size=sum(p.stat().st_size for p in Path('dist/pages').rglob('*') if p.is_file()); print(f'Pages artifact: {size:,} bytes'); assert size < 1_000_000_000"
       - uses: actions/configure-pages@v5
