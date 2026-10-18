@@ -1,3 +1,3 @@
-Backdoor Defense with Machine Unlearning
+BAERASER: Backdoor Defense with Machine Unlearning
 IEEE INFOCOM · 2022
 2026-10-18

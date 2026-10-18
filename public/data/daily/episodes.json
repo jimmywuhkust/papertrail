@@ -1,10 +1,82 @@
 {
-  "generatedAt": "2026-10-17T20:45:38.799Z",
+  "generatedAt": "2026-10-18T16:22:49.892Z",
   "episodes": [
+    {
+      "date": "2026-10-17",
+      "id": "dblp:conf/infocom/HanS0WL21",
+      "title": "KaiS: Tailored Learning-Based Scheduling for Kubernetes-Oriented Edge-Cloud Systems",
+      "authors": [
+        "Yiwen Han",
+        "Shihao Shen",
+        "Xiaofei Wang",
+        "Shi Wang",
+        "Victor C. M. Leung"
+      ],
+      "venueId": "infocom",
+      "venueName": "IEEE INFOCOM",
+      "year": 2021,
+      "doi": "10.1109/infocom42981.2021.9488701",
+      "url": "https://doi.org/10.1109/infocom42981.2021.9488701",
+      "citationCount": 92,
+      "topics": [
+        "Edge-Cloud Scheduling",
+        "Kubernetes",
+        "Multi-Agent RL"
+      ],
+      "pdfUrl": "https://arxiv.org/pdf/2101.06582",
+      "pageCount": 10,
+      "scriptSource": "llm",
+      "segments": [
+        {
+          "text": "各位观众,今天给大家带来的是 INFOCOM 2021 的论文《KaiS》。一句话概括:给 Kubernetes 装上一个为边缘云量身定做的学习型调度器,长期吞吐率明显提高。",
+          "page": 1
+        },
+        {
+          "text": "Kubernetes 想一统云和边缘,但它的默认调度器不懂边缘:资源层次异构、请求和资源之间依赖复杂、节点还动不动就掉线。这张图是边缘云系统的调度现场——层次多、约束杂。",
+          "page": 2,
+          "figure": "Fig. 2"
+        },
+        {
+          "text": "KaiS 的第一招是协调式多智能体 actor-critic:每个边缘集群一个 actor 做本地决策,一个中央 critic 统筹全局,既去中心化又不各自为战。",
+          "page": 4,
+          "figure": "Fig. 3"
+        },
+        {
+          "text": "第二招是用图神经网络给系统状态编码:节点、服务、依赖关系天然是张图,GNN 把这张图的拓扑信息压成调度器能用的表示。",
+          "page": 5,
+          "figure": "Fig. 4"
+        },
+        {
+          "text": "作者还做了真机原型:k3s 边缘节点加 k8s 主节点,用真实工作负载轨迹驱动请求生成器——不是纯仿真。",
+          "page": 7,
+          "figure": "Fig. 6"
+        },
+        {
+          "text": "实验覆盖了四种请求到达模式:周期波动、高频波动、随机突发。KaiS 在各种模式下的长期吞吐都压着基线,而且学会的模式切换很稳。这张图是不同到达模式下的学习曲线。",
+          "page": 8,
+          "figure": "Fig. 8"
+        },
+        {
+          "text": "为什么值得读?边缘云的调度问题,从\"写规则\"走向\"学策略\",这篇是早期把多智能体 RL 加 GNN 编码落到 k8s 真机的工作。做边缘系统的同学值得参考。感兴趣的话打开下方 DOI 读原文,我们明天见。",
+          "page": 9,
+          "figure": "Fig. 12"
+        }
+      ],
+      "script": [
+        "各位观众,今天给大家带来的是 INFOCOM 2021 的论文《KaiS》。一句话概括:给 Kubernetes 装上一个为边缘云量身定做的学习型调度器,长期吞吐率明显提高。",
+        "Kubernetes 想一统云和边缘,但它的默认调度器不懂边缘:资源层次异构、请求和资源之间依赖复杂、节点还动不动就掉线。这张图是边缘云系统的调度现场——层次多、约束杂。",
+        "KaiS 的第一招是协调式多智能体 actor-critic:每个边缘集群一个 actor 做本地决策,一个中央 critic 统筹全局,既去中心化又不各自为战。",
+        "第二招是用图神经网络给系统状态编码:节点、服务、依赖关系天然是张图,GNN 把这张图的拓扑信息压成调度器能用的表示。",
+        "作者还做了真机原型:k3s 边缘节点加 k8s 主节点,用真实工作负载轨迹驱动请求生成器——不是纯仿真。",
+        "实验覆盖了四种请求到达模式:周期波动、高频波动、随机突发。KaiS 在各种模式下的长期吞吐都压着基线,而且学会的模式切换很稳。这张图是不同到达模式下的学习曲线。",
+        "为什么值得读?边缘云的调度问题,从\"写规则\"走向\"学策略\",这篇是早期把多智能体 RL 加 GNN 编码落到 k8s 真机的工作。做边缘系统的同学值得参考。感兴趣的话打开下方 DOI 读原文,我们明天见。"
+      ],
+      "video": "daily/2026-10-17.mp4"
+    },
     {
       "date": "2026-10-18",
       "id": "dblp:conf/infocom/LiuFCLMWM22",
-      "title": "Backdoor Defense with Machine Unlearning",
+      "title": "BAERASER: Backdoor Defense with Machine Unlearning",
       "authors": [
         "Yang Liu",
         "Mingyuan Fan",
@@ -18,112 +90,128 @@
       "venueName": "IEEE INFOCOM",
       "year": 2022,
       "doi": "10.1109/infocom48880.2022.9796974",
-      "url": "https://doi.org/10.1109/INFOCOM48880.2022.9796974",
+      "url": "https://doi.org/10.1109/infocom48880.2022.9796974",
       "citationCount": 90,
       "topics": [
-        "Adversarial Robustness in Machine Learning",
-        "Anomaly Detection Techniques and Applications",
-        "Advanced Malware Detection Techniques"
+        "Backdoor Attack",
+        "Machine Unlearning",
+        "Model Security"
       ],
       "pdfUrl": "https://arxiv.org/pdf/2201.09538",
-      "pageCount": 0,
-      "scriptSource": "template",
-      "script": [
-        "各位观众,今天给大家带来的是 IEEE INFOCOM 2022 的论文《Backdoor Defense with Machine Unlearning》。",
-        "这篇论文由 Yang Liu、Mingyuan Fan 等作者完成,目前已经被引用 90 次,研究方向涉及Adversarial Robustness in Machine Learning、Anomaly Detection Techniques and Applications、Advanced Malware Detection Techniques。",
-        "用论文自己的话来说:Backdoor injection attack is an emerging threat to the security of neural networks, however, there still exist limited effective defense methods against the attack.",
-        "如果你想快速抓住重点,可以记住这几个关键词:Adversarial Robustness in Machine Learning、Anomaly Detection Techniques and Applications、Advanced Malware Detection Techniques。",
-        "好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。",
-        "感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。"
-      ],
+      "pageCount": 11,
+      "scriptSource": "llm",
       "segments": [
         {
-          "text": "各位观众,今天给大家带来的是 IEEE INFOCOM 2022 的论文《Backdoor Defense with Machine Unlearning》。",
-          "page": null
+          "text": "各位观众,今天给大家带来的是 INFOCOM 2022 的论文,提出了一个叫 BAERASER 的方法。一句话概括:模型被人下了后门怎么办?不用重训——让模型把后门\"忘掉\"。",
+          "page": 1
         },
         {
-          "text": "这篇论文由 Yang Liu、Mingyuan Fan 等作者完成,目前已经被引用 90 次,研究方向涉及Adversarial Robustness in Machine Learning、Anomaly Detection Techniques and Applications、Advanced Malware Detection Techniques。",
-          "page": null
+          "text": "后门攻击的原理:攻击者在训练数据里埋触发器,模型平时表现正常,一看到触发器就输出攻击者想要的结果。这张图对比了被污染模型和正常模型的决策边界——偏差全在触发器附近。",
+          "page": 3,
+          "figure": "Fig. 1"
         },
         {
-          "text": "用论文自己的话来说:Backdoor injection attack is an emerging threat to the security of neural networks, however, there still exist limited effective defense methods against the attack.",
-          "page": null
+          "text": "BAERASER 分两步:先把后门触发器的模式反推出来——把\"提取触发器\"等价为学习一个未知噪声分布的问题;再让模型对着这些触发器做定向遗忘。这是攻防两侧的工作流对比。",
+          "page": 4,
+          "figure": "Fig. 2"
         },
         {
-          "text": "如果你想快速抓住重点,可以记住这几个关键词:Adversarial Robustness in Machine Learning、Anomaly Detection Techniques and Applications、Advanced Malware Detection Techniques。",
-          "page": null
+          "text": "关键是遗忘的粒度:不是整碗水倒掉,而是只洗触发器相关的那部分参数,模型的正常能力基本不受影响。",
+          "page": 6
         },
         {
-          "text": "好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。",
-          "page": null
+          "text": "实验打的是 BadNet、Trojan 这些经典后门。MNIST 和 Fashion-MNIST 上的对比表显示,后门攻击成功率被压到接近随机水平,而正常精度几乎不掉。",
+          "page": 6,
+          "figure": "TABLE I"
         },
         {
-          "text": "感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。",
-          "page": null
+          "text": "这张图展示恢复的触发器和原始触发器的对比——肉眼几乎分不出来,说明反推质量很高,遗忘才能精准。",
+          "page": 10,
+          "figure": "Fig. 5"
+        },
+        {
+          "text": "为什么值得读?机器学习安全里,后门防御一直缺少干净有效的手段,\"机器遗忘\"是个优雅的切口。做模型安全的同学,这篇值得细读。感兴趣的话打开下方 DOI 读原文,我们明天见。",
+          "page": 9,
+          "figure": "Fig. 4"
         }
+      ],
+      "script": [
+        "各位观众,今天给大家带来的是 INFOCOM 2022 的论文,提出了一个叫 BAERASER 的方法。一句话概括:模型被人下了后门怎么办?不用重训——让模型把后门\"忘掉\"。",
+        "后门攻击的原理:攻击者在训练数据里埋触发器,模型平时表现正常,一看到触发器就输出攻击者想要的结果。这张图对比了被污染模型和正常模型的决策边界——偏差全在触发器附近。",
+        "BAERASER 分两步:先把后门触发器的模式反推出来——把\"提取触发器\"等价为学习一个未知噪声分布的问题;再让模型对着这些触发器做定向遗忘。这是攻防两侧的工作流对比。",
+        "关键是遗忘的粒度:不是整碗水倒掉,而是只洗触发器相关的那部分参数,模型的正常能力基本不受影响。",
+        "实验打的是 BadNet、Trojan 这些经典后门。MNIST 和 Fashion-MNIST 上的对比表显示,后门攻击成功率被压到接近随机水平,而正常精度几乎不掉。",
+        "这张图展示恢复的触发器和原始触发器的对比——肉眼几乎分不出来,说明反推质量很高,遗忘才能精准。",
+        "为什么值得读?机器学习安全里,后门防御一直缺少干净有效的手段,\"机器遗忘\"是个优雅的切口。做模型安全的同学,这篇值得细读。感兴趣的话打开下方 DOI 读原文,我们明天见。"
       ],
       "video": "daily/2026-10-18.mp4"
     },
     {
-      "date": "2026-10-17",
-      "id": "dblp:conf/infocom/HanS0WL21",
-      "title": "Tailored Learning-Based Scheduling for Kubernetes-Oriented Edge-Cloud System",
+      "date": "2026-10-19",
+      "id": "dblp:conf/infocom/WangYL22",
+      "title": "Decentralized Task Offloading in Edge Computing: A Multi-User Multi-Armed Bandit Approach",
       "authors": [
-        "Yiwen Han",
-        "Shihao Shen",
-        "Xiaofei Wang",
-        "Shiqiang Wang",
-        "Victor C. M. Leung"
+        "Xiong Wang",
+        "Jiancheng Ye",
+        "John C. S. Lui"
       ],
       "venueId": "infocom",
       "venueName": "IEEE INFOCOM",
-      "year": 2021,
-      "doi": "10.1109/infocom42981.2021.9488701",
-      "url": "https://doi.org/10.1109/INFOCOM42981.2021.9488701",
-      "citationCount": 92,
+      "year": 2022,
+      "doi": "10.1109/infocom48880.2022.9796961",
+      "url": "https://doi.org/10.1109/infocom48880.2022.9796961",
+      "citationCount": 89,
       "topics": [
-        "IoT and Edge/Fog Computing",
-        "Cloud Computing and Resource Management",
-        "Blockchain Technology Applications and Security"
+        "Edge Computing",
+        "Task Offloading",
+        "Multi-Armed Bandits"
       ],
-      "pdfUrl": "https://arxiv.org/pdf/2101.06582",
-      "pageCount": 0,
-      "scriptSource": "template",
-      "script": [
-        "各位观众,今天给大家带来的是 IEEE INFOCOM 2021 的论文《Tailored Learning-Based Scheduling for Kubernetes-Oriented Edge-Cloud System》。",
-        "这篇论文由 Yiwen Han、Shihao Shen 等作者完成,目前已经被引用 92 次,研究方向涉及IoT and Edge/Fog Computing、Cloud Computing and Resource Management、Blockchain Technology Applications and Security。",
-        "用论文自己的话来说:Kubernetes (k8s) has the potential to merge the distributed edge and the cloud but lacks a scheduling framework specifically for edge-cloud systems.",
-        "如果你想快速抓住重点,可以记住这几个关键词:IoT and Edge/Fog Computing、Cloud Computing and Resource Management、Blockchain Technology Applications and Security。",
-        "好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。",
-        "感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。"
-      ],
+      "pdfUrl": "https://arxiv.org/pdf/2112.11818",
+      "pageCount": 14,
+      "scriptSource": "llm",
       "segments": [
         {
-          "text": "各位观众,今天给大家带来的是 IEEE INFOCOM 2021 的论文《Tailored Learning-Based Scheduling for Kubernetes-Oriented Edge-Cloud System》。",
-          "page": null
+          "text": "各位观众,今天给大家带来的是 INFOCOM 2022 的论文《D-DEBO》。一句话概括:边缘计算里一堆用户抢服务器、谁也不知道服务器状态,这篇用多用户多臂老虎机,让每个人自己学着选对服务器。",
+          "page": 1
         },
         {
-          "text": "这篇论文由 Yiwen Han、Shihao Shen 等作者完成,目前已经被引用 92 次,研究方向涉及IoT and Edge/Fog Computing、Cloud Computing and Resource Management、Blockchain Technology Applications and Security。",
-          "page": null
+          "text": "任务卸载的经典假设是:系统信息已知,或者有中央调度。但现实边缘环境里,服务器的处理速度、信道状况都在变,而且没有中心告诉你该去哪。这张图是典型的多用户多服务区场景。",
+          "page": 1,
+          "figure": "Fig. 1"
         },
         {
-          "text": "用论文自己的话来说:Kubernetes (k8s) has the potential to merge the distributed edge and the cloud but lacks a scheduling framework specifically for edge-cloud systems.",
-          "page": null
+          "text": "作者把问题建成多用户多臂老虎机:每个用户是独立玩家,选服务器就是拉臂,撞车了大家都受损。难点在于去中心化环境下,既要探索未知收益,又要避免和其他用户撞车。",
+          "page": 2
         },
         {
-          "text": "如果你想快速抓住重点,可以记住这几个关键词:IoT and Edge/Fog Computing、Cloud Computing and Resource Management、Blockchain Technology Applications and Security。",
-          "page": null
+          "text": "D-DEBO 的设计让用户在没有通信的情况下也能学出近似正交的分配——各自探索、错开选择,长期下来自动分工。",
+          "page": 4
         },
         {
-          "text": "好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。",
-          "page": null
+          "text": "看结果:这是卸载奖励随时间的曲线,D-DEBO 一路爬升并稳定在高位,而单用户 UCB、EXP3 的直接多用户扩展版本明显不行。",
+          "page": 8,
+          "figure": "Fig. 2"
         },
         {
-          "text": "感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。",
-          "page": null
+          "text": "理论上,它的后悔值是次线性的——和最优分配的比值随时间收敛到 1 附近。这张图是奖励比的收敛过程,基线则明显掉队。",
+          "page": 9,
+          "figure": "Fig. 3"
+        },
+        {
+          "text": "为什么值得读?它把 bandit 理论干净地落到边缘计算的去中心化卸载上,而且证明了分布式也能接近最优。做边缘卸载或在线学习的同学值得一看。感兴趣的话打开下方 DOI 读原文,我们明天见。",
+          "page": 9
         }
       ],
-      "video": "daily/2026-10-17.mp4"
+      "script": [
+        "各位观众,今天给大家带来的是 INFOCOM 2022 的论文《D-DEBO》。一句话概括:边缘计算里一堆用户抢服务器、谁也不知道服务器状态,这篇用多用户多臂老虎机,让每个人自己学着选对服务器。",
+        "任务卸载的经典假设是:系统信息已知,或者有中央调度。但现实边缘环境里,服务器的处理速度、信道状况都在变,而且没有中心告诉你该去哪。这张图是典型的多用户多服务区场景。",
+        "作者把问题建成多用户多臂老虎机:每个用户是独立玩家,选服务器就是拉臂,撞车了大家都受损。难点在于去中心化环境下,既要探索未知收益,又要避免和其他用户撞车。",
+        "D-DEBO 的设计让用户在没有通信的情况下也能学出近似正交的分配——各自探索、错开选择,长期下来自动分工。",
+        "看结果:这是卸载奖励随时间的曲线,D-DEBO 一路爬升并稳定在高位,而单用户 UCB、EXP3 的直接多用户扩展版本明显不行。",
+        "理论上,它的后悔值是次线性的——和最优分配的比值随时间收敛到 1 附近。这张图是奖励比的收敛过程,基线则明显掉队。",
+        "为什么值得读?它把 bandit 理论干净地落到边缘计算的去中心化卸载上,而且证明了分布式也能接近最优。做边缘卸载或在线学习的同学值得一看。感兴趣的话打开下方 DOI 读原文,我们明天见。"
+      ],
+      "video": "daily/2026-10-19.mp4"
     },
     {
       "date": "2026-10-11",

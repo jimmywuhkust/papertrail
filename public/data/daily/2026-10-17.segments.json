@@ -1,30 +1,40 @@
 {
   "pdfUrl": "https://arxiv.org/pdf/2101.06582",
-  "pageCount": 0,
+  "pageCount": 10,
   "segments": [
     {
-      "text": "各位观众,今天给大家带来的是 IEEE INFOCOM 2021 的论文《Tailored Learning-Based Scheduling for Kubernetes-Oriented Edge-Cloud System》。",
-      "page": null
+      "text": "各位观众,今天给大家带来的是 INFOCOM 2021 的论文《KaiS》。一句话概括:给 Kubernetes 装上一个为边缘云量身定做的学习型调度器,长期吞吐率明显提高。",
+      "page": 1
     },
     {
-      "text": "这篇论文由 Yiwen Han、Shihao Shen 等作者完成,目前已经被引用 92 次,研究方向涉及IoT and Edge/Fog Computing、Cloud Computing and Resource Management、Blockchain Technology Applications and Security。",
-      "page": null
+      "text": "Kubernetes 想一统云和边缘,但它的默认调度器不懂边缘:资源层次异构、请求和资源之间依赖复杂、节点还动不动就掉线。这张图是边缘云系统的调度现场——层次多、约束杂。",
+      "page": 2,
+      "figure": "Fig. 2"
     },
     {
-      "text": "用论文自己的话来说:Kubernetes (k8s) has the potential to merge the distributed edge and the cloud but lacks a scheduling framework specifically for edge-cloud systems.",
-      "page": null
+      "text": "KaiS 的第一招是协调式多智能体 actor-critic:每个边缘集群一个 actor 做本地决策,一个中央 critic 统筹全局,既去中心化又不各自为战。",
+      "page": 4,
+      "figure": "Fig. 3"
     },
     {
-      "text": "如果你想快速抓住重点,可以记住这几个关键词:IoT and Edge/Fog Computing、Cloud Computing and Resource Management、Blockchain Technology Applications and Security。",
-      "page": null
+      "text": "第二招是用图神经网络给系统状态编码:节点、服务、依赖关系天然是张图,GNN 把这张图的拓扑信息压成调度器能用的表示。",
+      "page": 5,
+      "figure": "Fig. 4"
     },
     {
-      "text": "好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。",
-      "page": null
+      "text": "作者还做了真机原型:k3s 边缘节点加 k8s 主节点,用真实工作负载轨迹驱动请求生成器——不是纯仿真。",
+      "page": 7,
+      "figure": "Fig. 6"
     },
     {
-      "text": "感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。",
-      "page": null
+      "text": "实验覆盖了四种请求到达模式:周期波动、高频波动、随机突发。KaiS 在各种模式下的长期吞吐都压着基线,而且学会的模式切换很稳。这张图是不同到达模式下的学习曲线。",
+      "page": 8,
+      "figure": "Fig. 8"
+    },
+    {
+      "text": "为什么值得读?边缘云的调度问题,从\"写规则\"走向\"学策略\",这篇是早期把多智能体 RL 加 GNN 编码落到 k8s 真机的工作。做边缘系统的同学值得参考。感兴趣的话打开下方 DOI 读原文,我们明天见。",
+      "page": 9,
+      "figure": "Fig. 12"
     }
   ]
 }

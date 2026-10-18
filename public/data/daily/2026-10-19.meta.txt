@@ -1,0 +1,3 @@
+Decentralized Task Offloading in Edge Computing: A Multi-User Multi-Armed Bandit Approach
+IEEE INFOCOM · 2022
+2026-10-19
