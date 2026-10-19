@@ -1,0 +1,3 @@
+Communication-Efficient Device Scheduling for Federated Learning Using Stochastic Optimization
+IEEE INFOCOM · 2022
+2026-10-20
