@@ -1,0 +1,11 @@
+各位观众,今天给大家带来的是 ACM MobiSys 2021 的论文《mmMesh: towards 3D real-time dynamic human mesh construction using millimeter-wave》。
+
+这篇论文由 Hongfei Xue、Yan Ju 等作者完成,目前已经被引用 202 次,研究方向涉及Human Pose and Action Recognition、3D Shape Modeling and Analysis、Video Surveillance and Tracking Methods。
+
+用论文自己的话来说:In this paper, we present mmMesh, the first real-time 3D human mesh estimation system using commercial portable millimeter-wave devices.
+
+如果你想快速抓住重点,可以记住这几个关键词:Human Pose and Action Recognition、3D Shape Modeling and Analysis、Video Surveillance and Tracking Methods。
+
+好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。
+
+感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。
