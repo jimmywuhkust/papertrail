@@ -1,30 +1,35 @@
 {
-  "pdfUrl": null,
-  "pageCount": 0,
+  "pdfUrl": "https://arxiv.org/pdf/2201.06326",
+  "pageCount": 10,
   "segments": [
     {
-      "text": "各位观众,今天给大家带来的是 ACM MobiCom 2022 的论文《PyramidFL: a fine-grained client selection framework for efficient federated learning》。",
-      "page": null
+      "text": "各位观众,今天给大家带来的是 INFOCOM 2022 的论文《ChARM》。一句话概括:让 5G 网络自己\"听\"出频谱上有没有别人在干扰,然后实时调整自己的参数来避让——全程不需要改 3GPP 标准。",
+      "page": 1
     },
     {
-      "text": "这篇论文由 Chenning Li、Xiao Zeng 等作者完成,目前已经被引用 189 次,研究方向涉及Privacy-Preserving Technologies in Data、Internet Traffic Analysis and Secure E-voting、Traffic Prediction and Management Techniques。",
-      "page": null
+      "text": "频谱共享喊了很多年,但传统 RAN 是僵化的:一套参数跑到死。O-RAN 架构把控制逻辑和硬件解耦了,ChARM 就长在这个新架构上——这是它的整体框架图。",
+      "page": 1,
+      "figure": "Fig. 1"
     },
     {
-      "text": "用论文自己的话来说:Federated learning (FL) is an emerging distributed machine learning (ML) paradigm with enhanced privacy, aiming to achieve a \"good\" ML model for as many as participants while consuming as little as wall clock time.",
-      "page": null
+      "text": "ChARM 分两步:先感知,用神经网络直接读原始 I/Q 波形,判断当前频谱上有没有干扰、是哪种类型;再反应,实时切换分布式单元和射频单元的工作参数。感知不依赖解调,纯看波形。",
+      "page": 3,
+      "figure": "Fig. 3"
     },
     {
-      "text": "如果你想快速抓住重点,可以记住这几个关键词:Privacy-Preserving Technologies in Data、Internet Traffic Analysis and Secure E-voting、Traffic Prediction and Management Techniques。",
-      "page": null
+      "text": "这是 ChARM 原型系统的各组件交互:跑在 Colosseum 这个大规模无线仿真平台上,还扩展支持了 OpenWiFi 设备——不是纸上谈兵。",
+      "page": 5,
+      "figure": "Fig. 4"
     },
     {
-      "text": "好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。",
-      "page": null
+      "text": "感知精度是命门:实验发现循环网络比 CNN 更适合这个任务,验证集准确率能到百分之 99;而且输入窗口不用长,几百个采样点就够,保证实时性。",
+      "page": 7,
+      "figure": "Fig. 7"
     },
     {
-      "text": "感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。",
-      "page": null
+      "text": "最后看端到端效果:这张 Colosseum 实测的频谱占用图显示,干扰一旦出现,ChARM 控制的网络立刻切换信道避让,吞吐几乎不受影响。对做 O-RAN 和频谱共享的同学,这是把\"智能闭环\"落到标准架构上的范本。感兴趣的话打开下方 DOI 读原文,我们明天见。",
+      "page": 8,
+      "figure": "Fig. 10"
     }
   ]
 }
