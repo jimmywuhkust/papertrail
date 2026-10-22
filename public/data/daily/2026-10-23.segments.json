@@ -1,0 +1,30 @@
+{
+  "pdfUrl": null,
+  "pageCount": 0,
+  "segments": [
+    {
+      "text": "各位观众,今天给大家带来的是 ACM MobiCom 2022 的论文《PyramidFL: a fine-grained client selection framework for efficient federated learning》。",
+      "page": null
+    },
+    {
+      "text": "这篇论文由 Chenning Li、Xiao Zeng 等作者完成,目前已经被引用 189 次,研究方向涉及Privacy-Preserving Technologies in Data、Internet Traffic Analysis and Secure E-voting、Traffic Prediction and Management Techniques。",
+      "page": null
+    },
+    {
+      "text": "用论文自己的话来说:Federated learning (FL) is an emerging distributed machine learning (ML) paradigm with enhanced privacy, aiming to achieve a \"good\" ML model for as many as participants while consuming as little as wall clock time.",
+      "page": null
+    },
+    {
+      "text": "如果你想快速抓住重点,可以记住这几个关键词:Privacy-Preserving Technologies in Data、Internet Traffic Analysis and Secure E-voting、Traffic Prediction and Management Techniques。",
+      "page": null
+    },
+    {
+      "text": "好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。",
+      "page": null
+    },
+    {
+      "text": "感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。",
+      "page": null
+    }
+  ]
+}
