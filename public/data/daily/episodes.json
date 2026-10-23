@@ -1,6 +1,66 @@
 {
-  "generatedAt": "2026-10-22T23:29:45.219Z",
+  "generatedAt": "2026-10-23T21:31:58.702Z",
   "episodes": [
+    {
+      "date": "2026-10-24",
+      "id": "dblp:conf/mobicom/LiZZC22",
+      "title": "PyramidFL: a fine-grained client selection framework for efficient federated learning",
+      "authors": [
+        "Chenning Li",
+        "Xiao Zeng",
+        "Mi Zhang",
+        "Zhichao Cao"
+      ],
+      "venueId": "mobicom",
+      "venueName": "ACM MobiCom",
+      "year": 2022,
+      "doi": "10.1145/3495243.3517017",
+      "url": "https://doi.org/10.1145/3495243.3517017",
+      "citationCount": 189,
+      "topics": [
+        "Privacy-Preserving Technologies in Data",
+        "Internet Traffic Analysis and Secure E-voting",
+        "Traffic Prediction and Management Techniques"
+      ],
+      "pdfUrl": null,
+      "pageCount": 0,
+      "scriptSource": "template",
+      "script": [
+        "各位观众,今天给大家带来的是 ACM MobiCom 2022 的论文《PyramidFL: a fine-grained client selection framework for efficient federated learning》。",
+        "这篇论文由 Chenning Li、Xiao Zeng 等作者完成,目前已经被引用 189 次,研究方向涉及Privacy-Preserving Technologies in Data、Internet Traffic Analysis and Secure E-voting、Traffic Prediction and Management Techniques。",
+        "用论文自己的话来说:Federated learning (FL) is an emerging distributed machine learning (ML) paradigm with enhanced privacy, aiming to achieve a \"good\" ML model for as many as participants while consuming as little as wall clock time.",
+        "如果你想快速抓住重点,可以记住这几个关键词:Privacy-Preserving Technologies in Data、Internet Traffic Analysis and Secure E-voting、Traffic Prediction and Management Techniques。",
+        "好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。",
+        "感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。"
+      ],
+      "segments": [
+        {
+          "text": "各位观众,今天给大家带来的是 ACM MobiCom 2022 的论文《PyramidFL: a fine-grained client selection framework for efficient federated learning》。",
+          "page": null
+        },
+        {
+          "text": "这篇论文由 Chenning Li、Xiao Zeng 等作者完成,目前已经被引用 189 次,研究方向涉及Privacy-Preserving Technologies in Data、Internet Traffic Analysis and Secure E-voting、Traffic Prediction and Management Techniques。",
+          "page": null
+        },
+        {
+          "text": "用论文自己的话来说:Federated learning (FL) is an emerging distributed machine learning (ML) paradigm with enhanced privacy, aiming to achieve a \"good\" ML model for as many as participants while consuming as little as wall clock time.",
+          "page": null
+        },
+        {
+          "text": "如果你想快速抓住重点,可以记住这几个关键词:Privacy-Preserving Technologies in Data、Internet Traffic Analysis and Secure E-voting、Traffic Prediction and Management Techniques。",
+          "page": null
+        },
+        {
+          "text": "好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。",
+          "page": null
+        },
+        {
+          "text": "感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。",
+          "page": null
+        }
+      ],
+      "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-10-24.mp4"
+    },
     {
       "date": "2026-10-23",
       "id": "dblp:conf/infocom/BaldesiRM22",

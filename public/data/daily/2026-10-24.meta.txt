@@ -1,0 +1,3 @@
+PyramidFL: a fine-grained client selection framework for efficient federated learning
+ACM MobiCom · 2022
+2026-10-24
