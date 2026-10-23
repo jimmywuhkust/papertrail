@@ -1,30 +1,37 @@
 {
-  "pdfUrl": null,
-  "pageCount": 0,
+  "pdfUrl": "https://arxiv.org/pdf/2212.02136",
+  "pageCount": 12,
   "segments": [
     {
-      "text": "各位观众,今天给大家带来的是 ACM MobiCom 2022 的论文《PyramidFL: a fine-grained client selection framework for efficient federated learning》。",
-      "page": null
+      "text": "各位观众,今天给大家带来的是 INFOCOM 2023 的论文《FedHP》。一句话概括:去中心化联邦学习里,设备有快有慢,FedHP 同时自适应调整本地更新频率和网络拓扑,让慢设备不再拖全局的后腿。",
+      "page": 1
     },
     {
-      "text": "这篇论文由 Chenning Li、Xiao Zeng 等作者完成,目前已经被引用 189 次,研究方向涉及Privacy-Preserving Technologies in Data、Internet Traffic Analysis and Secure E-voting、Traffic Prediction and Management Techniques。",
-      "page": null
+      "text": "背景:DFL 干掉了参数服务器这个单点故障,但边缘设备有两个异构性——算力参差不齐(系统异构),数据分布各异(统计异构)。这张图是不同本地更新频率下的训练表现,频率选错,收敛就慢。",
+      "page": 6,
+      "figure": "Fig. 1"
     },
     {
-      "text": "用论文自己的话来说:Federated learning (FL) is an emerging distributed machine learning (ML) paradigm with enhanced privacy, aiming to achieve a \"good\" ML model for as many as participants while consuming as little as wall clock time.",
-      "page": null
+      "text": "FedHP 的理论贡献是建立了本地更新频率和网络拓扑之间的定量关系,给出收敛上界——两个设计自由度,不是各调各的,而是要协同优化。",
+      "page": 4
     },
     {
-      "text": "如果你想快速抓住重点,可以记住这几个关键词:Privacy-Preserving Technologies in Data、Internet Traffic Analysis and Secure E-voting、Traffic Prediction and Management Techniques。",
-      "page": null
+      "text": "基于此,它的优化算法一边定各节点的更新频率,一边构造通信拓扑:慢节点少更新、少占链路,快节点多干活,资源用在刀刃上。",
+      "page": 5
     },
     {
-      "text": "好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。",
-      "page": null
+      "text": "数字上:EMNIST 上 CNN 达到 85% 精度,FedHP 用 1064 秒,而 D-PSGD 要 2254 秒;AlexNet 上完成时间比 PENS 和 D-PSGD 分别少百分之 56 和 51。这是五个算法的完成时间对比。",
+      "page": 9,
+      "figure": "Fig. 3"
     },
     {
-      "text": "感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。",
-      "page": null
+      "text": "非 IID 场景下优势更明显:同样是 AlexNet 加 CIFAR-10,FedHP 用 5015 秒拿到 76.77% 精度,其他方法花一倍多的时间还到不了这个精度。这张图是非独立同分布下的精度对比。",
+      "page": 10,
+      "figure": "Fig. 4"
+    },
+    {
+      "text": "为什么值得读?去中心化 FL 的落地卡在异构性,FedHP 给的答案是\"频率加拓扑\"协同自适应——理论有界,实测能打。做 DFL 或边缘训练的同学值得细看。感兴趣的话打开下方 DOI 读原文,我们明天见。",
+      "page": 10
     }
   ]
 }
