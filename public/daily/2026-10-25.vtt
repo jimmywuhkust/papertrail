@@ -1,0 +1,33 @@
+WEBVTT
+
+1
+00:00:00.100 --> 00:00:10.962
+各位观众,今天给大家带来的是 ACM MobiSys 2021 的论文《nn-Meter: towards accurate latency prediction of deep-learning model inference on diverse edge devices》。
+
+2
+00:00:11.068 --> 00:00:25.543
+这篇论文由 Li Lyna Zhang、Shihao Han 等作者完成,目前已经被引用 176 次,研究方向涉及Advanced Neural Network Applications、Advanced Memory and Neural Computing、Parallel Computing and Optimization Techniques。
+
+3
+00:00:25.708 --> 00:00:36.558
+用论文自己的话来说:With the recent trend of on-device deep learning, inference latency has become a crucial metric in running Deep Neural Network (DNN) models on various mobile and edge devices.
+
+4
+00:00:36.676 --> 00:00:47.826
+如果你想快速抓住重点,可以记住这几个关键词:Advanced Neural Network Applications、Advanced Memory and Neural Computing、Parallel Computing and Optimization Techniques。
+
+5
+00:00:47.932 --> 00:00:50.919
+好了,今天的速读就到这里。
+
+6
+00:00:50.869 --> 00:01:01.619
+本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。
+
+7
+00:01:01.780 --> 00:01:07.067
+感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。
+
+8
+00:01:07.017 --> 00:01:08.917
+我们明天见。
