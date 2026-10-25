@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-25T20:59:35.923Z",
+  "generatedAt": "2026-10-25T23:17:55.704Z",
   "episodes": [
     {
       "date": "2026-10-26",
@@ -36,41 +36,52 @@
         "Software System Performance and Reliability",
         "Graph Theory and Algorithms"
       ],
-      "pdfUrl": null,
-      "pageCount": 0,
-      "scriptSource": "template",
+      "pdfUrl": "https://ennanzhai.github.io/pub/sigcomm24-hpn.pdf",
+      "pageCount": 16,
+      "scriptSource": "llm",
       "script": [
-        "各位观众,今天给大家带来的是 ACM SIGCOMM 2024 的论文《Alibaba HPN: A Data Center Network for Large Language Model Training》。",
-        "这篇论文由 Kun Qian、Yongqing Xi 等作者完成,目前已经被引用 171 次,研究方向涉及Cloud Computing and Resource Management、Software System Performance and Reliability、Graph Theory and Algorithms。",
-        "用论文自己的话来说:This paper presents HPN, Alibaba Cloud's data center network for large language model (LLM) training.",
-        "如果你想快速抓住重点,可以记住这几个关键词:Cloud Computing and Resource Management、Software System Performance and Reliability、Graph Theory and Algorithms。",
-        "好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。",
-        "感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。"
+        "各位观众,今天给大家带来的是 SIGCOMM 2024 的论文《Alibaba HPN》——阿里云为 LLM 训练专门设计的数据中心网络。一句话概括:传统数据中心网络根本不适合大模型训练,阿里干脆重新设计了一套,一个 Pod 里塞进 15000 块 GPU。",
+        "为什么不合适?看流量模式就明白了:普通云计算是海量小流,而 LLM 训练每台主机只有少量但巨大的周期性突发流——400Gbps 级别的集合通信。ECMP 在这种模式下必然哈希极化,流量分配严重不均。",
+        "HPN 的核心设计是两层双平面架构:同一张网卡的两条 200G 通道分别接两张平面,哈希极化在物理上被消除,路径选择的搜索空间也大幅缩小。这是它的总览图。",
+        "训练还要求 GPU 同步迭代,单点故障(通常出在 ToR 交换机上)会直接拖垮整轮训练。HPN 用双 ToR 设计替换单 ToR,一台 ToR 挂了流量自动走另一台。",
+        "规模数字很惊人:双平面设计让 ToR 到汇聚层的连接数减半,汇聚交换机能撑更多段;汇聚到核心层用 15:1 的超额订阅,又释放百分之 87.5 的端口。最终一个 Pod 容纳 15000 张卡,每张卡 400Gbps 接入。这张表总结了各机制对规模的贡献。",
+        "训练实测:2300 多块 GPU 上的真实 LLM 训练,不同网络配置下的性能对比显示 HPN 设计没有短板;集合通信性能也达到了预期。",
+        "为什么值得读?这是国内云厂商把 LLM 训练网络做到这个规模并完整公开的第一篇——从流量特征到拓扑、容错、布局全链路。做大模型基础设施的同学,这篇是必读。感兴趣的话打开下方链接读原文,我们明天见。"
       ],
       "segments": [
         {
-          "text": "各位观众,今天给大家带来的是 ACM SIGCOMM 2024 的论文《Alibaba HPN: A Data Center Network for Large Language Model Training》。",
-          "page": null
+          "text": "各位观众,今天给大家带来的是 SIGCOMM 2024 的论文《Alibaba HPN》——阿里云为 LLM 训练专门设计的数据中心网络。一句话概括:传统数据中心网络根本不适合大模型训练,阿里干脆重新设计了一套,一个 Pod 里塞进 15000 块 GPU。",
+          "page": 1
         },
         {
-          "text": "这篇论文由 Kun Qian、Yongqing Xi 等作者完成,目前已经被引用 171 次,研究方向涉及Cloud Computing and Resource Management、Software System Performance and Reliability、Graph Theory and Algorithms。",
-          "page": null
+          "text": "为什么不合适?看流量模式就明白了:普通云计算是海量小流,而 LLM 训练每台主机只有少量但巨大的周期性突发流——400Gbps 级别的集合通信。ECMP 在这种模式下必然哈希极化,流量分配严重不均。",
+          "page": 2,
+          "figure": "Figure 2"
         },
         {
-          "text": "用论文自己的话来说:This paper presents HPN, Alibaba Cloud's data center network for large language model (LLM) training.",
-          "page": null
+          "text": "HPN 的核心设计是两层双平面架构:同一张网卡的两条 200G 通道分别接两张平面,哈希极化在物理上被消除,路径选择的搜索空间也大幅缩小。这是它的总览图。",
+          "page": 4,
+          "figure": "Figure 7"
         },
         {
-          "text": "如果你想快速抓住重点,可以记住这几个关键词:Cloud Computing and Resource Management、Software System Performance and Reliability、Graph Theory and Algorithms。",
-          "page": null
+          "text": "训练还要求 GPU 同步迭代,单点故障(通常出在 ToR 交换机上)会直接拖垮整轮训练。HPN 用双 ToR 设计替换单 ToR,一台 ToR 挂了流量自动走另一台。",
+          "page": 5,
+          "figure": "Figure 8"
         },
         {
-          "text": "好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。",
-          "page": null
+          "text": "规模数字很惊人:双平面设计让 ToR 到汇聚层的连接数减半,汇聚交换机能撑更多段;汇聚到核心层用 15:1 的超额订阅,又释放百分之 87.5 的端口。最终一个 Pod 容纳 15000 张卡,每张卡 400Gbps 接入。这张表总结了各机制对规模的贡献。",
+          "page": 9,
+          "figure": "Table 2"
         },
         {
-          "text": "感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。",
-          "page": null
+          "text": "训练实测:2300 多块 GPU 上的真实 LLM 训练,不同网络配置下的性能对比显示 HPN 设计没有短板;集合通信性能也达到了预期。",
+          "page": 10,
+          "figure": "Figure 15"
+        },
+        {
+          "text": "为什么值得读?这是国内云厂商把 LLM 训练网络做到这个规模并完整公开的第一篇——从流量特征到拓扑、容错、布局全链路。做大模型基础设施的同学,这篇是必读。感兴趣的话打开下方链接读原文,我们明天见。",
+          "page": 16,
+          "figure": "Figure 21"
         }
       ],
       "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-10-26.mp4"
