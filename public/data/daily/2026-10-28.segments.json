@@ -1,30 +1,39 @@
 {
-  "pdfUrl": null,
-  "pageCount": 0,
+  "pdfUrl": "https://arxiv.org/pdf/2212.08272",
+  "pageCount": 10,
   "segments": [
     {
-      "text": "各位观众,今天给大家带来的是 ACM MobiCom 2021 的论文《Elf: accelerate high-resolution mobile deep vision with content-aware parallel offloading》。",
-      "page": null
+      "text": "各位观众,今天给大家带来的是 INFOCOM 2023 的论文《AdaGQ》。一句话概括:联邦学习上传梯度时,别再对所有设备用同一个量化精度了——按梯度范数的变化逐轮自适应、按设备异质性区别对待,训练时间能省一大截。",
+      "page": 1
     },
     {
-      "text": "这篇论文由 Wuyang Zhang、Zhezhi He 等作者完成,目前已经被引用 171 次,研究方向涉及Advanced Neural Network Applications、IoT and Edge/Fog Computing、Image and Video Quality Assessment。",
-      "page": null
+      "text": "联邦学习每轮都要把梯度传回服务器,通信开销巨大。现有的量化方案要么全局统一精度,要么不看设备差异。这张图展示 ResNet-18 在 CIFAR-10 上的训练过程——梯度范数随训练轮次明显变化,这正是可以利用的信号。",
+      "page": 3,
+      "figure": "Fig. 1"
     },
     {
-      "text": "用论文自己的话来说:As mobile devices continuously generate streams of images and videos, a new class of mobile deep vision applications are rapidly emerging, which usually involve running deep neural networks on these multimedia data in real-time.",
-      "page": null
+      "text": "AdaGQ 有两个招式:一是自适应量化,利用梯度范数的变化,在每一轮调整量化分辨率;二是异构量化,让算力强的设备用高精度、弱的用低精度,各尽所能。这张图对比了不同量化策略在异构设备上的差异。",
+      "page": 3,
+      "figure": "Fig. 2"
     },
     {
-      "text": "如果你想快速抓住重点,可以记住这几个关键词:Advanced Neural Network Applications、IoT and Edge/Fog Computing、Image and Video Quality Assessment。",
-      "page": null
+      "text": "系统全貌在这里:服务器收集各设备状态,逐轮下发各自的量化配置,设备按指令压缩后上传。这是个完整的闭环设计。",
+      "page": 4,
+      "figure": "Fig. 3"
     },
     {
-      "text": "好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。",
-      "page": null
+      "text": "这张时间线图把一轮里通信、计算、量化、等待的每一段都拆开了——能清楚看到自适应量化省掉的到底是哪段时间。",
+      "page": 6,
+      "figure": "Fig. 4"
     },
     {
-      "text": "感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。",
-      "page": null
+      "text": "数字上:达到相同精度时,AdaGQ 的总训练时间比 FedAvg 少百分之几十,比 Top-k、FedPAQ 这些压缩基线也明显更短;而且精度基本持平。这张图是总训练时间的对比。",
+      "page": 7,
+      "figure": "Fig. 6"
+    },
+    {
+      "text": "为什么值得读?它把\"量化该多狠\"从全局常量变成了逐设备、逐轮的决策,而且改动小、收益实。做联邦学习落地的同学,这套自适应量化可以直接嵌进现有系统。感兴趣的话打开下方 DOI 读原文,我们明天见。",
+      "page": 7
     }
   ]
 }
