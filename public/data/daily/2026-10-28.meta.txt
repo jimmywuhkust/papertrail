@@ -1,0 +1,3 @@
+Elf: accelerate high-resolution mobile deep vision with content-aware parallel offloading
+ACM MobiCom · 2021
+2026-10-28
