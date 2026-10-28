@@ -1,0 +1,3 @@
+RDMA over Ethernet for Distributed Training at Meta Scale
+ACM SIGCOMM · 2024
+2026-10-29
