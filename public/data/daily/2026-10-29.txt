@@ -1,11 +1,13 @@
-各位观众,今天给大家带来的是 ACM SIGCOMM 2024 的论文《RDMA over Ethernet for Distributed Training at Meta Scale》。
+各位观众,今天给大家带来的是 UbiComp 2022 的论文《Cross Vision-RF Gait Re-identification》。一句话概括:人在摄像头能拍的地方靠 RGB-D 认,走到不能拍的区域靠毫米波雷达接力认出——同一个人,跨模态对上号。
 
-这篇论文由 Adithya Gangidi、Rui Miao 等作者完成,目前已经被引用 169 次,研究方向涉及Distributed and Parallel Computing Systems、Peer-to-Peer Network Technologies、Parallel Computing and Optimization Techniques。
+动机很实际:身份识别要连续,但办公室、病房这些地方不能装摄像头。摄像头区和无摄像头区之间是断档的。这个系统架构图展示了 RGB-D 和毫米波雷达怎么接力覆盖两个区域。
 
-用论文自己的话来说:The rapid growth in both computational density and scale in AI models in recent years motivates the construction of an efficient and reliable dedicated network infrastructure.
+跨模态最难的是对齐:相机看到的是三维网格步态,雷达看到的是稀疏点云。作者先用镜面反射模型把雷达点云和身体部位对应起来,这张图是反射模型和签名区域的对比。
 
-如果你想快速抓住重点,可以记住这几个关键词:Distributed and Parallel Computing Systems、Peer-to-Peer Network Technologies、Parallel Computing and Optimization Techniques。
+再看两个目标的雷达点云和时空签名——步态的节奏信息在点云里确实有迹可循,但要变成可比对的特征,还得靠后面的深度度量学习。
 
-好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。
+这是度量学习的相似度估计结构:把视觉和射频两种嵌入压到同一个空间,同一个人的两种模态距离近,不同的人距离远。
 
-感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。
+数字上:CMC 曲线上,它在前一命中率上比从单模态改过来的 VCL、DGL 至少高百分之 9;比传统 EMD 相似度估计器更是高出百分之 39——深度度量学习功不可没。
+
+为什么值得读?它第一次把视觉-射频跨模态 ReID 做成了能用的系统,而且用的是低成本 RGB-D 加毫米波。做无线感知和以人为本应用的同学,这个跨模态对齐的思路值得借鉴。感兴趣的话打开下方 DOI 读原文,我们明天见。
