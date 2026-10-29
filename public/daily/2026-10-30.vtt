@@ -1,0 +1,33 @@
+WEBVTT
+
+1
+00:00:00.100 --> 00:00:08.225
+各位观众,今天给大家带来的是 IEEE INFOCOM 2021 的论文《Pyramid: A Layered Sharding Blockchain System》。
+
+2
+00:00:08.332 --> 00:00:23.207
+这篇论文由 Zicong Hong、Song Guo 等作者完成,目前已经被引用 193 次,研究方向涉及Blockchain Technology Applications and Security、Nanocluster Synthesis and Applications、Distributed systems and fault tolerance。
+
+3
+00:00:23.356 --> 00:00:32.956
+用论文自己的话来说:Sharding can significantly improve the blockchain scalability, by dividing nodes into small groups called shards that can handle transactions in parallel.
+
+4
+00:00:33.076 --> 00:00:44.676
+如果你想快速抓住重点,可以记住这几个关键词:Blockchain Technology Applications and Security、Nanocluster Synthesis and Applications、Distributed systems and fault tolerance。
+
+5
+00:00:44.788 --> 00:00:47.775
+好了,今天的速读就到这里。
+
+6
+00:00:47.725 --> 00:00:58.475
+本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。
+
+7
+00:00:58.636 --> 00:01:03.923
+感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。
+
+8
+00:01:03.873 --> 00:01:05.773
+我们明天见。

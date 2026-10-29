@@ -1,0 +1,3 @@
+Pyramid: A Layered Sharding Blockchain System
+IEEE INFOCOM · 2021
+2026-10-30
