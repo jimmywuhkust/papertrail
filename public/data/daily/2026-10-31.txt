@@ -1,11 +1,13 @@
-各位观众,今天给大家带来的是 IEEE INFOCOM 2021 的论文《Pyramid: A Layered Sharding Blockchain System》。
+各位观众,今天给大家带来的是 INFOCOM 2023 的论文《FedSDG-FS》。一句话概括:纵向联邦学习里,怎么安全又高效地把没用的特征剔出去——这篇用随机双门控加同态加密做到了,还不需要可信第三方。
 
-这篇论文由 Zicong Hong、Song Guo 等作者完成,目前已经被引用 193 次,研究方向涉及Blockchain Technology Applications and Security、Nanocluster Synthesis and Applications、Distributed systems and fault tolerance。
+纵向联邦学习的场景是:几家机构各自持有同一批用户的不同特征,联合建模。特征选择很重要——噪音特征既浪费通信又拖累模型。但已有方法要么要你先验知道噪音特征数量,要么要设定选特征的阈值,实践中根本拿不到。
 
-用论文自己的话来说:Sharding can significantly improve the blockchain scalability, by dividing nodes into small groups called shards that can handle transactions in parallel.
+先看为什么难:这张图是垂直神经网络训练时,测试精度和模型大小的关系——特征选少了欠拟合,选多了浪费通信。需要一种自动的、边训边筛的机制。
 
-如果你想快速抓住重点,可以记住这几个关键词:Blockchain Technology Applications and Security、Nanocluster Synthesis and Applications、Distributed systems and fault tolerance。
+FedSDG-FS 的核心是高斯随机双门控:给每个特征算一个被选中概率,连续可微、能端到端训练;隐私保护靠部分同态加密,而且不需要可信第三方。这是系统总览。
 
-好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。
+另一个巧思是用基尼不纯度初始化特征重要性,只需两次通信就能把冷启动的开销压下来。这张图是设计动机的一个例子。
 
-感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。
+数字上:在 VFLNN 的多个数据集上,相同特征预算下它的测试精度稳定超过随机选择和 SFFS 基线;基尼初始化版本比原始门控收敛更快。这张是精度随选特征数的变化曲线。
+
+为什么值得读?VFL 是隐私计算落地的主力形态,而特征选择是其中最影响实用性的环节。这篇把"边训边筛"做到了免先验、免可信第三方。做隐私计算的同学值得一看。感兴趣的话打开下方 DOI 读原文,我们明天见。
