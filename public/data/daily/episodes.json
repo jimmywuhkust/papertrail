@@ -1,6 +1,66 @@
 {
-  "generatedAt": "2026-10-29T23:18:45.632Z",
+  "generatedAt": "2026-10-30T22:30:27.562Z",
   "episodes": [
+    {
+      "date": "2026-10-31",
+      "id": "dblp:conf/infocom/Hong00C21",
+      "title": "Pyramid: A Layered Sharding Blockchain System",
+      "authors": [
+        "Zicong Hong",
+        "Song Guo",
+        "Peng Li",
+        "Wuhui Chen"
+      ],
+      "venueId": "infocom",
+      "venueName": "IEEE INFOCOM",
+      "year": 2021,
+      "doi": "10.1109/infocom42981.2021.9488747",
+      "url": "https://doi.org/10.1109/INFOCOM42981.2021.9488747",
+      "citationCount": 193,
+      "topics": [
+        "Blockchain Technology Applications and Security",
+        "Nanocluster Synthesis and Applications",
+        "Distributed systems and fault tolerance"
+      ],
+      "pdfUrl": null,
+      "pageCount": 0,
+      "scriptSource": "template",
+      "script": [
+        "各位观众,今天给大家带来的是 IEEE INFOCOM 2021 的论文《Pyramid: A Layered Sharding Blockchain System》。",
+        "这篇论文由 Zicong Hong、Song Guo 等作者完成,目前已经被引用 193 次,研究方向涉及Blockchain Technology Applications and Security、Nanocluster Synthesis and Applications、Distributed systems and fault tolerance。",
+        "用论文自己的话来说:Sharding can significantly improve the blockchain scalability, by dividing nodes into small groups called shards that can handle transactions in parallel.",
+        "如果你想快速抓住重点,可以记住这几个关键词:Blockchain Technology Applications and Security、Nanocluster Synthesis and Applications、Distributed systems and fault tolerance。",
+        "好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。",
+        "感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。"
+      ],
+      "segments": [
+        {
+          "text": "各位观众,今天给大家带来的是 IEEE INFOCOM 2021 的论文《Pyramid: A Layered Sharding Blockchain System》。",
+          "page": null
+        },
+        {
+          "text": "这篇论文由 Zicong Hong、Song Guo 等作者完成,目前已经被引用 193 次,研究方向涉及Blockchain Technology Applications and Security、Nanocluster Synthesis and Applications、Distributed systems and fault tolerance。",
+          "page": null
+        },
+        {
+          "text": "用论文自己的话来说:Sharding can significantly improve the blockchain scalability, by dividing nodes into small groups called shards that can handle transactions in parallel.",
+          "page": null
+        },
+        {
+          "text": "如果你想快速抓住重点,可以记住这几个关键词:Blockchain Technology Applications and Security、Nanocluster Synthesis and Applications、Distributed systems and fault tolerance。",
+          "page": null
+        },
+        {
+          "text": "好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。",
+          "page": null
+        },
+        {
+          "text": "感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。",
+          "page": null
+        }
+      ],
+      "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-10-31.mp4"
+    },
     {
       "date": "2026-10-30",
       "id": "dblp:journals/imwut/WangY0J021",
