@@ -1,3 +1,3 @@
-Hermes: an efficient federated learning framework for heterogeneous mobile clients
-ACM MobiCom · 2021
+AdaptSLAM: Edge-Assisted Adaptive SLAM with Resource Constraints
+IEEE INFOCOM · 2023
 2026-11-01

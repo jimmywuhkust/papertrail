@@ -1,30 +1,33 @@
 {
-  "pdfUrl": null,
-  "pageCount": 0,
+  "pdfUrl": "https://arxiv.org/pdf/2301.04620",
+  "pageCount": 13,
   "segments": [
     {
-      "text": "各位观众,今天给大家带来的是 ACM MobiCom 2021 的论文《Hermes: an efficient federated learning framework for heterogeneous mobile clients》。",
-      "page": null
+      "text": "各位观众,今天给大家带来的是 INFOCOM 2023 的论文《AdaptSLAM》。一句话概括:移动设备跑 SLAM 太吃力、边缘服务器又受带宽限制——这篇用理论方法挑出最值得传输的关键帧子集,跟踪误差比最强基线降低百分之 62。",
+      "page": 1
     },
     {
-      "text": "这篇论文由 Ang Li、Jingwei Sun 等作者完成,目前已经被引用 166 次,研究方向涉及Privacy-Preserving Technologies in Data、Mobile Crowdsensing and Crowdsourcing、IoT and Edge/Fog Computing。",
-      "page": null
+      "text": "SLAM 是机器人和 AR 的眼睛:边建图边定位。但 onboard 计算太吃力,卸载到边缘又受带宽卡脖子。已有方案要么假设通信无限,要么拍脑袋选传哪些帧。这张图是 AdaptSLAM 的系统架构:设备端和边缘端各建一张图,中间只传精选的关键帧。",
+      "page": 3,
+      "figure": "Fig. 1"
     },
     {
-      "text": "用论文自己的话来说:Federated learning (FL) has been a popular method to achieve distributed machine learning among numerous devices without sharing their data to a cloud server.",
-      "page": null
+      "text": "核心贡献是一个有理论依据的关键帧子集选择方法:在计算和通信资源约束下,选出对局部地图和全局地图信息量最大的那批代表帧——不是启发式,是有优化问题建模和求解的那种。",
+      "page": 5
     },
     {
-      "text": "如果你想快速抓住重点,可以记住这几个关键词:Privacy-Preserving Technologies in Data、Mobile Crowdsensing and Crowdsourcing、IoT and Edge/Fog Computing。",
-      "page": null
+      "text": "它落在真实的 ORB-SLAM3 上实现,支持视觉和视觉-惯性两种模式——不是玩具框架,是学术界最主流的开源 SLAM 系统。",
+      "page": 6
     },
     {
-      "text": "好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。",
-      "page": null
+      "text": "数字上最亮的是这张:带宽受限条件下,六种关键帧选择方法横向对比,AdaptSLAM 的 RMS 绝对轨迹误差比最好的基线还低百分之 62。",
+      "page": 9,
+      "figure": "Fig. 2"
     },
     {
-      "text": "感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。",
-      "page": null
+      "text": "这是不同地图规模下的误差曲线——规模越大,它的优势越稳。对做移动机器人、AR 眼镜、无人机导航的同学,这套\"有理论依据的选帧\"思路可以直接搬进你的系统。感兴趣的话打开下方 DOI 读原文,我们明天见。",
+      "page": 9,
+      "figure": "Fig. 3"
     }
   ]
 }
