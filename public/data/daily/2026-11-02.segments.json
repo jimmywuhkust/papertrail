@@ -1,30 +1,35 @@
 {
-  "pdfUrl": null,
-  "pageCount": 0,
+  "pdfUrl": "https://arxiv.org/pdf/2405.17245",
+  "pageCount": 10,
   "segments": [
     {
-      "text": "各位观众,今天给大家带来的是 ACM MobiCom 2021 的论文《Hermes: an efficient federated learning framework for heterogeneous mobile clients》。",
-      "page": null
+      "text": "各位观众,今天给大家带来的是 INFOCOM 2024 的论文《Galaxy》。一句话概括:智能家居里一堆闲置的边缘设备——电视、音箱、手表——凑起来,就能把 Transformer 推理在本地跑起来,不用上云。",
+      "page": 1
     },
     {
-      "text": "这篇论文由 Ang Li、Jingwei Sun 等作者完成,目前已经被引用 166 次,研究方向涉及Privacy-Preserving Technologies in Data、Mobile Crowdsensing and Crowdsourcing、IoT and Edge/Fog Computing。",
-      "page": null
+      "text": "Transformer 模型在边缘端推理有两难:上云吧,骨干网压力大、隐私也悬;本地跑吧,单块 Jetson Nano 那点算力根本不够。作者的关键观察是:很多边缘环境里其实躺着一堆可信的空闲设备。这张图就是 Galaxy 赋能的智能家居场景。",
+      "page": 1,
+      "figure": "Fig. 1"
     },
     {
-      "text": "用论文自己的话来说:Federated learning (FL) has been a popular method to achieve distributed machine learning among numerous devices without sharing their data to a cloud server.",
-      "page": null
+      "text": "Galaxy 的核心是混合模型并行:不照搬数据中心的张量并行或流水线并行,而是按各设备的算力把 Transformer 层切成块,混合编排给不同设备。这是系统总览。",
+      "page": 3,
+      "figure": "Fig. 4"
     },
     {
-      "text": "如果你想快速抓住重点,可以记住这几个关键词:Privacy-Preserving Technologies in Data、Mobile Crowdsensing and Crowdsourcing、IoT and Edge/Fog Computing。",
-      "page": null
+      "text": "通信开销靠两个环形重叠机制压掉:Ring-AllGather 和 Ring-ReduceScatter 把通信藏在计算后面,设备间传输和本地 GEMM 同时进行。",
+      "page": 6,
+      "figure": "Fig. 6"
     },
     {
-      "text": "好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。",
-      "page": null
+      "text": "数字上:对比 Megatron-LM 这种经典张量并行,Galaxy 最高快 1.46 倍;对比序列并行快 1.11 倍;各种模型和边缘环境组合下,推理延迟降低 1.04 到 1.45 倍。更重要的是,大模型在基线方案上直接 OOM,Galaxy 能跑。",
+      "page": 9,
+      "figure": "Fig. 9"
     },
     {
-      "text": "感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。",
-      "page": null
+      "text": "为什么值得读?边缘智能一直在\"单设备扛不住\"和\"上云不情愿\"之间拉扯,Galaxy 给出了第三条路:把家里的闲设备组织起来。做边缘 AI 的同学,这套混合并行加环形重叠的思路值得细看。感兴趣的话打开下方 DOI 读原文,我们明天见。",
+      "page": 9,
+      "figure": "Fig. 10"
     }
   ]
 }
