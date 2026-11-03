@@ -1,0 +1,3 @@
+SplitGP: Achieving Both Generalization and Personalization in Federated Learning
+IEEE INFOCOM · 2023
+2026-11-04
