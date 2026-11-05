@@ -1,6 +1,71 @@
 {
-  "generatedAt": "2026-11-04T23:24:52.189Z",
+  "generatedAt": "2026-11-05T23:24:44.283Z",
   "episodes": [
+    {
+      "date": "2026-11-06",
+      "id": "dblp:conf/mobicom/LiuGJH21",
+      "title": "Seirios: Leveraging Multiple Channels for LoRaWAN Indoor and Outdoor Localization",
+      "authors": [
+        "Jun Liu",
+        "Jiayao Gao",
+        "Sanjay K. Jha",
+        "Wen Hu"
+      ],
+      "venueId": "mobicom",
+      "venueName": "ACM MobiCom",
+      "year": 2021,
+      "doi": "10.1145/3447993.3483256",
+      "url": "https://doi.org/10.1145/3447993.3483256",
+      "citationCount": 50,
+      "topics": [
+        "Indoor and Outdoor Localization Technologies",
+        "IoT Networks and Protocols",
+        "Underwater Vehicles and Communication Systems"
+      ],
+      "pdfUrl": "https://arxiv.org/pdf/2108.06884",
+      "pageCount": 17,
+      "scriptSource": "llm",
+      "script": [
+        "各位观众,今天给大家带来的是 MobiCom 2021 的论文《Seirios》。一句话概括:让 LoRaWAN 这种窄带物联网也能做高精度定位——把多个不重叠的信道\"缝\"成超分辨率,室外中位误差 4.4 米,室内 2.4 米。",
+        "LoRaWAN 设备量大、覆盖广,但带宽太窄,传统方法测距误差惨不忍睹,又不想给每个设备加 GPS。Seirios 的破法很巧:利用射频物理层的特性,把多个非重叠信道拼起来,等效带宽一下就上去了。这张表对比了相关工作。",
+        "更妙的是它同时利用物理层的原始信号和共轭信号,这样能从多径反射中把直射路径单独分辨出来——室内室外都能打。这张表把它和前作 OwLL 的设计差异列了出来。",
+        "系统长这样:多个 AP 采集信号,云端做融合定位。这张图是整个定位系统的实例。",
+        "信号处理的核心是这张图:信道状态的相位随频率变化,Seirios 据此把不同信道的测量对齐到同一个时间基准上——这就是\"缝合\"能成功的物理基础。",
+        "最后看效果:室外 100×60 米校园区域,中位误差 4.4 米,八成样本在 6.4 米以内;室内 25×15 米,中位误差 2.4 米。对不用 GPS 的物联网定位来说,这个精度已经很能打了。感兴趣的话打开下方 DOI 读原文,我们明天见。"
+      ],
+      "segments": [
+        {
+          "text": "各位观众,今天给大家带来的是 MobiCom 2021 的论文《Seirios》。一句话概括:让 LoRaWAN 这种窄带物联网也能做高精度定位——把多个不重叠的信道\"缝\"成超分辨率,室外中位误差 4.4 米,室内 2.4 米。",
+          "page": 1
+        },
+        {
+          "text": "LoRaWAN 设备量大、覆盖广,但带宽太窄,传统方法测距误差惨不忍睹,又不想给每个设备加 GPS。Seirios 的破法很巧:利用射频物理层的特性,把多个非重叠信道拼起来,等效带宽一下就上去了。这张表对比了相关工作。",
+          "page": 2,
+          "figure": "Table 1"
+        },
+        {
+          "text": "更妙的是它同时利用物理层的原始信号和共轭信号,这样能从多径反射中把直射路径单独分辨出来——室内室外都能打。这张表把它和前作 OwLL 的设计差异列了出来。",
+          "page": 3,
+          "figure": "Table 2"
+        },
+        {
+          "text": "系统长这样:多个 AP 采集信号,云端做融合定位。这张图是整个定位系统的实例。",
+          "page": 6,
+          "figure": "Figure 3"
+        },
+        {
+          "text": "信号处理的核心是这张图:信道状态的相位随频率变化,Seirios 据此把不同信道的测量对齐到同一个时间基准上——这就是\"缝合\"能成功的物理基础。",
+          "page": 7,
+          "figure": "Figure 4"
+        },
+        {
+          "text": "最后看效果:室外 100×60 米校园区域,中位误差 4.4 米,八成样本在 6.4 米以内;室内 25×15 米,中位误差 2.4 米。对不用 GPS 的物联网定位来说,这个精度已经很能打了。感兴趣的话打开下方 DOI 读原文,我们明天见。",
+          "page": 12,
+          "figure": "Figure 9"
+        }
+      ],
+      "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-11-06.mp4"
+    },
     {
       "date": "2026-11-05",
       "id": "dblp:conf/infocom/Zhang0D21",
