@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-06T23:19:15.700Z",
+  "generatedAt": "2026-11-06T23:24:00.181Z",
   "episodes": [
     {
       "date": "2026-11-07",
@@ -25,40 +25,51 @@
         "Cryptography and Data Security"
       ],
       "pdfUrl": "https://arxiv.org/pdf/2104.14380",
-      "pageCount": 0,
-      "scriptSource": "template",
+      "pageCount": 15,
+      "scriptSource": "llm",
       "script": [
-        "各位观众,今天给大家带来的是 ACM MobiSys 2021 的论文《PPFL: privacy-preserving federated learning with trusted execution environments》。",
-        "这篇论文由 Fan Mo、Hamed Haddadi 等作者完成,目前已经被引用 222 次,研究方向涉及Privacy-Preserving Technologies in Data、Adversarial Robustness in Machine Learning、Cryptography and Data Security。",
-        "用论文自己的话来说:We propose and implement a Privacy-preserving Federated Learning ( PPFL ) framework for mobile systems to limit privacy leakages in federated learning.",
-        "如果你想快速抓住重点,可以记住这几个关键词:Privacy-Preserving Technologies in Data、Adversarial Robustness in Machine Learning、Cryptography and Data Security。",
-        "好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。",
-        "感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。"
+        "各位观众,今天给大家带来的是 MobiSys 2021 的论文《PPFL》。一句话概括:把联邦学习搬进可信执行环境(TEE),让服务器连你的模型更新都看不见,隐私保护做到硬件级。",
+        "联邦学习号称\"数据不出设备\",但模型更新本身就泄露信息——梯度反演攻击能从更新里重建你的原始数据。服务器端更惨,模型主人根本不想让别人看到自己的模型。PPFL 的答案是:双方都躲进 TEE 里算。这是它的框架图。",
+        "TEE 的内存小得可怜,整个模型塞不进去怎么办?PPFL 用逐层训练:一次只把一两层装进安全区,训完换下一层。这招既绕过了内存限制,还顺带加快了收敛。",
+        "隐私效果看这张表:面对深度重建攻击、属性推断攻击、成员推断攻击三种典型攻击,PPFL 把攻击者的成功率压到了接近瞎猜的水平。",
+        "性能代价呢?这张表是通信轮数和总量的对比——PPFL 不但没多花钱,逐层训练还让达到同等精度的通信量更少。",
+        "收敛行为也正常:LeNet、AlexNet、VGG9 三个模型上,测试精度曲线和普通联邦学习基本重合,没有因为安全加固而牺牲学习效果。",
+        "为什么值得读?它是把 TEE 用到联邦学习里最完整的一次尝试,逐层训练这个技巧尤其适合内存受限的安全区。做隐私计算和终端 AI 的同学值得细看。感兴趣的话打开下方 DOI 读原文,我们明天见。"
       ],
       "segments": [
         {
-          "text": "各位观众,今天给大家带来的是 ACM MobiSys 2021 的论文《PPFL: privacy-preserving federated learning with trusted execution environments》。",
-          "page": null
+          "text": "各位观众,今天给大家带来的是 MobiSys 2021 的论文《PPFL》。一句话概括:把联邦学习搬进可信执行环境(TEE),让服务器连你的模型更新都看不见,隐私保护做到硬件级。",
+          "page": 1
         },
         {
-          "text": "这篇论文由 Fan Mo、Hamed Haddadi 等作者完成,目前已经被引用 222 次,研究方向涉及Privacy-Preserving Technologies in Data、Adversarial Robustness in Machine Learning、Cryptography and Data Security。",
-          "page": null
+          "text": "联邦学习号称\"数据不出设备\",但模型更新本身就泄露信息——梯度反演攻击能从更新里重建你的原始数据。服务器端更惨,模型主人根本不想让别人看到自己的模型。PPFL 的答案是:双方都躲进 TEE 里算。这是它的框架图。",
+          "page": 4,
+          "figure": "Figure 1"
         },
         {
-          "text": "用论文自己的话来说:We propose and implement a Privacy-preserving Federated Learning ( PPFL ) framework for mobile systems to limit privacy leakages in federated learning.",
-          "page": null
+          "text": "TEE 的内存小得可怜,整个模型塞不进去怎么办?PPFL 用逐层训练:一次只把一两层装进安全区,训完换下一层。这招既绕过了内存限制,还顺带加快了收敛。",
+          "page": 6,
+          "figure": "Table 1"
         },
         {
-          "text": "如果你想快速抓住重点,可以记住这几个关键词:Privacy-Preserving Technologies in Data、Adversarial Robustness in Machine Learning、Cryptography and Data Security。",
-          "page": null
+          "text": "隐私效果看这张表:面对深度重建攻击、属性推断攻击、成员推断攻击三种典型攻击,PPFL 把攻击者的成功率压到了接近瞎猜的水平。",
+          "page": 7,
+          "figure": "Table 2"
         },
         {
-          "text": "好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。",
-          "page": null
+          "text": "性能代价呢?这张表是通信轮数和总量的对比——PPFL 不但没多花钱,逐层训练还让达到同等精度的通信量更少。",
+          "page": 8,
+          "figure": "Table 3"
         },
         {
-          "text": "感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。",
-          "page": null
+          "text": "收敛行为也正常:LeNet、AlexNet、VGG9 三个模型上,测试精度曲线和普通联邦学习基本重合,没有因为安全加固而牺牲学习效果。",
+          "page": 9,
+          "figure": "Figure 2"
+        },
+        {
+          "text": "为什么值得读?它是把 TEE 用到联邦学习里最完整的一次尝试,逐层训练这个技巧尤其适合内存受限的安全区。做隐私计算和终端 AI 的同学值得细看。感兴趣的话打开下方 DOI 读原文,我们明天见。",
+          "page": 10,
+          "figure": "Figure 4"
         }
       ],
       "video": "https://github.com/jimmywuhkust/papertrail/releases/download/daily-videos/2026-11-07.mp4"
