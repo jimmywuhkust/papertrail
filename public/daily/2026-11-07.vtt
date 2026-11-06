@@ -1,0 +1,33 @@
+WEBVTT
+
+1
+00:00:00.100 --> 00:00:10.237
+各位观众,今天给大家带来的是 ACM MobiSys 2021 的论文《PPFL: privacy-preserving federated learning with trusted execution environments》。
+
+2
+00:00:10.348 --> 00:00:24.410
+这篇论文由 Fan Mo、Hamed Haddadi 等作者完成,目前已经被引用 222 次,研究方向涉及Privacy-Preserving Technologies in Data、Adversarial Robustness in Machine Learning、Cryptography and Data Security。
+
+3
+00:00:24.532 --> 00:00:34.632
+用论文自己的话来说:We propose and implement a Privacy-preserving Federated Learning ( PPFL ) framework for mobile systems to limit privacy leakages in federated learning.
+
+4
+00:00:34.732 --> 00:00:45.719
+如果你想快速抓住重点,可以记住这几个关键词:Privacy-Preserving Technologies in Data、Adversarial Robustness in Machine Learning、Cryptography and Data Security。
+
+5
+00:00:45.820 --> 00:00:48.807
+好了,今天的速读就到这里。
+
+6
+00:00:48.757 --> 00:00:59.507
+本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。
+
+7
+00:00:59.668 --> 00:01:04.955
+感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。
+
+8
+00:01:04.905 --> 00:01:06.805
+我们明天见。
