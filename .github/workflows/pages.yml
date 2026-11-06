@@ -62,3 +62,7 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          # The site artifact is ~800MB; the default 10-minute sync budget
+          # is not enough and the deploy times out in syncing_files.
+          timeout: 3600000
