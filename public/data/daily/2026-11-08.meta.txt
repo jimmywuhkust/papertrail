@@ -1,0 +1,3 @@
+Attend and Discriminate: Beyond the State-of-the-Art for Human Activity Recognition Using Wearable Sensors
+ACM UbiComp / IMWUT · 2021
+2026-11-08
