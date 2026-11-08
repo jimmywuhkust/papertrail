@@ -1,0 +1,30 @@
+{
+  "pdfUrl": "https://arxiv.org/pdf/2404.09140",
+  "pageCount": 0,
+  "segments": [
+    {
+      "text": "各位观众,今天给大家带来的是 ACM MobiCom 2024 的论文《RF-Diffusion: Radio Signal Generation via Time-Frequency Diffusion》。",
+      "page": null
+    },
+    {
+      "text": "这篇论文由 Guoxuan Chi、Zheng Yang 等作者完成,目前已经被引用 96 次,研究方向涉及Speech and Audio Processing、Antenna Design and Optimization、Indoor and Outdoor Localization Technologies。",
+      "page": null
+    },
+    {
+      "text": "用论文自己的话来说:Along with AIGC shines in CV and NLP, its potential in the wireless domain has also emerged in recent years.",
+      "page": null
+    },
+    {
+      "text": "如果你想快速抓住重点,可以记住这几个关键词:Speech and Audio Processing、Antenna Design and Optimization、Indoor and Outdoor Localization Technologies。",
+      "page": null
+    },
+    {
+      "text": "好了,今天的速读就到这里。本期稿件由模板自动生成——配置 LLM_API_KEY 之后,每天的内容会由大模型逐页撰写,讲解会细致得多。",
+      "page": null
+    },
+    {
+      "text": "感兴趣的话,欢迎打开 DOI 阅读原文,链接就在视频下方。我们明天见。",
+      "page": null
+    }
+  ]
+}
