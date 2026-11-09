@@ -1,0 +1,3 @@
+EarDynamic: An Ear Canal Deformation Based Continuous User Authentication Using In-Ear Wearables
+ACM UbiComp / IMWUT · 2021
+2026-11-10
