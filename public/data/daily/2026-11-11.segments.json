@@ -1,0 +1,43 @@
+{
+  "pdfUrl": "https://yangtonghome.github.io/uploads/CocoSketch.pdf",
+  "pageCount": 16,
+  "segments": [
+    {
+      "text": "各位观众,今天给大家带来 SIGCOMM 2021 的《CocoSketch》。一句话:网络测量的 sketch 一次只能盯一种 flow key,这篇做到一份数据结构、事后任意查。",
+      "page": 1
+    },
+    {
+      "text": "痛点很实际:想同时测源 IP、五元组、IP 前缀,传统做法是每个 key 单开一个 sketch——Tofino 上每个 Count-Min 占 8 个 ALU,跑 6 个就满了。而安全排查要查什么 key,事后才知道。",
+      "page": 2,
+      "figure": "Table 1"
+    },
+    {
+      "text": "CocoSketch 的思路:测量前只框定全 key 范围,比如整个五元组;数据平面只维护一个 sketch;查询时想要哪个部分 key,聚合对应全 key 流推出来——归约成了子集和估计问题。",
+      "page": 4,
+      "figure": "Figure 1"
+    },
+    {
+      "text": "第一个技术点是随机方差最小化。理论最优的 USS 每个包要扫上万个桶,延迟爆炸;CocoSketch 只比较 d 个哈希桶,d 取 2 就够,靠 power-of-d-choices 摊平小流误差。吞吐比 USS 高百倍,F1 只掉不到 3 个点。",
+      "page": 4
+    },
+    {
+      "text": "第二个技术点解决硬件落地。RMT 交换机的流水线是单向的,后面阶段不能回头改前面的内存,而更新逻辑里藏着循环依赖。作者重新设计算法拆掉依赖,得到硬件友好版本。",
+      "page": 5,
+      "figure": "Figure 4"
+    },
+    {
+      "text": "数字很硬:CPU、OVS、P4、FPGA 四平台全部实现。FPGA 上 2MB 内存跑到 150 Mpps;测 6 个 key 时寄存器只有 Elastic 的 45 分之一;P4 上只占 6.25% 的有状态 ALU,Elastic 撑死测 4 个 key。",
+      "page": 11,
+      "figure": "Figure 15"
+    },
+    {
+      "text": "精度这边:测 6 个 key 时吞吐比单 key 方案高 27.2 倍、精度高 10.4 倍;层次重 hitter 的平均相对误差比 R-HHH 小近四个数量级。d 取 2 时 F1 有 95.3%,吞吐 23.7 Mpps。",
+      "page": 10,
+      "figure": "Figure 11"
+    },
+    {
+      "text": "这篇立了个新范式:一次测量、任意 key 事后可查,后来成了网络测量 sketch 的标配思路。DOI 链接在视频下方,我们明天见。",
+      "page": 1
+    }
+  ]
+}
