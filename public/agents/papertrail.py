@@ -364,7 +364,8 @@ class PaperTrail:
                 zipped=Path(temporary)/"download.gz"
                 for attempt in range(3):
                     received=zipped.stat().st_size if zipped.exists() else 0
-                    request=Request(urljoin(self.base_url,self.manifest["snapshotPath"]+info["url"]),headers={"Range":f"bytes={received}-"} if received else {})
+                    resource_url=info["url"] if info["url"].startswith("http") else self.manifest["snapshotPath"]+info["url"]
+                    request=Request(urljoin(self.base_url,resource_url),headers={"Range":f"bytes={received}-"} if received else {})
                     try:
                         with urlopen(request,timeout=60) as response,zipped.open("ab" if received and response.status==206 else "wb") as target:
                             while chunk:=response.read(1024*1024):

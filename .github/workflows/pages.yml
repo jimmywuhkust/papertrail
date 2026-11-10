@@ -8,6 +8,7 @@ on:
 permissions:
   pages: write
   id-token: write
+  contents: write
 
 concurrency:
   group: pages
@@ -29,6 +30,22 @@ jobs:
       - run: python -m pip install -r requirements-dev.txt
       - name: Build agent database and static API
         run: npm run agents:build
+        env:
+          # The ~250MB SQLite archive is hosted on a GitHub release (same trick
+          # as the episode videos) so the Pages artifact stays syncable.
+          AGENT_DB_PUBLIC_BASE: https://github.com/jimmywuhkust/papertrail/releases/download/agent-db
+      - name: Publish agent database to release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          archive=$(ls public/api/v2/snapshots/*/papertrail.sqlite.gz | head -1)
+          snapshot=$(basename "$(dirname "$archive")")
+          gh release upload agent-db "$archive#papertrail-${snapshot}.sqlite.gz" --clobber
+          # Keep only the 3 newest database assets
+          gh release view agent-db --json assets --jq '.assets[] | select(.name | startswith("papertrail-")) | [.name, .createdAt] | @tsv' \
+            | sort -k2 -r | tail -n +4 | cut -f1 \
+            | while read -r old; do gh release delete-asset agent-db "$old" -y; done || true
       - name: Verify agent queries and tools
         run: npm run agents:test
       - name: Static export build
@@ -43,9 +60,11 @@ jobs:
         run: |
           mkdir -p dist/pages
           cp -r dist/client/papertrail/. dist/pages/
-          # Episode videos are hosted on the daily-videos GitHub Release;
-          # shipping them on Pages would blow the artifact size budget.
+          # Episode videos are hosted on the daily-videos GitHub Release and the
+          # agent SQLite database on the agent-db release; shipping either on
+          # Pages would blow the artifact size budget.
           rm -f dist/pages/daily/*.mp4
+          rm -f dist/pages/api/v2/snapshots/*/papertrail.sqlite.gz
           cp dist/client/404.html dist/pages/404.html
           python -c "from pathlib import Path; size=sum(p.stat().st_size for p in Path('dist/pages').rglob('*') if p.is_file()); print(f'Pages artifact: {size:,} bytes'); assert size < 1_000_000_000"
       - uses: actions/configure-pages@v5
@@ -82,12 +101,14 @@ jobs:
                  '{artifact_id:$artifact_id, pages_build_version:$pages_build_version, oidc_token:$oidc_token}')")
           echo "$resp" | jq 'del(.oidc_token)'
           dep_id=$(echo "$resp" | jq -r '.id // (.status_url | split("/") | last)')
+          status_url=$(echo "$resp" | jq -r '.status_url // ""')
+          if [ -z "$status_url" ]; then status_url="$GITHUB_API_URL/repos/$GITHUB_REPOSITORY/pages/deployment/status/$dep_id"; fi
           echo "page_url=$(echo "$resp" | jq -r '.page_url // ""')" >> "$GITHUB_OUTPUT"
           echo "Deployment id: $dep_id"
           for i in $(seq 1 130); do
             sleep 20
             status=$(curl -sf -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" \
-              "$GITHUB_API_URL/repos/$GITHUB_REPOSITORY/pages/deployments/$dep_id" | jq -r .status 2>/dev/null) || status="poll_error"
+              "$status_url" | jq -r '.status // ""' 2>/dev/null) || status="poll_error"
             echo "[$i] $status"
             case "$status" in
               succeed) exit 0 ;;

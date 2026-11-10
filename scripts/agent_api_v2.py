@@ -4,6 +4,7 @@ import gzip
 import hashlib
 import json
 import math
+import os
 from pathlib import Path
 import re
 import sqlite3
@@ -170,10 +171,15 @@ def publish(db, ids, data, old_manifest, root, database_path, digest):
         with gzip.GzipFile(filename="", mode="wb", fileobj=target, mtime=0, compresslevel=6) as zipped:
             while chunk := source.read(1024 * 1024):
                 zipped.write(chunk)
+    # The SQLite archive is ~250MB, too heavy for the Pages deployment sync.
+    # When AGENT_DB_PUBLIC_BASE is set (CI Pages build), the manifest points at
+    # that external host (a GitHub release) instead of a same-directory file.
+    db_public_base = os.environ.get("AGENT_DB_PUBLIC_BASE", "").rstrip("/")
+    db_url = f"{db_public_base}/papertrail-{snapshot_id}.sqlite.gz" if db_public_base else "papertrail.sqlite.gz"
     coverage = {"code": "VENUE_SNAPSHOT", "yearRange": old_manifest["range"], "venueIds": [v["id"] for v in old_manifest["venues"]], "paperSnapshotAt": old_manifest["snapshot"], "identityCheckedAt": data["identityCheckedAt"], "abstractsAvailable": False, "fullTextAvailable": False, "incomingCitationScope": "CORPUS_SOURCES_ONLY", "externalIdentityAlignment": "CORPUS_ASSERTED_ALIASES_ONLY"}
     common = {"searchFields": ["title", "topics", "authors"], "matching": ["all_tokens", "any_tokens", "exact_name", "exact_phrase"], "authorSearch": True, "authorIdentityLookup": True, "batchLookup": True, "fieldProjection": True, "cursorPagination": True, "limits": {"search": 100, "batchLookup": 100, "relationships": 1000, "graphDepth": 3, "graphNodes": 500, "graphEdges": 5000}, "ranking": "weighted_token_overlap", "defaults": {"fields": ["title", "topics"], "match": "all_tokens", "limit": 20}}
     manifest = {"schemaVersion": 2, "apiVersion": VERSION, "snapshotId": snapshot_id, "snapshot": old_manifest["snapshot"], "snapshotPath": snapshot_path, "range": old_manifest["range"], "stats": {**old_manifest["stats"], "researcherCandidates": len(data["profiles"]), "identifiedResearchers": sum(p["identityStatus"] == "upstream_identifier" for p in data["profiles"].values())}, "coverage": coverage, "resources": resources, "venues": old_manifest["venues"], "defaultPaperFields": SHORT_FIELDS,
-        "database": {"url": "papertrail.sqlite.gz", "compression": "gzip", "bytes": archive.stat().st_size, "sha256": digest(archive), "uncompressedBytes": database_path.stat().st_size, "uncompressedSha256": digest(database_path)},
+        "database": {"url": db_url, "compression": "gzip", "bytes": archive.stat().st_size, "sha256": digest(archive), "uncompressedBytes": database_path.stat().st_size, "uncompressedSha256": digest(database_path)},
         "capabilities": {"javascript": {**common, "relatedMethods": ["text"], "graphTraversal": False, "startup": "manifest only; compressed indexes fetched on demand"}, "python": {**common, "relatedMethods": ["text", "coupling", "cocitation"], "graphTraversal": True, "startup": "manifest only; SQLite is lazy for coupling/cocitation/graph"}, "mcp": {**common, "relatedMethods": ["text", "coupling", "cocitation"], "graphTraversal": True, "startup": "initialization/discovery require no database"}},
         "guide": old_manifest["guide"], "transport": "static HTTPS resources, Python/JavaScript queries, optional local SQLite, MCP stdio", "retention": "The published artifact contains the current immutable snapshot; cache/archive needed resources for long-term reproducibility. An unavailable historical snapshot fails explicitly.", "provenance": old_manifest["provenance"], "license": old_manifest["license"]}
     from agent_contracts import contracts
