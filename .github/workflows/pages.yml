@@ -56,13 +56,44 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    timeout-minutes: 75
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      # The site artifact is ~830MB, and actions/deploy-pages polls for at most
+      # 10 minutes (hard cap) and then CANCELS the server-side deployment, which
+      # made most deploys fail. Create the deployment via the REST API instead
+      # and poll without ever cancelling, so the sync can run as long as needed.
       - id: deployment
-        uses: actions/deploy-pages@v4
-        with:
-          # The site artifact is ~800MB; the default 10-minute sync budget
-          # is not enough and the deploy times out in syncing_files.
-          timeout: 3600000
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          art=$(curl -sf -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" \
+            "$GITHUB_API_URL/repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/artifacts?per_page=100" \
+            | jq -r '[.artifacts[] | select(.name=="github-pages" and (.expired|not))][0].id')
+          if [ -z "$art" ] || [ "$art" = "null" ]; then echo "github-pages artifact not found"; exit 1; fi
+          echo "Artifact id: $art"
+          oidc=$(curl -sf -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL" | jq -r .value)
+          resp=$(curl -sf -X POST -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" \
+            "$GITHUB_API_URL/repos/$GITHUB_REPOSITORY/pages/deployments" \
+            -d "$(jq -n --argjson artifact_id "$art" --arg pages_build_version "$GITHUB_SHA" --arg oidc_token "$oidc" \
+                 '{artifact_id:$artifact_id, pages_build_version:$pages_build_version, oidc_token:$oidc_token}')")
+          echo "$resp" | jq 'del(.oidc_token)'
+          dep_id=$(echo "$resp" | jq -r '.id // (.status_url | split("/") | last)')
+          echo "page_url=$(echo "$resp" | jq -r '.page_url // ""')" >> "$GITHUB_OUTPUT"
+          echo "Deployment id: $dep_id"
+          for i in $(seq 1 130); do
+            sleep 20
+            status=$(curl -sf -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" \
+              "$GITHUB_API_URL/repos/$GITHUB_REPOSITORY/pages/deployments/$dep_id" | jq -r .status 2>/dev/null) || status="poll_error"
+            echo "[$i] $status"
+            case "$status" in
+              succeed) exit 0 ;;
+              deployment_failed|deployment_content_failed|deployment_cancelled|deployment_lost)
+                echo "Deployment failed with status: $status"; exit 1 ;;
+            esac
+          done
+          echo "No terminal status after ~43min; deployment continues server-side"
+          exit 1
