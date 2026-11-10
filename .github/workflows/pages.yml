@@ -41,7 +41,11 @@ jobs:
           set -euo pipefail
           archive=$(ls public/api/v2/snapshots/*/papertrail.sqlite.gz | head -1)
           snapshot=$(basename "$(dirname "$archive")")
-          gh release upload agent-db "$archive#papertrail-${snapshot}.sqlite.gz" --clobber
+          # gh's "file#suffix" syntax sets the asset label, not its name, so
+          # rename on disk first to get the versioned asset name.
+          cp "$archive" "papertrail-${snapshot}.sqlite.gz"
+          gh release upload agent-db "papertrail-${snapshot}.sqlite.gz" --clobber
+          rm "papertrail-${snapshot}.sqlite.gz"
           # Keep only the 3 newest database assets
           gh release view agent-db --json assets --jq '.assets[] | select(.name | startswith("papertrail-")) | [.name, .createdAt] | @tsv' \
             | sort -k2 -r | tail -n +4 | cut -f1 \
