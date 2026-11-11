@@ -1,0 +1,3 @@
+L2D2: low latency distributed downlink for LEO satellites
+ACM SIGCOMM · 2021
+2026-11-12
